@@ -123,3 +123,7 @@ src: ./slides/SL28.md
 ---
 src: ./slides/SL29.md
 ---
+
+---
+src: ./slides/SL30.md
+---
