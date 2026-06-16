@@ -4,11 +4,11 @@ layout: default
 
 # Cryptomata：数学が正しさと秘匿を保証する自律システム
 
-<div class="flex justify-center mt-3">
-<img src="/images/pc1_cryptomata.png" class="max-h-[320px] rounded-xl border border-gray-200" alt="Network of cryptomata" />
+<div class="flex justify-center mt-2">
+<img src="/images/pc1_cryptomata.png" class="max-h-[440px] rounded-xl border border-gray-200" alt="Network of cryptomata" />
 </div>
 
-<div class="mt-4 max-w-5xl mx-auto text-sm text-gray-700 text-center">
+<div class="mt-3 max-w-5xl mx-auto text-sm text-gray-700 text-center">
 止められず・覗けず・改竄できない自己実行プログラム。<strong class="text-amber-700">obfuscation + ZK + MPC</strong>（+ 量子暗号）で、ID registry や医療・遺伝データなど社会基盤を<strong>暗号ネイティブ</strong>に動かす将来像。
 </div>
 

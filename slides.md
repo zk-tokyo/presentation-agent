@@ -25,6 +25,10 @@ src: ./slides/PC1.md
 ---
 
 ---
+src: ./slides/PC4.md
+---
+
+---
 src: ./slides/PC2.md
 ---
 
@@ -62,10 +66,6 @@ src: ./slides/SL07.md
 
 ---
 src: ./slides/SL08.md
----
-
----
-src: ./slides/PC4.md
 ---
 
 ---
