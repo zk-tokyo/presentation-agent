@@ -29,15 +29,11 @@ src: ./slides/SL04.md
 ---
 
 ---
-src: ./slides/SEC2.md
----
-
----
 src: ./slides/SL05.md
 ---
 
 ---
-src: ./slides/SEC3.md
+src: ./slides/SEC2.md
 ---
 
 ---
@@ -45,7 +41,7 @@ src: ./slides/SL06.md
 ---
 
 ---
-src: ./slides/SEC4.md
+src: ./slides/SEC3.md
 ---
 
 ---
@@ -57,7 +53,7 @@ src: ./slides/SL08.md
 ---
 
 ---
-src: ./slides/SEC5.md
+src: ./slides/SEC4.md
 ---
 
 ---
