@@ -21,6 +21,14 @@ src: ./slides/SEC1.md
 ---
 
 ---
+src: ./slides/PC1.md
+---
+
+---
+src: ./slides/PC2.md
+---
+
+---
 src: ./slides/SL03.md
 ---
 
@@ -30,6 +38,10 @@ src: ./slides/SL04.md
 
 ---
 src: ./slides/SL05.md
+---
+
+---
+src: ./slides/PC3.md
 ---
 
 ---
@@ -50,6 +62,10 @@ src: ./slides/SL07.md
 
 ---
 src: ./slides/SL08.md
+---
+
+---
+src: ./slides/PC4.md
 ---
 
 ---
@@ -74,6 +90,10 @@ src: ./slides/SL12.md
 
 ---
 src: ./slides/SL13.md
+---
+
+---
+src: ./slides/PC5.md
 ---
 
 ---
