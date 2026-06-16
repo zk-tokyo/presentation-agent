@@ -2,9 +2,7 @@
 layout: default
 ---
 
-# 本日の流れ
-
-<div class="space-y-3 mt-6 max-w-5xl mx-auto">
+<div class="space-y-3 mt-10 max-w-5xl mx-auto">
 
 <div class="flex items-start gap-4 p-4 bg-amber-50 rounded-xl border border-amber-300 shadow-sm ring-2 ring-amber-200">
 <div class="text-2xl font-black text-amber-600 w-8 text-center">1</div>
