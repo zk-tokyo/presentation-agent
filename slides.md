@@ -17,18 +17,6 @@ src: ./slides/SL02.md
 ---
 
 ---
-src: ./slides/SEC1.md
----
-
----
-src: ./slides/PC4.md
----
-
----
-src: ./slides/PC2.md
----
-
----
 src: ./slides/SL03.md
 ---
 
@@ -41,19 +29,7 @@ src: ./slides/SL05.md
 ---
 
 ---
-src: ./slides/PC3.md
----
-
----
-src: ./slides/SEC2.md
----
-
----
 src: ./slides/SL06.md
----
-
----
-src: ./slides/SEC3.md
 ---
 
 ---
@@ -61,27 +37,7 @@ src: ./slides/SL07.md
 ---
 
 ---
-src: ./slides/SL07a.md
----
-
----
-src: ./slides/SL07b.md
----
-
----
-src: ./slides/SL07c.md
----
-
----
-src: ./slides/SL07d.md
----
-
----
 src: ./slides/SL08.md
----
-
----
-src: ./slides/SEC4.md
 ---
 
 ---
@@ -105,17 +61,65 @@ src: ./slides/SL13.md
 ---
 
 ---
-src: ./slides/PC5.md
----
-
----
 src: ./slides/SL14.md
 ---
 
 ---
-src: ./slides/APPENDIX.md
+src: ./slides/SL15.md
 ---
 
 ---
-src: ./slides/PC1.md
+src: ./slides/SL16.md
+---
+
+---
+src: ./slides/SL17.md
+---
+
+---
+src: ./slides/SL18.md
+---
+
+---
+src: ./slides/SL19.md
+---
+
+---
+src: ./slides/SL20.md
+---
+
+---
+src: ./slides/SL21.md
+---
+
+---
+src: ./slides/SL22.md
+---
+
+---
+src: ./slides/SL23.md
+---
+
+---
+src: ./slides/SL24.md
+---
+
+---
+src: ./slides/SL25.md
+---
+
+---
+src: ./slides/SL26.md
+---
+
+---
+src: ./slides/SL27.md
+---
+
+---
+src: ./slides/SL28.md
+---
+
+---
+src: ./slides/SL29.md
 ---
