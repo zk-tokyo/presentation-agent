@@ -115,7 +115,3 @@ src: ./slides/SL26.md
 ---
 src: ./slides/SL27.md
 ---
-
----
-src: ./slides/SL28.md
----
