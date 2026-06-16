@@ -26,6 +26,11 @@ layout: default
 <div><div class="font-black text-gray-400">要件定義の注意点</div><div class="text-sm text-gray-400">動くだけでは不十分。設計時に必ず点検する 4 観点</div></div>
 </div>
 
+<div class="flex items-start gap-4 p-4 bg-white rounded-xl border border-gray-200 opacity-40">
+<div class="text-2xl font-black text-gray-300 w-8 text-center">5</div>
+<div><div class="font-black text-gray-400">ホワイトボードセッション</div><div class="text-sm text-gray-400">要件を 5 要素で言語化し、設計フローで primitive を選ぶ</div></div>
+</div>
+
 </div>
 
 <!--
