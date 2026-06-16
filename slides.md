@@ -47,19 +47,3 @@ src: ./slides/SL09.md
 ---
 src: ./slides/SL10.md
 ---
-
----
-src: ./slides/SL11.md
----
-
----
-src: ./slides/SL12.md
----
-
----
-src: ./slides/SL13.md
----
-
----
-src: ./slides/SL14.md
----
