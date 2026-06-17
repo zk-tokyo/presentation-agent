@@ -12,455 +12,413 @@ event:
   location: "東京大学 講義室 (オンサイト)"
 ---
 
-# Advanced Cryptography Program — Week 1: Programmable Cryptography Overview
+# Advanced Cryptography Program Week 5
 
-担当: gohan
-構成: 2 時間講義 + 30 分休憩 + 3 時間ホワイトボードセッション
-形式: オンサイト、20-25 名想定
+## レクチャー
 
-> 出典: Notion 教材管理 / Merkle Japan / Week1 ページ (`https://www.notion.so/grandchildrice/Week1-359d05af0d5a806196bfc4795f766f10`)
-
----
-
-## 学習成果 (Learning Outcomes)
-
-Week 1 終了時に、受講者は以下ができるようになる:
-
-1. AI 時代に最先端暗号が社会的に必要になっている理由を、2025-2026 年の事例 3 つ以上で説明できる
-2. ZK / MPC / FHE を敵対モデル・信頼前提・用途で区別できる
-3. Sumcheck 系 SNARKs (Jolt) と Longfellow を 2026 年の代表的革新として認識し、その意義を述べられる
-4. サービス設計の 4 つの問い (何を守る/誰が計算/いつ/誰が検証) を任意のサービスに適用できる
-5. 自分のプロジェクトに関連する実装上の罠を 3 つ以上特定できる
-6. KelpDAO×LayerZero $292M exploit をシステムレベルで分析し、オフチェーン構成要素に分解できる
-7. 実世界の事件に対する暗号的再設計案を作り、技術選択を正当化できる
-8. 他グループの設計を評価し、トレードオフを言語化できる
-
----
-
-## 認知レベル割り当て (講師用・スライドには出さない)
-
-| セクション | 認知レベル | 到達状態 |
-|---|---|---|
-| S0 Welcome | (運営) | — |
-| S1 Why | 理解 | 必要性を自分の言葉で説明できる |
-| S2-A 機能差 | 記憶+理解 | 3 者を区別、敵対モデルが分かる |
-| S2-B Programmable Crypto | 理解 | 合成パターンを説明できる |
-| S2-C 最前線 | 記憶+理解 | 主役技術 (Sumcheck/Jolt/Longfellow) の革命性を言える |
-| S2-D Longfellow デモ | 理解 | 具体例の観察を通じて社会実装を認識 |
-| S3-A 4 つの問い | 応用 | 自分のテーマに当てはめられる |
-| S3-B 罠 | 理解+評価 | 罠の意味と影響度が判断できる |
-| WB Phase 1-2 | 分析 | KelpDAO 事件を構造分解 |
-| WB Phase 3 | 創造 | 新設計を作る |
-| WB Phase 4 | 評価 | 他グループの設計を評価 |
-
----
-
-## 全体タイムテーブル
-
-| フェーズ | 所要 | 内容 |
-|---|---|---|
-| 講義 | 120 分 | Why / What / How (プリ/ポストテスト含む) |
-| 休憩 + 軽食 | 30 分 | グループ移行 |
-| ホワイトボード | 180 分 | KelpDAO×LayerZero exploit を題材に |
-
----
-
-## レクチャー (120 分)
+- 前半
+  - FHEに関するハイレベルな話
+  - なるべくその場で理解してホワイトボードセッションでの議論に活かしてほしい
+- 後半
+  - TFHEのアルゴリズムの数式を使った説明
+  - その場で理解しきれなくても良く、帰宅してから咀嚼してほしい
 
 ### タイムテーブル
 
-| 時間 | セクション | 認知レベル | 内容 |
-|---|---|---|---|
-| 0–3 | プリテスト | (測定) | スマホで MCQ 5 問 |
-| 3–13 | S0. Welcome | — | カリキュラム / AI 利用ルール / ホワイトボード予告 / ルーブリック提示 / 多様性配慮告知 |
-| 13–48 | S1. Why | 理解 | スコープ乖離 → フェイルストップ → 3 つの社会需要 + 倫理的考察 → "証明"の意味 |
-| 48–85 | S2. What | 記憶〜理解 | ZK/MPC/FHE + Programmable Crypto + 最前線 + Longfellow デモ |
-| 85–95 | 休憩 |  |  |
-| 95–115 | S3. How | 応用〜評価 | 4 つの問い (板書実演) + 罠 5 選 + プロジェクト発表 |
-| 115–118 | クロージング | (反省) | one-minute paper / 課題 / Week 2 予告 |
-| 118–120 | ポストテスト | (測定) | プリと同 5 問 + 追加 5 問 |
-
-### S0. Welcome (10 分)
-
-- カリキュラムマップ (1 枚、依存関係を矢印で)
-- 課題提出: GitHub PR、TA レビュー、対面週 1
-- ETH Global Tokyo 最終 Demo の概要、去年のハイライト写真 3 枚
-- ホワイトボードセッションの予告: 講義後に KelpDAO×LayerZero $292M 事件
-- AI 利用ルール:
-  - グループ 1 台以上、ノート PC 持参歓迎
-  - Claude / ChatGPT / Perplexity 等、好きなものを使ってよい
-  - グループのうち 1 人が画面共有して全員で見る形を推奨
-  - プロンプトは Notion で配布する 6 種を出発点に、自由に発展
-- ルーブリック提示: 課題の評価基準を Notion で公開、講義中に 1 スライドで概観
-- 多様性配慮の告知:
-  - Notion ドキュメントは日英併記
-  - 技術的バックグラウンドの差は TA が個別サポート
-  - アクセシビリティ配慮が必要な方は事前に Discord で運営に連絡
-- 自己紹介は Discord 投稿で代替
-
-### S1. Why — なんとなく重要や (35 分)
-
-#### S1-A. 攻撃と防御のスコープ乖離 (15 分)
-
-防御側 (バグバウンティ、セキュリティ監査) のスコープ: ソースコード、既知の脆弱性パターン、スマートコントラクト ロジック
-攻撃側のスコープ: ソースコード + ガバナンス + ソーシャルエンジニアリング + オペレーション (KMS、RPC ノード等) + AI による無人化攻撃
-
-**事実 → スコープ乖離 (3 つの代表事例)**
-
-| 事例 | 攻撃面 | 防御は届いていたか |
-|---|---|---|
-| KelpDAO×LayerZero $292M (Apr 2026) | RPC ノード侵害 + DDoS、オンチェーンは全部 valid | ソースコード監査では絶対届かない |
-| Mexican government breach (2025-26) | Claude Code 悪用、社会工学で「正規 bug bounty」装う、9 機関 195M 納税者 | 静的解析の射程外 |
-| Bybit $1.5B (Feb 2025) | Safe Web UI が悪意ある JS で書き換え、署名 UI と実 tx が乖離 | コントラクト・ハードウェア署名は機能 |
-
-**Open Question**: 「あなたなら、KelpDAO の事件を防ぐためにどこにレイヤーを足しますか? なぜそこなのか?」
-
-結論: 攻撃側はガバナンス・ソーシャル・運用に手を伸ばしている。ガバナンス・運用・社会工学の正しさを暗号で証明可能にするしかない。
-
-#### S1-B. それだけでは不十分 — フェイルストップ機構の証明 (10 分)
-
-- 暗号で守ったとしても、安全装置自体が正しく機能した証拠を出さないと、紛争時に何も主張できない
-- 福島第一の教訓: 安全装置が「作動した証拠」を出す手段がなかった
-- 最先端暗号は「機構が規定通りに発火した」を ZK 証明で出力できる
-
-具体例: Proof-of-Exploit
-
-- AI エージェントが脆弱性発見 → exploit を成立させた事実を ZK 証明
-- DeFi コントラクトが ZK verifier として受理 → 自動停止
-- これが社会実装版のフェイルストップ機構
-
-#### S1-C. 3 つの社会的需要 + 倫理的考察 + 個人事例 (10 分)
-
-用語注釈: 「社会実装」とは、暗号技術が研究室から出て実際の社会的取引・行政・金融サービスで稼働している状態 (学術的には deployment / real-world cryptography に対応)
-
-**1. AI 時代のセキュリティ・プライバシー**
-- AI agent identity (IETF 関連ドラフト群)、Proof-of-Exploit、Verifiable AI inference (zkML)
-- Private inference (FHE-LLM, Concrete ML)、連合学習 (mpcML)
-- 個人事例: 「あなたが医療データを診断 AI に預けたとき、データを保持されないと信じていいか? FHE+ZK なら検証可能」
-
-**2. プライバシーとコンプライアンスの両立**
-- 「すべて公開」 vs 「すべて秘密」の二項対立を超える
-- EU 年齢確認義務 → Google が Longfellow を OSS 化 (2025 年 7 月、Sparkasse 提携)
-- 個人事例: 「あなたが将来海外に住むとき、日本のマイナンバーカードで現地サービスにログインできるか? Longfellow なら可能」
-- DeFi で「サンクションリストに載っていない」を ZK 証明 (Privacy Pools)
-
-**3. Ethereum スケーリング = 効率性**
-- L2 手数料の構成: proving cost が支配的になる場面が多い
-- Sumcheck/Jolt で 2x 高速化 → 手数料に直結
-
-**倫理的考察 (1 分)**
-暗号によるプライバシー保護は、合法的取引も非合法な活動も同じく覆い隠す。Tornado Cash が OFAC 制裁を受けた事例 (2022) や、暗号通貨の犯罪利用の議論がある。Privacy Pools のような「規制対応プライバシー」は、この緊張を解く一つの方向性。Programmable Cryptography は中立的なツールであり、社会実装にあたっては「何を可能にするか」だけでなく「何を防ぐべきか」も同時に設計する必要がある。
-
-#### S1-D. "証明 (proof)" の 3 つの意味 (3 分)
-
-| 種類 | 性質 | 例 |
-|---|---|---|
-| 数学的証明 | 命題の真偽を formal logic で確立 | フェルマーの最終定理 |
-| 情報論的暗号証明 | 確率 1 で正しい (情報論的に偽造不可能) | One-time pad、Σ-protocols |
-| 計算論的暗号証明 | 計算量仮定下で偽造不可能 | デジタル署名、MAC、SNARKs/SNARGs |
-
-橋渡し: 2026 年の最先端暗号は、3 つ目の意味で「社会的活動を検証可能にする」
-
-### S2. What — 何ができるか (37 分)
-
-#### S2-A. ZK/MPC/FHE の機能差 — 敵対モデルで整理 (10 分)
-
-| | ZK | MPC | FHE |
-|---|---|---|---|
-| 隠す対象 | prover の証言 (witness) | 各参加者の入力 | 計算データと中間状態 |
-| 信頼前提 | prover を信頼しない、verifier も信頼しない (ZK 性) | k-of-n を信頼 | server にデータ機密は信頼しない (計算正しさは別途) |
-| 敵対モデル | malicious prover (soundness) + malicious verifier (ZK) | up to t corrupt parties (semi-honest / malicious) | 素の FHE: semi-honest server / malicious server には追加で ZK が必要 |
-| 計算正しさ保証 | proof で保証 | 多数決 / cryptographic check | 素の FHE には無い → Verifiable FHE で補う |
-| 主な用途 | 計算の正しさ証明 | 共同計算 | 計算の委託 (機密のみ) |
-
-**Open Question**: 「結婚相手のマッチングサービスを ZK / MPC / FHE で作るとして、各選択肢のトレードオフは何ですか?」
-
-#### S2-B. Programmable Cryptography (10 分)
-
-**コミュニティで使われる実践的枠組み** (査読論文の formal 定義ではなく、設計者の語彙) — 暗号プリミティブをブラックボックスとして組み合わせ、新しい機能を実装可能にするフレームワーク。
-
-設計者が意識する 3 軸:
-- 異なる暗号プリミティブの sequential composition
-- 共有された信頼前提下での concurrent composition
-- 合成自体の verifiability
-
-起源: 0xPARC, Barry Whitehat (2022-) のスローガン
-formal な合成性: UC framework (Canetti, FOCS 2001) — UC の simulation-based security とは強さが質的に異なる点に注意
-
-**合成パターンと例**
-
-| 合成パターン | 何が合成されているか | 例 |
-|---|---|---|
-| ZK over 既存暗号 | 既存暗号スキーム (ECDSA, SHA-256) on identity standards (mDOC, JWT, W3C VC) を ZK 化 | Longfellow (Google) |
-| ZK + FHE | 計算秘匿 + 計算正しさ | Verifiable FHE |
-| MPC + FHE | 鍵分散 + 計算秘匿 | threshold FHE (Zama, NIST 提出) |
-| ZK + ML | 推論 + 検証 | zkML |
-| MPC + ML | 学習 + 入力秘匿 | mpcML (連邦学習) |
-| ZK + Multisig | 操作 + 認証 | proof of multisig operation (Nyx) |
-| ZK + Bridge | cross-chain message + state proof | ZK light client |
-
-**Open Question**: 「Longfellow は学術的にどう分類できますか? なぜ既存の zkSNARK では足りなかったと考えますか?」
-
-#### S2-C. 2026 年の最前線 — 1 つの物語 (12 分)
-
-中心メッセージ: 「2026 年、ZK は証明系の根本が変わった。Sumcheck 系 (汎用 zkVM) と MPC-in-the-head 系 (既存 ID への適合) という、2 つの独立した革命が同時に production に入った」
-
-> ⚠ 注: Longfellow と Sumcheck/Jolt は別系統。前者は Ligero / MPC-in-the-head 系の系譜、後者は GKR / Sumcheck 系の系譜。混同しないこと。
-
-**系統 A: Sumcheck + Jolt (4 分)**
-
-定義: Sumcheck とは、多変数多項式 f(x₁, ..., xₙ) の総和 ∑f を、verifier に少ない通信で確信させるインタラクティブプロトコル (Lund, Fortnow, Karloff, Nisan. JACM 39(4), 1992)
-
-ラウンド構造:
-1. prover が現在のラウンドの 1 変数についての partial sum 多項式 g(X) を送る
-2. verifier がランダム点 r を選んで挑戦
-3. 次のラウンドで f(...,r,...) について同じことを繰り返す
-4. 最終ラウンドで f を 1 点で実際に計算する
-
-「なぜ革命か」: structured multilinear extension 上で concretely efficient な prover (Thaler 2013 系) / 制約系を回路に書き直さなくてよい / Fiat-Shamir で SNARK 化、再帰化が容易。soundness error ≤ d·n / |𝔽| (Schwartz-Zippel)
-
-Jolt (Arun, Setty, Thaler 2024) = Sumcheck + Lasso:
-- RISC-V の全命令を lookup table T に入れる → CPU step を T 内エントリ参照と等価に
-- Groth16/PLONK 比で 2x 高速 prover
-- zkVM の本質: 任意プログラムを書き直さず証明できる
-- (実装注意: Lasso の precompute table はメモリ要求が大きい)
-
-**補強する側面 (4 分)**
-
-- コミットメントの進化: KZG (pairing, trusted setup) → FRI/Brakedown/Ligero/BaseFold (hash-based)。利点: trusted setup 不要、量子耐性、Blake3 で hashing 高速
-- 再帰・folding: Halo2 (accumulation) ↔ Nova (folding scheme) — 別系統が並走。Nova → LatticeFold+ / hash-based folding (2025-26)。用途: IVC で「永続的に積み上がる計算」
-
-**系統 B: MPC-in-the-head 系 — Longfellow (3 分)**
-
-- 設計思想: 「世界中で既に発行されている mDOC/JWT/W3C VC をそのまま ZK 化」
-- 技術: MPC-in-the-head (Ligero 系) + Σ-protocol で既存署名 (ECDSA, SHA-256) を ZK 化
-- ステータス: Google Wallet で deploy 済、Bumble 認証稼働、EUDI Wallet 採用検討、IETF CFRG で標準化議論
-
-**ZK Bridge / light client (1 分)**: source chain の状態を ZK で証明 → destination chain の light client コントラクトが verify。例: Polyhedra zkBridge, Succinct Telepathy。「KelpDAO の RPC 侵害は、ZK light client なら防げたか?」をホワイトボードで議論する。
-
-#### S2-D. Longfellow ライブデモ (5 分)
-
-- スマホ画面ミラーリング: Google Wallet の年齢証明 → 検証サイトでの応答
-- 「いま使っている運転免許証が、暗号で生年月日を隠したまま `>=18` だけ伝えている」
-- 「これが Programmable Cryptography の最高の社会実装」
-
-### (休憩 10 分)
-
-### S3. How — どうやるか (20 分)
-
-#### S3-A. サービス設計の出発点: 4 つの問い (8 分)
-
-ZK/MPC/FHE をサービスに組み込む前に必ず答える 4 つの問い:
-
-1. 何を守りたいのか? → 入力の秘密 / 計算の正しさ / 結果の秘密 / 計算した事実
-2. 誰が計算するのか? → ユーザ自身 / 複数人 / 第三者 / オンチェーン
-3. いつ計算するのか? → リアルタイム / 後追い / 紛争時のみ
-4. 誰が検証するのか? → 個人 / コントラクト / 規制当局 / ピア
-
-**板書テンプレ実演 (2 例)**
-
-例 1: SMBC 日興証券 DeFi API privacy (脅威モデル: SMBC は規制当局に対し semi-honest だが、悪意ある内部者・将来の不正査問に備えたい)
-1. 何を守る? → クライアント口座情報 + DeFi 取引履歴
-2. 誰が計算? → SMBC のオフチェーンサーバ (運用者)
-3. いつ? → リアルタイム + 監査時に後追い
-4. 誰が検証? → 規制当局 + クライアント
-→ 結論: ZK proof of compliance + ZK audit trail
-
-例 2: 結婚マッチングサービス
-1. 何を守る? → 各ユーザのプロフィール
-2. 誰が計算? → 全参加者 (相互マッチング)
-3. いつ? → リアルタイム
-4. 誰が検証? → ユーザ自身
-→ 結論: MPC で相互マッチング (FHE は重すぎ、ZK は片方向過ぎる)
-
-#### S3-B. サービス開発の罠 — 5 選を解説、残りはカード配布 (8 分)
-
-**罠 #1: 制約系・証明系の選択 (設計)**
-- R1CS / Plonkish / AIR / CCS、後から変えられない、性能が桁違い
-- Groth16/PLONK/Halo2/Jolt/SP1/Longfellow、検証コスト・対応言語・prover メモリ要求が変わる
-- 例: Jolt は prover メモリ要求が大きいため、small device には不向き
-
-**罠 #2: soundness と zero-knowledge は別物、両方とも壊れうる (安全性)**
-- 「証明できる」と「秘密が漏れない」は独立した性質、両方を別個に保証する必要
-- 実事例: Semaphore の signal hash bug (ZK Bug Tracker 収録)
-  - public input が回路内で実際に計算に使われていなかった
-  - 攻撃者は valid な proof を取得後、signal hash だけ書き換えて任意の signal を偽装可能
-  - 修正: signalHashSquared = signalHash² として回路に組み込んだ
-
-**罠 #3: Fiat-Shamir の RO instantiation (安全性)**
-- KRS25 (Khovratovich, Rothblum, Soukhanov, eprint 2025/611) で GKR-based SNARK の現実的攻撃が示された
-- 「論文は安全」≠「実装は安全」
-
-**罠 #4: witness generation がボトルネック (性能)**
-- 「proving time 5 秒」は witness 生成を含むかどうかで意味が変わる
-- ベンチマークを読む時の最重要ポイント
-
-**罠 #5: on-chain verifier gas + off-chain prover インフラ (運用)**
-- verifier gas は L2 経済性に直結
-- prover サーバの GPU/メモリ要件は地味に高い
-
-**カード配布のみ (残り 8 つ)**: 設計: ハッシュ関数選択 / trusted setup vs transparent。安全性: サイドチャネル+鍵管理 / 回路と仕様の乖離。性能: FHE ノイズ管理 / MPC 通信ラウンド数。運用: アップグレード時の回路互換性 / クライアント体験
-
-**Open Question**: 「自分のプロジェクトで一番怖い罠はどれですか? その罠が表面化するのはいつだと思いますか?」
-
-#### S3-C. プロジェクト発表 (4 分)
-
-各テーマに [難易度 / 前提 / 推奨スタック]:
-- **Intmax 系**: MPC Wallet 鍵復元 [高] / Channel-based note discovery + PIR [中] / zERC20 transfer tree [中] / Formal-verified tornado clone [高]
-- **Nyx 系**: ZK proof of multisig operation [中] / FHE で完全データレスな EC サイト [中-高] / Proof-of-Exploit + DeFi 自動停止 [高] / SPECA で ZK/FHE/MPC 回路バグ探索 [高]
-- **SMBC 日興証券**: Off-chain finance system → DeFi API privacy [中]
-- **ソニー銀行 + もう一社**: TBD
-- **オリジナル**: 提案ベース
-
-### クロージング (3 分) + ポストテスト (2 分)
-
-#### One-Minute Paper (1 分)
-- 「今日一番分かった概念は?」
-- 「今日一番分からなかった概念は?」
-- スマホで匿名 Google Forms 入力
-
-Week 2 運用フロー:
-- TA が結果を集計、「分からなかった」のトップ 3 を抽出
-- Discord で共有、Week 2 冒頭 5 分で応答
-
-#### クロージング (2 分)
-- 学習成果 1-8 の達成度を学生自己評価 (Discord で 5 段階)
-- 課題説明 (Track A/B/C/D)
-- ホワイトボードへの橋渡し: KelpDAO×LayerZero、4 つの問い、13 の罠 がツール
-- Week 2 予告: MPC で「電卓を 3 人で割って計算する」(中江)
-
-#### ポストテスト (2 分)
-- プリテストと同じ MCQ 5 問 + 追加 5 問
-- Discord で結果を集約
-
----
+計：2時間
+
+| 時刻 | セクション                                                                       | 内容                                                                                                                                                                                                      | 時間（分） |
+| ---- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+|      | FHEの概要 <br>ここは他の部分を削ってでも時間かけて丁寧にやりたい                 | • FHEの概念と歴史 <br>◦ 前の週まででEncryption Schemeの話はしない気がするのでそこらへんも軽く触る <br>• HE, SHE, LHE, FHEのカテゴリ <br>• FHEの主要方式 <br>• FHEの課題 <br>◦ 速度 <br>◦ non-malleability | 25         |
+|      | LWE暗号 <br>今回はLWEは道具として使うので、SISへの帰着とかなぜ困難かの話はしない | • 近似連立方程式 <br>• LWE問題 <br>• LWE暗号 <br>• LWE暗号文同士の演算<br>• LWE以外の方式に基づくFHE                                                                                                      | 15         |
+|      | Bootstrappingの基本概念                                                          | • ノイズを削減する基本的な発想                                                                                                                                                                            | 5          |
+|      | TFHEの概略                                                                       | • TFHEの基本情報 <br>• Bootstrappingでノイズ削減しながら関数評価できるよって話                                                                                                                            | 5          |
+|      | Programmable Bootstrappingの概観                                                 | • 円分多項式（week4まででやってなければ） <br>• Programmable Bootstrappingの基本アイディア                                                                                                                | 15         |
+|      | 休憩                                                                             | -                                                                                                                                                                                                         | 10         |
+|      | RLWEとRGSW                                                                       | • RLWE暗号 <br>• Gadget Decomposition <br>• RGSW暗号 <br>• RLWEとRGSWによるexternal product <br>• cmux                                                                                                    | 10         |
+|      | Programmable Bootstrappingの流れ                                                 | • BlindRotation <br>• SampleExtraction <br>• KeySwitching                                                                                                                                                 | 30         |
+|      | HomNAND                                                                          |                                                                                                                                                                                                           | 5          |
+
+### コンテンツ
+
+#### FHEの概要
+
+**暗号方式**
+
+- 暗号方式(Encryption Scheme)の定義
+  - 以下の3の（確率的）多項式時間アルゴリズムの組み(Gen, Enc, Dec)はDec(Enc(m))=mを満たす時、暗号方式と呼ばれる。
+    - Gen$(1^\lambda)\to key$: 鍵を生成する（鍵生成）
+    - Enc$(m, key_{enc})\to c$: 平文と鍵から暗号文を生成する（暗号化）
+    - Dec$(c, key_{dec})\to m$: 暗号文と鍵から平文を生成する（復号）
+  - 共通鍵暗号と公開鍵暗号
+    - 共通鍵暗号(Symmetric Key Encryption): EncとDecで同じkeyを用いる。
+    - 公開鍵暗号(Public Key Encryption): Genが鍵のペア(pk,sk)を生成し、pk(公開鍵)が公開されてsk(秘密鍵)が公開されない。Encで使うkeyがpkであり、Decで使うkeyがskである。
+
+**FHEの概念**
+
+- 準同型暗号(Homomorphic Encryption)とは - 大雑把に言えば、暗号文のまま計算が行える暗号方式 - 平文に対して演算$\oplus$ ,暗号文に対して演算$\otimes$が可能な時、2つの暗号文$c_1=Enc(m_1), c_2=Enc(m_2)$に対して、$Dec(c_1 \otimes c_2)=m_1 \oplus m_2$が成立する - 暗号文のまま平文の加算と乗算両方は行えない。- RSA暗号やElgamal暗号は暗号文同士の乗算が平文同士の乗算になり、Paillier暗号は暗号文同士の乗算が平文同士の加算になる - 暗号文の状態での演算を準同型演算と呼ぶ。
+  完全準同型暗号(Fully Homomophic Encyption, 以下FHE)は暗号文のまま加算と乗算が行える。加算と乗算が行えればNAND演算を評価できる。すなわち、平文$m_1,m_2$に対して$(1-m_1)m_2$を暗号文の状態で計算することで、平文に対するNAND演算を評価できる。そのため、暗号文のまま加算と乗算が行えれば任意の論理回路を暗号文のまま評価することできる。
+  「ここにユースケースの話」。
+  FHEの概念自体は1978にRSA暗号で有名なRivestらにより提唱され[RAD78]、具体的な構成方法は格子を用いた方式[Gen09]がGentryにより2009年に提案された。このGentryによる方式(Gentry's Blue Printと呼ばれることがある)では、Bootstrappingと呼ばれる操作を導入することによりFHEを実現したが、この論文におけるBootstrappigの計算量は非常に大きく、全く実用的なものではなかった。しかし、このGentryによる提案をきっかけにFHEの研究は急速に発展していき、現在に至るまでGentryの方式で用いられた格子は主要なFHEのベースになっている。特にBootstrappingはFHEに関する研究の潮流の中心にあり、Boostrappingの性能を改善する方法やBootstrapping回避する方式が数多く研究されている。
+
+**FHEのカテゴリと主要方式**
+FHEにはいくつかの種類がある。
+
+- Somewhat Homomorphic Encryption(SHE)
+  - 暗号文のまま加算と乗算が行えるものの、どちらかの演算の演算回数に定数回の上限が与えられる。
+- Leveled Homomorphic Encryption(LHE)
+  - SHEと同様にどちらかの演算に上限があるが、その上限がパラメーターによって変化する。
+- Fully Homomorphic Encryption(FHE) - 暗号文の状態で加算と乗算を行えて、どちらも制限回数がない。
+  この分け方の他にも世代として分類することもある。
+
+FHEの主要方式として以下の方式が挙げられる。
+
+- Gentry's Blue Print
+  - Bootstrappingを導入することで初めてFHEを構成した方式。
+- BFV/BGV
+  - 整数値に対する演算を行うことのできるFHE
+  - Bootstrapping自体は重たいが、準同型演算自体は比較的高速
+  - SV packingと呼ばれる手法により、暗号文のままのSIMD演算が可能
+  - ある程度準同型演算を行うとBootstrappingを行う必要性が生ずるため、パラメーターを調整してLHEとして使われることがメイン
+- CKKS
+  - 浮動小数点などの近似値計算を準同型演算することができるFHE
+  - 機械学習と相性が良く、最近盛んに研究されている。
+  - BFV/BGVと同様に準同型演算が比較的高速で、主にLHEとして運用される
+- GSW
+  -
+- FHEW
+- TFHE
+  - 後半で説明
+
+**FHEの課題**
+FHEには2つの大きな課題がある。
+
+- 実行コスト
+- malleability
+  - 暗号にはnon-malleabilityと呼ばれる安全性の概念が存在する。
+  - FHEは準同型演算ができるが故にnon-malleabilityを満たすことができず、選択暗号文攻撃と呼ばれる種類の攻撃に対して脆弱になる。
+  - 仮に選択暗号文攻撃がされなくても、クラウドコンピューティングなどのユースケースにおいてFHEを使って計算を外部に委託した際、計算結果が正しく得られたものなのかどうか確認することができない。
+
+#### LWE暗号
+
+**近似連立方程式**
+**LWE仮定とLWE問題**
+**LWE暗号**
+LWE暗号は共通鍵暗号としても公開鍵暗号としても構成できるが、今回は共通鍵暗号として扱う。
+平文空間を$\mathbb{Z}_p$, 暗号文空間を$\mathbb{Z}_q^{k+1}$、ノイズの分布を$χ$とする。
+
+- Gen$(1^\lambda)\to \mathbf{s} \in\{0,1\}^k$:
+  - 長さ$k$のビット列を一様ランダムに取り秘密鍵$\mathbf{s}=(s_0,s_1,\dots,s_{k-1})\in \{0,1\}^k$として出力する
+- Enc$(m,\mathbf{s})\to c \in \mathbb{Z}_q^{k+1}$:
+  - 平文$m$に対して、$\mathbf{a}=(a_0,a_1,\dots,a_{k-1})\in \mathbb{Z}_q^k$を一様ランダムに取り、ノイズ$e$を分布$χ$から取ってきて、$c=(\mathbf{a},b=\mathbf{as}+\Delta m + e)\in \mathbf{Z}_q^{k+1}$を暗号文として出力する
+  - $\mathbf{as}$は内積を表し、$\mathbf{as}=\Sigma_{i=0}^{k-1}a_is_i$
+  - $\Delta$は$\Delta:=q/p$であり、スケーリングファクターと呼ばれる。
+  - 以降、平文$m$の秘密鍵$\mathbf{s}$によるLWE暗号文を$\text{LWE}_{\mathbf{s}}(m)$と書く。
+- Dec$(c,\mathbf{s})\to m \in \mathbb{Z}_p$:
+  - $\lceil \frac{b-\mathbf{as} \text{ mod }q}{\Delta}\rfloor \text{ mod } p=\lceil \frac{\Delta m + e \text{ mod }q}{\Delta}\rfloor \text{ mod } p=\lceil m+\frac{e \text{ mod }q}{\Delta}\rfloor \text{ mod } p=m$により復号する
+  - $\lceil a \rfloor$は$a$をもっとも近い整数値にする操作。要は四捨五入
+  - $-\frac{\Delta}{2}\le e < \frac{\Delta}{2}$であれば正常に復号可能
+
+**LWE暗号同士の演算**
+LWE暗号文はこのままでも、平文との加算・乗算、暗号文同士の加算が可能。
+
+- LWE暗号文と平文の加算
+- LWE暗号文と平文の乗算
+- LWE暗号文とLWE暗号文の加算
+
+**LWE暗号文同士の乗算**
+
+- BGV, BFV, CKKS
+- GSW,FHEW, TFHE
+
+#### Bootstrappingの基本概念
+
+#### TFHEの概略
+
+**TFHEの基本情報**
+
+- zamaが2020年に提案した方式
+- それまでの方式と比べるとBootstrappingが非常に高速かつ省メモリであり、数MBのメモリ消費でミリ秒単位で実行可能
+- トーラスと呼ばれる代数構造を利用する
+  - トーラスの話をするとまたややこしくなるので、レクチャーの中ではトーラスを使わない方法を扱う
+- FHEWと呼ばれる方式を拡張した方式
+
+#### Programmable Bootstrappingの概観
+
+**多項式の剰余**
+
+- 整数の剰余演算: 5 mod 3 = 2
+- 多項式の剰余演算: $x^5 + x + 2 \;\text{mod}\; x^2 + 1 = (x^3+x)(x^2+1)+2x+1 \;\text{mod}\; x^2 + 1=2x+1$
+  - $x^n \;\text{mod}\;x^n+1 = -1$
+  - $x^{-a} \;\text{mod}\;x^n+1 = -x^{n-a}$
+
+**Programmable Bootstrappingの基本アイディア**
+
+- Lookup Table
+  - あるアルゴリズムをプログラムの実行中に計算するのではなく、よく使われる値とそれに対応する出力を事前計算してテーブルを作成しておき、プログラムの実行中はそのテーブルを参照するようにすることで実行速度を上げるテクニック
+  - 平文とそれに対応するノイズの少ない暗号文のテーブルを作り、暗号文のノイズを削減したい時は、その暗号文と同じ平文を持つノイズの少ない暗号文をテーブルから引っ張ってくるようにすることでBootstrappingを高速化する
+- key observation
+  - $f(x)=a_0+a_1x+\dots+a_{n-1}x^{n-1} \;\text{mod}\;x^n+1$を考える。これに$x^{-i}\;(0\le i\le n-1)$をかけると、$x^{-i}f(x) \;\text{mod}\;x^n+1=a_i+a_{i+1}x\dots+a_{n-1}x^{n-1-i}-a_0x^{n-i}-a_1x^{n-i+1}-\dots-(i-1)x^{n-1} \;\text{mod}\;x^n+1$
+  - 多項式をLookup Tableとして使う
+    - 平文空間のすべての平文を係数にエンコードした多項式$v(x)=\Sigma_{i,j} \mu_ix^{\mu_i+e_j} \;\text{mod}\; x^n+1$とノイズの増加した暗号文$\mathbf{c}=LWE_\mathbf{s}(m)=(\mathbf{a},b)$を考え、$x^{-(c-\mathbf{as})}v(x) \;\text{mod}\; x^n+1=x^{-(m+e)}v(x)\;\text{mod}\; x^n+1$として、この多項式の定数項を抜き出すと平文$m$が出てくる。この一連の処理を暗号文の状態でやる
+      - Blind Rotation: ノイズの溜まった暗号文を使って多項式を回転させる
+      - Sample Extraction: 回転した多項式から定数項を暗号文の状態で抜き出す
+      - Key Switching: 定数項の暗号文の鍵を元の暗号文の鍵と一致させる
+
+#### RLWEとRGSW
+
+**RLWE暗号**
+LWEの多項式版
+
+**Gadget Decomposition**
+10進と2進数の変換を思い出す$19 = 1\cdot 2^4+0\cdot2^3+0\cdot2^2+1\cdot2^1+1$。
+これと似たようなことを整数の剰余に対してやるのがGadget Decomposition。
+ある値$r$がmod $q$に対して、基数$B$を用いて$r = \Sigma_{i=1}^l r_1\frac{q}{B^i}$と表せるとき、$g^{-1}(r)=(r_1,r_2,\dots,r_l)$として、これをGadget Decompositionと呼ぶ。ベクトル$\mathbf{r}=(r_1,\dots,r_{k+1})$に対しては$G^{-1}(\mathbf{r})=(g^{-1}(r_1),\dots,g^{-1}(r_{k+1}))$とする。
+多項式$f$に対しても同様のことを考えて、それぞれの項$a_ix^i$について$g^{-1}x^i$として、$\frac{q}{B^l}$について項をまとめ直して$f=\Sigma_{i=1}^lf_i\frac{q}{B^l}$として、$g^{-1}=(f_1,\dots,f_l)$とする。多項式のベクトル$\mathbf{f}=(f_1,\dots,f_{k+1})$についても同様に$G^{-1}(\mathbf{f})=(g^{-1}(f_1),\dots,g^{-1}(f_{k+1}))$とする。
+また、以下の行列をGadget Matrixと呼ぶ。
+$G^T=\begin{pmatrix}1/B & & &\\ \vdots & & &\\ 1/B^l & & &\\ & 1/B & \\ & \vdots & &\\ & 1/B^l & &\\ & & \ddots &\\ & & & 1/B\\ & & & \vdots \\ & & & 1/B^l\end{pmatrix}$
+
+**RGSW暗号**
+
+$\mathcal{Z}\gets \begin{pmatrix}\text{RLWE}_{\mathbf{s}}(0)\\ \text{RLWE}_{\mathbf{s}}(0)\\ \vdots \\ \text{RLWE}_{\mathbf{s}}(0)\end{pmatrix}\in \mathbb{F}_{n,q}[x]^{(k+1)l\times (k+1)}$
+
+$\text{RGSW}_{\mathbf{s}}(m)=\mathcal{Z} + mG^T$
+大雑把に言うとRLWEのリスト
+
+**RLWEとRGSWによるexternal product**
+
+**CMUX**
+RLWEとRGSWを使うことで、$a_0,a_1\in\{0,1\}$に対して、ビット$b$によってどちらかを指定するマルチプレクサ$\text{MUX}(b,a_0,a_1)=a_b$を暗号文の状態で行えるCMUXが構成可能
+
+#### Programmable Bootstrappingの流れ
+
+**Blind Rotation** 暗号文の状態でのテスト多項式の回転
+
+- 平文の状態での考え方
+  - $\mathbf{a}=\left(a_0,a_1,\ldots,a_{k-1}\right),\mathbf{s}=\left(s_0,s_1,\ldots,s_{k-1}\right)$とすると、$\mathbf{as}=\Sigma_{i=0}^{k-1}a_is_i$と表せる。
+  - $x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\Sigma_{i=0}^{k-2}a_is_i}v\right)$ より、$Q_k:=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v$は$\ Q_0=x^{-b}v$として次の漸化式から求められる。$Q_j=x^{a_{j-1}s_{j-1}}Q_{j-1}=\left\{\begin{matrix}Q_{j-1}\ \ \ \ \ \ if\ s_j=0\\x^{a_j}Q_{j-1}if{\ s}_j=1\end{matrix}\right.$
+  - よって$x^{-b+\mathbf{as}}v\;\text{mod}\;x^n+1$は以下のアルゴリズムから計算できる
+    - $q_0 \gets x^{-b}v$
+    - for $j=1\dots k$
+      - $Q_j \gets \text{MUX}(s_{j-1}, Q_{j-1}, x^{a_j}Q_{j-1})$
+    - return $Q_k(=x^{-b+\mathbf{as}}v)$
+- これを準同型演算で記述する。すなわち、MUXをCMUXに置き換える。それに伴い、$s_j$をRGSWで暗号化し、$v$をRLWEで暗号化する
+  - 正確に言うと$v$はノイズのない自明なRLWE暗号文として扱われる。すなわち、$v$を定数項以外の係数が0の多項式、aをゼロベクトルとすることで$v=\Sigma 0\cdot s + v+ 0\;\text{mod}\;x^n+1$とできるので、$v=\text{RLWE}_s(v)=(0,\dots,0,v)$とみなせる
+  - $s_j$をRGSWで暗号化する鍵を$s'$とし、$(\text{RGSW}_{s'}(s_0),\dots,\text{RGSW}_{s'}(s_{k-1}))$をBootstrapping Keyと呼ぶ。
+- アルゴリズム
+  - $c_0 \gets x^{-b}\text{RLWE}_{s'}(v)$ (RLWE暗号文は多項式をかけることができる。)
+  - for $j=1\dots k$
+    - $Q_j \gets \text{CMUX}(\text{RGSW}_{s'}(s_{j-1}), Q_{j-1}, x^{a_j}Q_{j-1})$
+  - return $Q_k(=\text{RLWE}_{s'}(x^{-b+\mathbf{as}}v))$
+
+**Sample Extraction**
+
+Blind Rotationによってテスト多項式が回転できて以下のような状態になっている。
+$\text{RLWE}_{s'}(x^{-b+\mathbf{as}}v)=\text{RLWE}_{s'}(m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots)$
+これの定数項$m$を暗号文の状態で取り出す。
+$\text{RLWE}_{s'}(x^{-b+\mathbf{as}}v)=(\mathbf{a}',b')$
+$\mu = m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
+とすると、
+$b'=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}=\mathbf{a's'}+\mu+e$
+$=\Sigma_{j=1}^k(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$
+$\;\;\;+ m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
+$\;\;\;+(e_0+e1x+\dots+e_{n-1}x^{n-1})$
+実はこれの定数項$b'_0$がそのまま$m$のLWE暗号文になっている。
+$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$\Sigma_{j=1}^k(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は$\mathbf{a'}$と$\mathbf{s'}$の各要素の係数をいい感じに配置しなおしたベクトル$\mathbf{a''}=(a'_{1,0},-a'_{1,n-1},\dots,a'_{1,1},\dots,a'_{k,0},-a'_{k,n-1},\dots,a'_{k,1} )$
+$\mathbf{s''}=(s'_{1,0},-s'_{1,n-1},\dots,s'_{1,1},\dots,s'_{k,0},-s'_{k,n-1},\dots,s'_{k,1} )$
+を用いて
+$b'_0=\mathbf{a''s''}+m+e_0$
+と表せる。よって、$\mathbf{s''}$によるLWE暗号文$\text{LWE}_{s''}(m)=(\mathbf{a''},b_0)$が構成できる。
+
+**Key Switching**
+
+Sample Extractionで得られた暗号文$(\mathbf{a''},b_0)$は$\mathbf{s''}$による暗号文なので、これを$\mathbf{s}$による暗号文に変換する。
+わかりやすさのために$\mathbf{a''}$と$\mathbf{s''}$を
+$\mathbf{a''}=(a''_{1},a''_{2},\dots,a''_{kn})$
+$\mathbf{s''}=(s''_{1},s''_{2},\dots,s''_{kn} )$
+と書き直しておく。
+$\mathbf{a''}$のGadget Decomposition $G^{-1}(\mathbf{a''})=(g^{-1}(a''_1),\dots,g^{-1}(a''_1kn))$を考え。
+$g^{-1}(a''_i)=(\bar{a}_{i,1},\dots,\bar{a}_{i,l})$
+とする。さらに、
+$ksk[i,j]=\text{LWE}_\mathbf{s}(s''_iB^{-j})(1\le i \le kn, 1 \le j \le l)$ (これをKey switching keyと呼ぶ)を考えると、目的の$\mathbf{s}$による$m$の暗号文$\text{LWE}_\mathbf{s}(m)$は次のように計算できる。
+$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}ksk[i,j]$
+なぜこれでうまくいくのか?
+以下のように変形する。
+$\text{LWE}_\mathbf{s}(m)= (0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}ksk[i,j]$
+$=(0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iB^{-j})$
+$=(0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iB^{-j})$
+$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}s''_iB^{-j})$
+$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn}_{i=1}a''_{i}s''_i)$
+$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
+ここで$\text{LWE}_\mathbf{s}(\mathbf{a''s''})=(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$と表すと、
+$(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
+$=(0,\dots,0,\mathbf{a''s''}+m+e_0)-(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$
+$=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + m +e_0 - \tilde{e})$
+これは秘密鍵$\mathbf{s}$による$m$の暗号文になっている
+
+**なぜ"Programmable" Bootstrappingなのか**
+テスト多項式を工夫することで、ノイズを削減しながら任意の一変数関数$f$を評価できる。すなわち、
+$v(x)=\Sigma_{i,j} f(\mu_i)x^{\mu_i+e_j} \;\text{mod}\; x^n+1$
+のようにすると、$x^{-i}v(x)$が$0\le i \le n-1$である限り。
+また、任意の多変数関数はKolmogorovの重ね合わせ定理により単変数多項式の線型結合で表現することができる
+
+#### HomNAND
+
+平文空間を{0,1,2,3}、暗号文空間を{0,1,2,3,4,5,6,7,8}とする。
+今回は簡単のためにノイズは考えない。
+二つの暗号文$c_0,c_1$に対して$(0,\dots,0,5)-c_0-c_1$を計算してからBootstrappingする。
+この際、テスト多項式は
+$v(x) = -1 - x + x^2 + x^3 \;\text{mod}\; x^4+1$
+としておくと、
 
 ## ホワイトボードセッション
 
-### お題
+10グループに分かれ、テーマリストから選んで（当日はランダムで割り当てるかも）調査、議論、発表
 
-**「KelpDAO × LayerZero $292M Exploit (April 18, 2026) を最先端暗号で防げただろうか?」**
+- イントロ 5分
+- 調査＋議論 1時間50分
+- 発表 1時間(=6分x10)
+  - 発表は調査結果の最重要事実と問題提起で構成する
 
-2026 年最大の DeFi exploit。スマートコントラクトには bug がなく、オフチェーンインフラ (RPC ノード) を侵害された。S1-A のスコープ乖離テーマと完全一致する事例。
+### テーマリスト
 
-### Phase タイムテーブル
+**FHEの安全性**
 
-| Phase | 所要 | 内容 | 認知レベル |
-|---|---|---|---|
-| Phase 1 | 30 分 | 事件の理解 + AI で attack tree | 分析 |
-| Phase 2 | 45 分 | 4 つの問いをチェックリスト形式で埋める | 分析〜応用 |
-| Phase 3 | 50 分 | 設計案構築、A3 にまとめる | 創造 |
-| Phase 4 | 55 分 | 発表 (7 分) + 質疑 (4 分) × 5 グループ | 評価 |
-| 合計 | 180 分 |  |  |
+- 背景：FHEは原理的にNM-CCA2安全性を持つことができず、安全性証明はCPA安全性を持つことを証明することが多い。一方で、CPA安全性だけでは不十分であるという指摘もあり、FHEが満たすべき安全性を新たに定義する研究も存在する。
+- 調査項目：
+  - TFHEが128-bit securityを達成するためのパラメーター
+  - CPA, CCA1, CCA2安全性とは何か
+    - 形式的な定義と、現実世界でのどのような状況を指すか
+  - One-wayness, Indistinguishability, Non-malleabilityとは何か（形式的な定義）とそれらの等価性
+  - BFG/BGV, CKKS, TFHEはどの安全性を持つか
+  - FHEに対する新たな安全性の先行研究
+- 発表すること：
 
-### 情報パッケージ (各グループに事前配布、A4 1 枚)
+**LHEとFHEの使い分け**
 
-**何が起きたか**
-- KelpDAO の rsETH bridge (LayerZero 経由) から 116,500 rsETH (~$292M) 流出
-- LayerZero による preliminary attribution: Lazarus Group / TraderTraitor (北朝鮮系)
-- Aave の TVL が連鎖で蒸発 (数値は配布 Chainalysis レポート参照)
+- 背景：
+- 調査項目：
+  - LHEでBootstrappingなしに可能な準同型演算の回数とパラメーターの相関
+  - 通常のBootstrappingとProgrammable Bootstrappingとの違い
+    - 仕組みと計算コストの違い
 
-**攻撃フロー (LayerZero 公式発表に基づく)**
-1. 攻撃者が LayerZero verifier が参照する RPC ノード一覧を入手
-2. 内部 RPC ノード 2 台のバイナリを悪意あるバージョンに置換
-3. 外部 RPC ノードを DDoS で落とし、failover を強制
-4. verifier に偽の cross-chain メッセージを承認させた
-5. Ethereum 側コントラクトが「ソースチェーンで burn が起きた」と信じて release
+**BGV/BFVの仕組み**
 
-**重要な事実**
-- スマートコントラクトには bug なし (オンチェーンは全部正しく動いた)
-- 1-of-1 DVN configuration が単一障害点
-- LayerZero と Kelp で責任の押し付け合い中
+- 背景：
+- 調査項目：
 
-**従来のセキュリティが届かなかった理由**
-- 全てのオンチェーン tx が valid に見えた
-- 監査スコープは smart contract、攻撃面は off-chain RPC infrastructure
+**CKKSの仕組み**
 
-### Phase 1-4 詳細
+- 背景：
+- 調査項目：
 
-Phase 1 (30 分): 資料読み込み (5 分) + AI と対話して攻撃フローを理解 (25 分)。Notion 配布の完成形プロンプト 6 種をコピペで活用。グループでホワイトボードに attack tree を描く。
+**TFHEでトーラスが使われる理由**
 
-Phase 2 (45 分): A3 用紙にチェックリスト形式テンプレ。1) 何の正しさを保証 / 2) 誰が証明を作る / 3) いつ証明を作る / 4) 誰が検証 / 5) ZK / MPC / 複合のどれを採用。
+- 背景：
+- 調査項目：
 
-Phase 3 (50 分): 4 つの方向性から 1 つ — ZK 路線 (ZK light client) / MPC 路線 (threshold MPC) / 複合 / 暗号で防げない派。A3 用紙に: 採用方向と理由、必要な暗号プリミティブ、残るリスク (13 の罠から 3 つ)、限界。
+**FHEの実装ライブラリ比較**
 
-Phase 4 (55 分): 5 グループ × 11 分 (発表 7 分 + 質疑 4 分)。他グループから 1 つ質問必須。講師からの突っ込み弾を必ず 1 つ入れる。
+- 背景：
+- 調査項目：
+  - FHEの実装ライブラリは何があるか
+  - どのFHEスキームを扱っているか
+  - どの言語で実装されているか
+  - FHEスキームに出てくるデータの表現方法とパラメーターの大きさ
+  - 高速化のための工夫
+  - ライブラリ間のパフォーマンス比較
+  - バグはないか
 
-**講師の突っ込み弾**:
-- 「ZK light client なら、source chain の RPC が同じく侵害されたらどう?」
-- 「threshold MPC で何台に分散すれば現実的に攻撃が止まる? Lazarus は国家アクターだぞ」
-- 「あなた方の案、KelpDAO の運営チームは導入できる? gas コストは?」
-- 「LayerZero と Kelp の責任論争、あなた方の設計だとどっちのせいになる?」
+**LWE以外の方式に基づくFHE**
 
-**Closing Question**: 「ZK と MPC のトレードオフ、5 年後にはどう変わると思いますか?」
+- 背景：
+- 調査項目：
 
----
+**機械学習へのFHEの応用**
+
+- 背景：
+- 調査項目
+
+**ブロックチェーンへのFHEの応用**
+
+- 背景：
+- 調査項目
+
+**他のConfidential Computing（MPC, GC, TEE）との比較**
+
+- 背景：
+- 調査項目
 
 ## 実装課題
 
-### Track A: 読む (全員必須)
-- a16z Jolt blog (2026): 3 行サマリ
-- Google Longfellow 公式 blog + IETF draft Introduction: 3 行
-- Zama TFHE Handbook イントロ: 3 行
-- KRS25 paper (eprint 2025/611) の introduction (1 ページ): 教訓 1 行
-- Chainalysis の KelpDAO bridge exploit blog: 復習として再読
+**必須**
 
-### Track B: 書く (レベル選択、いずれか 1 つ)
-- Easy: commit-reveal で秘密入札を実装
-- Medium: Schnorr signature を Python で実装、テスト通す
-- Hard: Sumcheck protocol の最小実装 (3 変数多項式)
+- 提出不要
+  -
+- コードの穴埋め
+  - LWE
+  - RLWE
+  - RGSW
+  - BlindRotation
+  - SampleExtraction
+  - KeySwitching
+  - Bootstrapping
+  - HomNAND
+- HomNANDによる全加算機の実装
+- ホワイトボードセッションで扱ったテーマの深掘り
 
-### Track C: 選ぶ (全員必須)
-- ホワイトボードセッションのグループ成果物を清書 (Notion 1 ページ)
-- 自分のプロジェクトテーマでも 4 つの問い + 罠 3 枚を埋める
+**少なくとも1つ選択**
 
-### Track D: 環境 (全員必須)
-- Rust toolchain, Node.js/TS, Docker
-- Nyx Foundation/acp-week1-template repo を fork → CI 通過
-- 13 の罠カードを GitHub Issue として fork した repo に複製
+1. 穴埋めしたコードの最適化とパフォーマンス比較（NTT、ビットシフトによるモジュロ演算など）
+2. 既存ライブラリを使ったアプリケーションのモック作り
 
----
+**オプション課題(気になる人だけ)**
+
+- BFV/BGVの実装
+- CKKSの実装
 
 ## 参考文献
 
-**SNARK 革命 (Sumcheck 系)**
-- Lund, Fortnow, Karloff, Nisan. "Algebraic methods for interactive proof systems." JACM 39(4), 1992. (Sumcheck の原論文)
-- Arun, Setty, Thaler. "Jolt: SNARKs for Virtual Machines via Lookups." (2024). a16z crypto.
-- Setty, Thaler, Wahby. "Unlocking the lookup singularity with Lasso." eprint 2023/1216.
-- Thaler. "Time-Optimal Interactive Proofs for Circuit Evaluation." CRYPTO 2013.
+### 論文
 
-**コミットメント**
-- Ben-Sasson et al. "Brakedown: Linear-time and Field-agnostic SNARKs." CRYPTO 2023.
-- Ames et al. "Ligero: Lightweight Sublinear Arguments." CCS 2017.
-- Zeilberger et al. "BaseFold." (2024)
+**textbook**
+[Ko25] Ko, Ronny. "The Beginner's Textbook for Fully Homomorphic Encryption." *arXiv preprint arXiv:2503.05136* (2025). online: https://arxiv.org/abs/2503.05136
 
-**Folding / IVC**
-- Kothapalli, Setty. "Nova: Recursive Zero-Knowledge Arguments from Folding Schemes." CRYPTO 2022.
-- Bünz, Chen. "LatticeFold+: Faster, Simpler, Shorter Lattice-Based Folding." eprint 2025/247.
+**FHEの概念の初出**
+[Riv78+] Ronald L. Rivest, Len Adleman, and Michael L. Dertouzos. On data banks and privacy homomorphisms. In R. A. DeMillo et al., editors, Foundations of Secure Computation, pages 165–179. Academic Press, 1978. online: https://people.csail.mit.edu/rivest/pubs.html#RAD78.
 
-**セキュリティ**
-- Khovratovich, Rothblum, Soukhanov. "On Black-Box Verifiability of GKR Protocols." eprint 2025/611. (KRS25)
+**Gnetry's Blue Print**
+[Gen09] Gentry, Craig. "Fully homomorphic encryption using ideal lattices." *Proceedings of the forty-first annual ACM symposium on Theory of computing*. 2009. online: https://dl.acm.org/doi/abs/10.1145/1536414.1536440
 
-**Programmable Cryptography**
-- Barry Whitehat. "Programmable Cryptography." 0xPARC blog (2022).
-- Canetti. "Universally Composable Security." FOCS 2001.
+**TFHE**
+[Chi20+] Chillotti, Ilaria, et al. "TFHE: Fast Fully Homomorphic Encryption Over the Torus: I. online: Chillotti et al." *Journal of Cryptology* 33.1 (2020): 34-91. https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/s00145-019-09319-x&casa_token=c_x0bNeB64gAAAAA:fizFBp08C1rUeRx7THtpIzytowXZlV9eiFtea4lPQ_h8o9XthUADw0Jo-OUG6Vmk1fCcs9OOadr8D27N
 
-**Longfellow**
-- Google. "Longfellow: ZK over Existing Identity Standards." OSS release (Jul 2025).
-- Trail of Bits + Ligero. "Longfellow Security Review." (2025).
-- Frigo & shelat. eprint 2024/2010.
+[Zha24+] Zhang, Junxue, et al. "Sok: Fully homomorphic encryption accelerators." *ACM Computing Surveys* 56.12 (2024): 1-32. online: https://dl.acm.org/doi/abs/10.1145/3676955
 
-**FHE/MPC**
-- Zama. "TFHE-rs Handbook." (2024-25).
-- Chillotti et al. "TFHE: Fast Fully Homomorphic Encryption." Journal of Cryptology 2020.
+**CKKS**
+[Che17+]Cheon, Jung Hee, et al. "Homomorphic encryption for arithmetic of approximate numbers." *International conference on the theory and application of cryptology and information security*. Cham: Springer International Publishing, 2017. online: https://link.springer.com/chapter/10.1007/978-3-319-70694-8_15
 
-**事件レポート**
-- Chainalysis. "Inside the KelpDAO Bridge Exploit." (Apr 2026).
-- LayerZero Labs. "Post-mortem: April 18 Exploit." (Apr 2026).
-- KelpDAO. "Response to LayerZero Statement." (Apr 2026).
+**BFV**
+[Fan12+] Fan, Junfeng, and Frederik Vercauteren. "Somewhat practical fully homomorphic encryption." *Cryptology ePrint Archive* (2012). online: https://eprint.iacr.org/2012/144
 
-**ZK Bug Tracker**
-- 0xPARC. github.com/0xPARC/zk-bug-tracker
+**BGV**
+[Bra14+] Brakerski, Zvika, Craig Gentry, and Vinod Vaikuntanathan. "(Leveled) fully homomorphic encryption without bootstrapping." *ACM Transactions on Computation Theory (TOCT)* 6.3 (2014): 1-36. online: https://dl.acm.org/doi/abs/10.1145/2633600
 
-**Privacy Pools**
-- Buterin et al. "Blockchain Privacy and Regulatory Compliance: Towards a Practical Equilibrium." eprint 2023/1322.
+**GSW**
+[Gen13+] Gentry, Craig, Amit Sahai, and Brent Waters. "Homomorphic encryption from learning with errors: Conceptually-simpler, asymptotically-faster, attribute-based." *Annual cryptology conference*. Berlin, Heidelberg: Springer Berlin Heidelberg, 2013. online: https://link.springer.com/chapter/10.1007/978-3-642-40041-4_5
+
+**FHEW**
+[Duc15+] Ducas, Léo, and Daniele Micciancio. "FHEW: bootstrapping homomorphic encryption in less than a second." *Annual international conference on the theory and applications of cryptographic techniques*. Berlin, Heidelberg: Springer Berlin Heidelberg, 2015. online: https://link.springer.com/chapter/10.1007/978-3-662-46800-5_24
+
+**vFHE**
+[Kna23+] Knabenhans, Christian, et al. "vfhe: Verifiable fully homomorphic encryption." *Proceedings of the 12th Workshop on Encrypted Computing & Applied Homomorphic Cryptography*. 2023. online: https://dl.acm.org/doi/abs/10.1145/3689945.3694806
+
+### 書籍
+
+[岡本19] 岡本龍明，『現代暗号の誕生と発展』，近代科学社，2019年1月31日初版発行，初版第２刷，2020年3月31日．
+
+### ライブラリ
+
+### 技術ブログ
+
+[松岡] (完全)準同型暗号の最前線1（入門編）. online: https://qiita.com/nindanaoto/items/98335ad4d32b927effa9
