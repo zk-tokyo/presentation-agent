@@ -207,59 +207,6 @@
         </ul>
       </div>
 
-      <!-- ===================== co-SNARK (ZK + MPC) ===================== -->
-      <div class="zm-col zm-col-co">
-        <div class="zm-col-head">
-          <div class="zm-col-name">co-SNARK</div>
-          <div class="zm-col-purpose"><strong>ZK + MPC</strong> を合成（証明 + 入力秘匿）</div>
-        </div>
-
-        <svg class="zm-scene" viewBox="0 0 380 200" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <marker id="zm-co-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-              <path d="M 0,0 L 10,5 L 0,10 z" fill="#6366f1"/>
-            </marker>
-          </defs>
-
-          <!-- parties (left, stacked) -->
-          <g v-for="(py, i) in [32, 100, 168]" :key="'co'+i">
-            <rect x="6" :y="py-21" width="70" height="42" rx="6" fill="#eef2ff" stroke="#a5b4fc" stroke-width="2"/>
-            <text x="41" :y="py-2" text-anchor="middle" class="zm-co-pt">P{{ i+1 }}</text>
-            <text x="41" :y="py+13" text-anchor="middle" class="zm-co-ps">w{{ i+1 }} 🔒</text>
-            <line x1="76" :y1="py" x2="150" y2="100" class="zm-co-edge"/>
-            <circle r="4" class="zm-co-share">
-              <animateMotion dur="2.1s" :begin="`${-i*0.6}s`" repeatCount="indefinite" :path="`M 76,${py} L 150,100`"/>
-            </circle>
-          </g>
-
-          <!-- MPC hub -->
-          <circle cx="176" cy="100" r="26" fill="#e0e7ff" stroke="#6366f1" stroke-width="2.5"/>
-          <text x="176" y="104" text-anchor="middle" class="zm-co-hub">MPC</text>
-
-          <!-- hub -> proof -->
-          <line x1="202" y1="100" x2="240" y2="100" class="zm-co-wire" marker-end="url(#zm-co-ar)"/>
-          <!-- proof shield -->
-          <g transform="translate(264,100)">
-            <path d="M 0,-22 L 18,-13 L 18,4 C 18,16 9,22 0,26 C -9,22 -18,16 -18,4 L -18,-13 Z" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
-            <text x="0" y="6" text-anchor="middle" class="zm-co-pi">π</text>
-          </g>
-          <!-- proof -> verifier -->
-          <line x1="284" y1="100" x2="318" y2="100" class="zm-co-wire" marker-end="url(#zm-co-ar)"/>
-          <!-- verifier -->
-          <g transform="translate(344,100)">
-            <circle r="17" fill="#ecfdf5" stroke="#10b981" stroke-width="2.2"/>
-            <path d="M -7,1 L -2,6 L 8,-5" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          </g>
-        </svg>
-
-        <ul class="zm-attrs">
-          <li><span class="zm-attr-key">隠す対象</span><span class="zm-attr-val">各 party の witness share</span></li>
-          <li><span class="zm-attr-key">信頼前提</span><span class="zm-attr-val">ZK の math ＋ MPC の閾値 (誰も全体を知らない)</span></li>
-          <li><span class="zm-attr-key">敵対モデル</span><span class="zm-attr-val"><strong>Party</strong> (collusion) ／ <strong>Verifier</strong> (share 窃取)</span></li>
-          <li class="zm-attr-emph"><span class="zm-attr-key">主な用途</span><span class="zm-attr-val">複数者の秘密から 1 つの公開検証可能な証明 (World ID)</span></li>
-        </ul>
-      </div>
-
     </div>
   </div>
 </template>
@@ -289,18 +236,18 @@
 }
 .zm-header strong { color: #4338ca; }
 
-/* 4-column grid (3 base primitives + 1 composition) */
+/* 3-column grid */
 .zm-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
 }
 
 .zm-col {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 13px;
+  gap: 12px;
+  padding: 16px;
   border-radius: 14px;
   border: 2px solid;
   background: white;
@@ -308,7 +255,6 @@
 .zm-col-zk  { border-color: #fcd34d; background: linear-gradient(180deg, #fffbeb 0%, white 35%); }
 .zm-col-mpc { border-color: #67e8f9; background: linear-gradient(180deg, #ecfeff 0%, white 35%); }
 .zm-col-fhe { border-color: #c4b5fd; background: linear-gradient(180deg, #f5f3ff 0%, white 35%); }
-.zm-col-co  { border-color: #a5b4fc; background: linear-gradient(180deg, #eef2ff 0%, white 35%); }
 
 /* Column head — consistent 3-line structure */
 .zm-col-head {
@@ -317,18 +263,16 @@
   gap: 4px;
 }
 .zm-col-name {
-  font-size: 27px;
+  font-size: 34px;
   font-weight: 900;
   font-family: 'JetBrains Mono', monospace;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   margin-bottom: 2px;
 }
 .zm-col-zk  .zm-col-name { color: #b45309; }
 .zm-col-mpc .zm-col-name { color: #0e7490; }
 .zm-col-fhe .zm-col-name { color: #6d28d9; }
-.zm-col-co  .zm-col-name { color: #4f46e5; }
-.zm-col-co  .zm-col-purpose strong { color: #3730a3; }
 
 .zm-col-purpose {
   font-size: 15px;
@@ -427,15 +371,6 @@
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* co-SNARK */
-.zm-co-pt { font-size: 13px; font-weight: 800; fill: #3730a3; font-family: 'JetBrains Mono', monospace; }
-.zm-co-ps { font-size: 11px; font-weight: 700; fill: #6366f1; font-family: 'JetBrains Mono', monospace; }
-.zm-co-hub { font-size: 14px; font-weight: 900; fill: #3730a3; font-family: 'JetBrains Mono', monospace; }
-.zm-co-pi { font-size: 16px; font-weight: 900; fill: #b45309; font-family: 'JetBrains Mono', monospace; }
-.zm-co-edge { stroke: #a5b4fc; stroke-width: 1.8; stroke-dasharray: 4 3; opacity: 0.7; animation: zm-flow 1.4s linear infinite; fill: none; }
-.zm-co-wire { stroke: #6366f1; stroke-width: 2.5; stroke-dasharray: 5 3; animation: zm-flow 1s linear infinite; fill: none; }
-.zm-co-share { fill: #6366f1; filter: drop-shadow(0 0 4px rgba(99,102,241,0.7)); }
-
 /* Attribute table — generous padding, aligned rows */
 .zm-attrs {
   list-style: none;
@@ -461,7 +396,6 @@
 .zm-col-zk  .zm-attrs li { border-left-color: #fcd34d; }
 .zm-col-mpc .zm-attrs li { border-left-color: #67e8f9; }
 .zm-col-fhe .zm-attrs li { border-left-color: #c4b5fd; }
-.zm-col-co  .zm-attrs li { border-left-color: #a5b4fc; }
 
 .zm-attr-key {
   font-weight: 800;
@@ -494,7 +428,6 @@
 .zm-col-zk  .zm-attr-emph { background: #fef3c7; }
 .zm-col-mpc .zm-attr-emph { background: #cffafe; }
 .zm-col-fhe .zm-attr-emph { background: #ede9fe; }
-.zm-col-co  .zm-attr-emph { background: #e0e7ff; }
 
 .zm-attr-emph .zm-attr-key { font-size: 12px; }
 .zm-attr-emph .zm-attr-val { font-size: 15px; font-weight: 800; }
