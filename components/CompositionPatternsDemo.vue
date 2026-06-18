@@ -15,6 +15,7 @@ const patterns: Pattern[] = [
   { index: '⑤', app: 'mpcML',              recipe: 'MPC + ML',                  desc: '各人の学習データを秘匿しつつ共同学習',     hue: 'cyan'   },
   { index: '⑥', app: 'Multisig op proof',  recipe: 'ZK + Multisig',             desc: 'Multisig 操作を秘匿しつつ正しさ証明',     hue: 'blue'   },
   { index: '⑦', app: 'ZK Light Client',    recipe: 'ZK + Bridge',               desc: 'cross-chain state を ZK proof で受け渡し', hue: 'green'  },
+  { index: '⑧', app: 'co-SNARK',           recipe: 'ZK + MPC',                  desc: '入力を秘匿したまま協調証明 (World ID)',   hue: 'amber'  },
 ]
 </script>
 
@@ -22,7 +23,7 @@ const patterns: Pattern[] = [
   <div class="cp-root">
     <!-- Top caption -->
     <div class="cp-cap">
-      <div class="cp-cap-title">7 つの代表的合成パターン</div>
+      <div class="cp-cap-title">8 つの代表的合成パターン</div>
       <div class="cp-cap-sub">各 app は crypto primitive どうし、または既存 system との合成として現れる</div>
     </div>
 
@@ -35,10 +36,6 @@ const patterns: Pattern[] = [
         </div>
         <div class="cp-recipe">{{ p.recipe }}</div>
         <div class="cp-desc">{{ p.desc }}</div>
-      </div>
-      <!-- empty slot to keep grid alignment -->
-      <div class="cp-card cp-card-ghost">
-        <div class="cp-ghost-text">…</div>
       </div>
     </div>
   </div>

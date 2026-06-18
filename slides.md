@@ -1,8 +1,8 @@
 ---
 theme: seriph
-title: "Advanced Cryptography Program Week 6: Programmable Cryptography Stack Design"
+title: "Advanced Cryptography Program Week 6: Application"
 info: |
-  Week 6 — Programmable Cryptography Stack Design
+  Week 6 — Application
   担当: Shouki Tsuda
 transition: slide-left
 mdc: true
@@ -81,6 +81,10 @@ src: ./slides/SL17.md
 ---
 
 ---
+src: ./slides/SL17b.md
+---
+
+---
 src: ./slides/SL18.md
 ---
 
@@ -93,19 +97,19 @@ src: ./slides/SL19b.md
 ---
 
 ---
-src: ./slides/SL20.md
----
-
----
-src: ./slides/SL20b.md
----
-
----
 src: ./slides/SL21.md
 ---
 
 ---
 src: ./slides/SL22.md
+---
+
+---
+src: ./slides/SL20.md
+---
+
+---
+src: ./slides/SL20b.md
 ---
 
 ---
@@ -118,6 +122,10 @@ src: ./slides/SL24.md
 
 ---
 src: ./slides/SL25.md
+---
+
+---
+src: ./slides/SL25b.md
 ---
 
 ---
