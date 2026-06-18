@@ -57,6 +57,10 @@ src: ./slides/SL12.md
 ---
 
 ---
+src: ./slides/SL12b.md
+---
+
+---
 src: ./slides/SL13.md
 ---
 
@@ -85,7 +89,15 @@ src: ./slides/SL19.md
 ---
 
 ---
+src: ./slides/SL19b.md
+---
+
+---
 src: ./slides/SL20.md
+---
+
+---
+src: ./slides/SL20b.md
 ---
 
 ---
@@ -126,4 +138,8 @@ src: ./slides/SL29.md
 
 ---
 src: ./slides/SL30.md
+---
+
+---
+src: ./slides/SL31.md
 ---
