@@ -53,6 +53,14 @@ src: ./slides/SL11.md
 ---
 
 ---
+src: ./slides/SL32.md
+---
+
+---
+src: ./slides/SL33.md
+---
+
+---
 src: ./slides/SL12.md
 ---
 
@@ -81,7 +89,15 @@ src: ./slides/SL17.md
 ---
 
 ---
+src: ./slides/SL21.md
+---
+
+---
 src: ./slides/SL17b.md
+---
+
+---
+src: ./slides/SL22.md
 ---
 
 ---
@@ -94,14 +110,6 @@ src: ./slides/SL19.md
 
 ---
 src: ./slides/SL19b.md
----
-
----
-src: ./slides/SL21.md
----
-
----
-src: ./slides/SL22.md
 ---
 
 ---
