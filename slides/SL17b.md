@@ -58,5 +58,5 @@ Sources: World "Privacy at World: A Technical Deep Dive" ｜ TACEO coSNARKs / TA
 Speaker Notes:
 co-SNARK 深掘りに入る前の動機づけ = World ID の全体構成。World ID は 1 つの暗号で出来ているのではなく、複数プリミティブの合成である点を最初に示す。
 【パイプライン】① Orb が虹彩をスキャン（専用 HW で人間性と一意性を取得）→ ② iris code 化（生の虹彩画像は破棄し、一意性判定用の特徴コードのみ残す）→ ③ 一意性チェック = MPC（iris code を複数ノードへ秘密分散し、平文を誰も見ずに既登録集合と照合。~18M users で本番）→ ④ 計算の検証可能性 = co-SNARK（MPC ノードが「照合を正しく計算した」証明を同時生成し、semi-honest から maliciously secure・公開検証可能へ格上げ。TACEO:Proof として 2025-07 本番化）→ ⑤ 匿名クレデンシャル = ZK（Semaphore メンバーシップ証明 + nullifier で身元を隠したまま「検証済み人間」を示し、二重使用を防止）。
-【強調点】③の MPC が土台で、④の co-SNARK はそこに「正しさの公開検証」を足す層。両者を混同しない（CLAUDE.md §9 の学術的厳密さ）。この合成の中核 ④ co-SNARK を次スライドから深掘りする。
+【強調点】③の MPC が土台で、④の co-SNARK はそこに「正しさの公開検証」を足す層。両者を混同しない（CLAUDE.md §9 の学術的厳密さ）。次に匿名性レイヤ（Semaphore + nullifier）を見たうえで、合成の中核 ④ co-SNARK を後続スライドで深掘りする。
 -->
