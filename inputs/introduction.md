@@ -64,11 +64,11 @@ event:
 		flowchart LR
 			subgraph　平文空間
 				direction LR
-				A[m1,m2] --> B[m1+m2]
+				A[m1,m2] --> |加算| B[m1+m2]
 			end
 			subgraph 暗号文空間
 			    direction LR
-				C[c1,c2] --> D[c1*c2]
+				C[c1,c2] --> |乗算| D[c1*c2]
 			end  
 			A -->|Enc| C
 			D -->|Dec| B
@@ -104,8 +104,9 @@ FHEの主要方式として以下の方式が挙げられる。
 	- 機械学習と相性が良く、最近盛んに研究されている。
 	- BFV/BGVと同様に準同型演算が比較的高速で、主にLHEとして運用される
 - GSW
-	- 
+	- 近似固有ベクトルの概念を利用して暗号文の形を工夫することにより、Bootstrappingの速度を大きく改善した
 - FHEW
+	- Homomorphic Accumulatorと呼ばれる操作を導入することにより、GSWからさらにBootstrappingを高速化
 - TFHE
 	- 後半で説明
 
@@ -113,20 +114,22 @@ FHEの主要方式として以下の方式が挙げられる。
 FHEには2つの大きな課題がある。
 
 - 実行コスト
+	- 平文から暗号文への変換により、データそのものが大きくなる
+	- 研究によりBootstrapping1回あたりの実行速度は数ms程度まで削減されているが、まだまだボトルネックとなっている
 - malleability
 	- 暗号にはnon-malleabilityと呼ばれる安全性の概念が存在する。
-	- FHEは準同型演算ができるが故にnon-malleabilityを満たすことができず、選択暗号文攻撃と呼ばれる種類の攻撃に対して脆弱になる。
+	- FHEは準同型演算ができるが故にnon-malleabilityと呼ばれる安全性を満たすことができず、選択暗号文攻撃と呼ばれる種類の攻撃に対して脆弱になる。
 	- 仮に選択暗号文攻撃がされなくても、クラウドコンピューティングなどのユースケースにおいてFHEを使って計算を外部に委託した際、計算結果が正しく得られたものなのかどうか確認することができない。
 
 #### LWE暗号
 
 **（判定）LWE問題とLWE仮定**
-整数$n\ge 1$，素数$q \ge 2$, および$\mathbb{Z}$上の確率分布$\chi$に対して，$\mathbf{s}\in\mathbb{F}^n_q$を固定し，$\mathbf{a}\in \mathbb{F}_q^n$を一様ランダムに取り，$e\in \mathbb{F}_q$を$\chi$に従ってとる．このとき$(\mathbf{a},b)\in \mathbb{F}^{n+1}_q$が$b=\Sigma_{i=1}^{q} \mathbf{as}+e \text{ mod } q$を満たす$\mathbf{a},b$の組みか、一様ランダムに選ばれた組みか識別する問題をLWE問題と呼び、この2つが計算量的に識別不可能であるという仮定をLWE仮定と呼ぶ。
+整数$k\ge 1$, $q \ge 2$, および$\mathbb{Z}$上の確率分布$\chi$に対して，$\mathbf{s}\in\mathbb{F}^k_q$を固定し，$\mathbf{a}\in \mathbb{F}_q^k$を一様ランダムに取り，$e\in \mathbb{F}_q$を$\chi$に従ってとる．このとき$(\mathbf{a},b)\in \mathbb{F}^{k+1}_q$が$b=\Sigma_{i=0}^{k-1} a_is_i+e \text{ mod } q$を満たす$\mathbf{a},b$の組みか、一様ランダムに選ばれた組みか識別する問題をLWE問題と呼び、この2つが計算量的に識別不可能であるという仮定をLWE仮定と呼ぶ。
 > [!note] 
 > LWEはLearning With Errorの略
 
 > [!note]
-> このLWE問題を判定LWE(Decision-LWE)と呼び，$b=\Sigma_{i=1}^{q} \mathbf{as}+e \text{ mod } q$が成立している時に$(\mathbf{a},b)$から$\mathbf{s}$を求める場合を探索LWE(Search-LWE)と呼びわけることがある。
+> このLWE問題を判定LWE(Decision-LWE)と呼び，$b=\Sigma_{i=0}^{k-1} a_is_i+e \text{ mod } q$が成立している時に$(\mathbf{a},b)$から$\mathbf{s}$を求める場合を探索LWE(Search-LWE)と呼びわけることがある。
 
 
 **LWE暗号**
@@ -155,22 +158,31 @@ LWE暗号は共通鍵暗号としても公開鍵暗号としても構成でき�
 **LWE暗号同士の演算**
 LWE暗号文はこのままでも、平文との加算・乗算、暗号文同士の加算が可能。
 
-- LWE暗号文$(\mathbf{a},b=\Sigma \mathbf{as}+\Delta m + e)$と平文$m'$の加算
-	- $m'$に$\Delta$をかけて$b$に加算すれば、$m+m'$を平文とするLWE暗号文$(\mathbf{a},\Sigma \mathbf{as}+\Delta (m+m') + e)$が得られる
-- LWE暗号文$(\mathbf{a},b=\Sigma \mathbf{as}+\Delta m + e)$と平文$m'$の乗算
-	- $\mathbf{a},b$の両方に$m'$をかければ、$mm'$を平文とするLWE暗号文$(m'\mathbf{a}, \Sigma m'\mathbf{as}+\Delta mm' + em')$が得られる
-- LWE暗号文$(\mathbf{a},b=\Sigma \mathbf{as}+\Delta m + e)$とLWE暗号文$(\mathbf{a'},b=\Sigma \mathbf{a's}+\Delta m' + e')$の加算
-	- $\mathbf{a}$と$\mathbf{a'}$、$b$と$b'$をそれぞれ加算することで、$m+m'$を平文とするLWE暗号文$(\mathbf{a+a'},\Sigma\mathbf{(a+a')s}+\Delta(m+m')+e+e')$が得られる
+- LWE暗号文$(\mathbf{a},b= \mathbf{as}+\Delta m + e)$と平文$m'$の加算
+	- $m'$に$\Delta$をかけて$b$に加算すれば、$m+m'$を平文とするLWE暗号文$(\mathbf{a}, \mathbf{as}+\Delta (m+m') + e)$が得られる
+- LWE暗号文$(\mathbf{a},b=\mathbf{as}+\Delta m + e)$と平文$m'$の乗算
+	- $\mathbf{a},b$の両方に$m'$をかければ、$mm'$を平文とするLWE暗号文$(m'\mathbf{a},  m'\mathbf{as}+\Delta mm' + em')$が得られる
+- LWE暗号文$(\mathbf{a},b=\mathbf{as}+\Delta m + e)$とLWE暗号文$(\mathbf{a'},b= \mathbf{a's}+\Delta m' + e')$の加算
+	- $\mathbf{a}$と$\mathbf{a'}$、$b$と$b'$をそれぞれ加算することで、$m+m'$を平文とするLWE暗号文$(\mathbf{a+a'},\mathbf{(a+a')s}+\Delta(m+m')+e+e')$が得られる
 > [!question]
 > これらの演算の結果得られた暗号文が正常に復号できるか各自確認
 
 これらの操作により出力される暗号文はもとの暗号文よりもノイズが増えている。よって、暗号文に対する演算を続けると、ノイズはいずれ$-\frac{\Delta}{2}\le e < \frac{\Delta}{2}$に収まらなくなる
 
-**LWE暗号文同士の乗算とノイズの管理**
+**LWE暗号文同士の乗算とノイズ**
 - Gentry's Blue Print
+	- 暗号文を多項式のベクトル表現として解釈し、暗号文同士の積を多項式の積として行う
+	- ノイズは指数関数的に増加する
 - BGV, BFV, CKKS
+	- ベクトルである暗号文同士のテンソル積を計算する
+	- テンソル積により暗号文の値が正規のものから変化するので、BGVではRelinearizationとModulus Switching、BFVではRelinearizationのみ、CKKSではRescalingを行う
+		- これらの操作の際にノイズの増大も遅らせされる
 - GSW
+	- 暗号文の形を工夫して行列の形で表すことで、暗号文同士の積を行列の同士の掛け算で実現
+	- ノイズの増大を抑えるためにGadget Decompositionを導入
 - FHEW, TFHE
+	- 特殊なBootstrappingを設計して暗号文同士をノイズを減らしながらNAND演算することを可能にした
+	- 平文同士の乗算は平文をbit表現し、暗号文の状態でNAND演算を組み合わせた乗算を適用すれば良い
 
 
 #### Bootstrappingの基本概念
@@ -295,6 +307,9 @@ $\text{RGSW}_\mathbf{s}(m)\boxdot \text{RLWE}_\mathbf{s}(m')=G^{-1}(\text{RLWE}_
 RLWEとRGSWを使うことで、$a_0,a_1\in\{0,1\}$に対して、ビット$b$によってどちらかを指定するマルチプレクサ$\text{MUX}(b,a_0,a_1)=a_b$を暗号文の状態で行えるCMUXが構成可能
 マルチプレクサは$\text{MUX}(b,a_0,a_1)=(1-b)a_0+ba_1=b(a_1-a_0)+a_0$より計算できるので、それぞれ、$c_0=\text{RLWE}_\mathbf{s}(a_0),c_1=\text{RLWE}_\mathbf{s}(a_1), c_b=\text{RGSW}_\mathbf{s}(b)$とすると、$\text{CMUX}(c_b,c_0,c_1)=c_b\boxdot(c_1-c_0)+c_0=\text{RLWE}_\mathbf{s}(a_b)$
 
+> ![question]
+> CMUXの出力が$a_b$のRLWE暗号文になることを各自確認
+
 #### Programmable Bootstrappingの流れ
 
 
@@ -304,13 +319,13 @@ RLWEとRGSWを使うことで、$a_0,a_1\in\{0,1\}$に対して、ビット$b$�
 
 **平文の状態での考え方** 
 $\mathbf{a}=\left(a_0,a_1,\ldots,a_{k-1}\right),\mathbf{s}=\left(s_0,s_1,\ldots,s_{k-1}\right)$とすると、$\mathbf{as}=\Sigma_{i=0}^{k-1}a_is_i$と表せる。
-$x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\Sigma_{i=0}^{k-2}a_is_i}v\right)$ より、$Q_k:=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v$は$\ Q_0=x^{-b}v$として次の漸化式から求められる。$Q_j=x^{a_{j-1}s_{j-1}}Q_{j-1}=\left\{\begin{matrix}Q_{j-1}\ \ \ \ \ \ if\ s_j=0\\x^{a_j}Q_{j-1}if{\ s}_j=1\end{matrix}\right.$
+$x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\Sigma_{i=0}^{k-2}a_is_i}v\right)$ より、$Q_{k-1}:=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v$は$\ Q_0=x^{-b}v$として次の漸化式から求められる。$Q_{j-1}=x^{a_{j-1}s_{j-1}}Q_{j-2}=\left\{\begin{matrix}Q_{j-2}\;\;\;\;\text{ if }\ s_{j-2}=0\\x^{a_{j-1}}Q_{j-2}\text{ if } s_{j-1}=1\end{matrix}\right.$
   よって$x^{-b+\mathbf{as}}v\;\text{mod}\;x^n+1$は以下のアルゴリズムから計算できる
-- $q_0 \gets x^{-b}v$
-- for $j=1\dots k$
-	- $Q_j \gets \text{MUX}(s_{j-1}, Q_{j-1}, x^{a_j}Q_{j-1})$
-- return $Q_k(=x^{-b+\mathbf{as}}v)$
-これを準同型演算で記述する。すなわち、MUXをCMUXに置き換える。それに伴い、$s_j$をRGSWで暗号化し、$v$をRLWEで暗号化する
+- $Q_0 \gets x^{-b}v$
+- for $j=2\dots k$
+	- $Q_{j-1} \gets \text{MUX}(s_{j-1}, Q_{j-2}, x^{a_{j-1}}Q_{j-2})$
+- return $Q_{k-1}\;(=x^{-b+\mathbf{as}}v)$
+これを準同型演算で記述する。すなわち、MUXをCMUXに置き換える。それに伴い、$s_{j-1}$をRGSWで暗号化し、$v$をRLWEで暗号化する
 
 >[!note]
 >正確に言うと$v$はノイズのない"自明な"RLWE暗号文として扱われる。すなわち、$v$を定数項以外の係数が0の多項式、aをゼロベクトルとすることで$v=\Sigma 0\cdot s + v+ 0\;\text{mod}\;x^n+1$とできるので、$v=\text{RLWE}_s(v)=(0,\dots,0,v)$とみなせる
@@ -324,10 +339,10 @@ $x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^
 **Blind Rotaionのアルゴリズム**
 - $\hat{\mathbf{a}}\gets\lceil \mathbf{a}\frac{2n}{q}\rfloor$
 - $\hat{b}\gets \lceil b\frac{2n}{q}\rfloor$
-- $c_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(v)$ (RLWE暗号文は多項式をかけることができる。)
-- for $j=1\dots k$
-	- $Q_j \gets \text{CMUX}(\text{RGSW}_{\mathbf{s}'}(s_{j-1}), Q_{j-1}, x^{\hat{a}_j}Q_{j-1})$
-- return $Q_k(=\text{RLWE}_{\mathbf{s}'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v))$
+- $Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(v)$ (RLWE暗号文は多項式をかけることができる。)
+- for $j=2\dots k$
+	- $Q_{j-1} \gets \text{CMUX}(\text{RGSW}_{\mathbf{s}'}(s_{j-1}), Q_{j-2}, x^{\hat{a}_{j-1}}Q_{j-2})$
+- return $Q_{k-1}(=\text{RLWE}_{\mathbf{s}'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v))$
 
 
 
@@ -343,15 +358,18 @@ $\text{RLWE}_{s'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v)=(\mathbf{a}',b')$
 $\mu = m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
 とすると、
 $b'=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}=\mathbf{a's'}+\mu+e$
-$=\Sigma_{j=1}^k(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$
+$=\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$
 $\;\;\;+ m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
 $\;\;\;+(e_0+e1x+\dots+e_{n-1}x^{n-1})$
 実はこれの定数項$b'_0$がそのまま$m$のLWE暗号文になっている。
-$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$\Sigma_{j=1}^k(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は$\mathbf{a'}$と$\mathbf{s'}$の各要素の係数をいい感じに配置しなおしたベクトル$\mathbf{a''}=(a'_{1,0},-a'_{1,n-1},\dots,a'_{1,1},\dots,a'_{k,0},-a'_{k,n-1},\dots,a'_{k,1} )$
+$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は$\mathbf{a'}$と$\mathbf{s'}$の各要素の係数をいい感じに配置しなおしたベクトル$\mathbf{a''}=(a'_{1,0},-a'_{1,n-1},\dots,a'_{1,1},\dots,a'_{k,0},-a'_{k,n-1},\dots,a'_{k,1} )$
 $\mathbf{s''}=(s'_{1,0},-s'_{1,n-1},\dots,s'_{1,1},\dots,s'_{k,0},-s'_{k,n-1},\dots,s'_{k,1} )$
 を用いて
 $b'_0=\mathbf{a''s''}+m+e_0$
 と表せる。よって、$\mathbf{s''}$によるLWE暗号文$\text{LWE}_{s''}(m)=(\mathbf{a''},b_0)$が構成できる。
+
+> ![todo]
+> $a'',s''$の要素に急にマイナスが出てくる理由の説明を記述
 
 **Sample Extractionのアルゴリズム**
 
@@ -359,14 +377,13 @@ $b'_0=\mathbf{a''s''}+m+e_0$
 
 Sample Extractionで得られた暗号文$(\mathbf{a''},b_0)$は$\mathbf{s''}$による暗号文なので、これを$\mathbf{s}$による暗号文に変換する。
 わかりやすさのために$\mathbf{a''}$と$\mathbf{s''}$を
-$\mathbf{a''}=(a''_{1},a''_{2},\dots,a''_{kn})$
-$\mathbf{s''}=(s''_{1},s''_{2},\dots,s''_{kn} )$
+$\mathbf{a''}=(a''_{0},a''_{2},\dots,a''_{kn-1})$
+$\mathbf{s''}=(s''_{0},s''_{2},\dots,s''_{kn-1} )$
 と書き直しておく。
-$\mathbf{a''}$のGadget Decomposition $G^{-1}(\mathbf{a''})=(g^{-1}(a''_1),\dots,g^{-1}(a''_1kn))$を考え。
-$g^{-1}(a''_i)=(\bar{a}_{i,1},\dots,\bar{a}_{i,l})$
+$\mathbf{a''}$のGadget Decomposition $G^{-1}(\mathbf{a''})=(g^{-1}(a''_0),\dots,g^{-1}(a''_{kn-1}))$を考え、$g^{-1}(a''_i)=(\bar{a}_{i,1},\dots,\bar{a}_{i,l})$
 とする。さらに、
 $ksk[i,j]=\text{LWE}_\mathbf{s}(s''_iB^{-j})(1\le i \le kn, 1 \le j \le l)$ (これをKey switching keyと呼ぶ)を考えると、目的の$\mathbf{s}$による$m$の暗号文$\text{LWE}_\mathbf{s}(m)$は次のように計算できる。
-$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}ksk[i,j]$
+$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l}_{j=1}\bar{a}_{i,j}ksk[i,j]$
 なぜこれでうまくいくのか?
 以下のように変形する。
 $\text{LWE}_\mathbf{s}(m)= (0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}ksk[i,j]$
@@ -494,7 +511,7 @@ $v(x) =  x + x^2 + x^3+x^4+  \text{ mod } x^4+1$
 	- BlindRotation
 	- SampleExtraction
 	- KeySwitching
-	- Bootstrapping
+	- NoiseBootstrapping
 	- HomNAND
 - HomNANDによる全加算機の実装
 
