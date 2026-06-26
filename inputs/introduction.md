@@ -18,7 +18,7 @@ event:
 
 - 前半
 	- FHEに関するハイレベルな話
-	- なるべくその場で理解してホワイトボードセッションでの議論に活かしてほしい
+	- なるべくその場で吸収してホワイトボードセッションでの議論に活かしてほしい
 - 後半
 	- TFHEのアルゴリズムの数式を使った説明
 	- その場で理解しきれなくても良く、帰宅してから咀嚼してほしい
@@ -27,17 +27,17 @@ event:
 
 計：2時間
 
-| 時刻 | セクション                                                                       | 内容                                                                                                                                                                                                      | 時間（分） |
-| ---- | -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-|      | FHEの概要 <br>ここは他の部分を削ってでも時間かけて丁寧にやりたい                 | • FHEの概念と歴史 <br>◦ 前の週まででEncryption Schemeの話はしない気がするのでそこらへんも軽く触る <br>• HE, SHE, LHE, FHEのカテゴリ <br>• FHEの主要方式 <br>• FHEの課題 <br>◦ 速度 <br>◦ non-malleability | 25         |
-|      | LWE暗号 <br>今回はLWEは道具として使うので、SISへの帰着とかなぜ困難かの話はしない | • 近似連立方程式 <br>• LWE問題 <br>• LWE暗号 <br>• LWE暗号文同士の演算<br>• LWE以外の方式に基づくFHE                                                                                                      | 15         |
-|      | Bootstrappingの基本概念                                                          | • ノイズを削減する基本的な発想                                                                                                                                                                            | 5          |
-|      | TFHEの概略                                                                       | • TFHEの基本情報 <br>• Bootstrappingでノイズ削減しながら関数評価できるよって話                                                                                                                            | 5          |
-|      | Programmable Bootstrappingの概観                                                 | • 円分多項式（week4まででやってなければ） <br>• Programmable Bootstrappingの基本アイディア                                                                                                                | 15         |
-|      | 休憩                                                                             | -                                                                                                                                                                                                         | 10         |
-|      | RLWEとRGSW                                                                       | • RLWE暗号 <br>• Gadget Decomposition <br>• RGSW暗号 <br>• RLWEとRGSWによるexternal product <br>• cmux                                                                                                    | 10         |
-|      | Programmable Bootstrappingの流れ                                                 | • BlindRotation <br>• SampleExtraction <br>• KeySwitching                                                                                                                                                 | 30         |
-|      | HomNAND                                                                          |                                                                                                                                                                                                           | 5          |
+| 時刻  | セクション                         | 内容                                                                                                                                                       | 時間（分） |
+| --- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+|     | FHEの概要                        | • FHEの概念と歴史 <br>◦ 前の週まででEncryption Schemeの話はしない気がするのでそこらへんも軽く触る <br>• HE, SHE, LHE, FHEのカテゴリ <br>• FHEの主要方式 <br>• FHEの課題 <br>◦ 速度 <br>◦ non-malleability | 25    |
+|     | LWE暗号                         | • 近似連立方程式 <br>• LWE問題 <br>• LWE暗号 <br>• LWE暗号文同士の演算<br>• LWE以外の方式に基づくFHE                                                                                 | 15    |
+|     | Bootstrappingの基本概念            | • ノイズを削減する基本的な発想                                                                                                                                         | 5     |
+|     | TFHEの概略                       | • TFHEの基本情報 <br>• Bootstrappingでノイズ削減しながら関数評価できるよって話                                                                                                     | 5     |
+|     | Programmable Bootstrappingの概観 | • 円分多項式（week4まででやってなければ） <br>• Programmable Bootstrappingの基本アイディア                                                                                        | 15    |
+|     | 休憩                            | -                                                                                                                                                        | 10    |
+|     | RLWEとRGSW                     | • RLWE暗号 <br>• Gadget Decomposition <br>• RGSW暗号 <br>• RLWEとRGSWによるexternal product <br>• cmux                                                           | 10    |
+|     | Programmable Bootstrappingの流れ | • BlindRotation <br>• SampleExtraction <br>• KeySwitching                                                                                                | 30    |
+|     | HomNAND                       |                                                                                                                                                          | 5     |
 
 ### コンテンツ
 
@@ -46,7 +46,7 @@ event:
 **暗号方式**
 
 - 暗号方式(Encryption Scheme)の定義
-	- 以下の3の（確率的）多項式時間アルゴリズムの組み(Gen, Enc, Dec)はDec(Enc(m))=mを満たす時、暗号方式と呼ばれる。
+	- 以下の3の（確率的）多項式時間アルゴリズムの組み(Gen, Enc, Dec)は$\text{Dec}(\text{Enc}(m))=m$を満たす時、暗号方式と呼ばれる。
 	    - Gen$(1^\lambda)\to key$: 鍵を生成する（鍵生成）
 	    - Enc$(m, key_{enc})\to c$: 平文と鍵から暗号文を生成する（暗号化）
 	    - Dec$(c, key_{dec})\to m$: 暗号文と鍵から平文を生成する（復号）
@@ -84,11 +84,13 @@ event:
 FHEにはいくつかの種類がある。
 
 - Somewhat Homomorphic Encryption(SHE)
-	- 暗号文のまま加算と乗算が行えるものの、どちらかの演算の演算回数に定数回の上限が与えられる。
+	- 暗号文のまま加算と乗算が有限回行える。
 - Leveled Homomorphic Encryption(LHE)
-	- SHEと同様にどちらかの演算に上限があるが、その上限がパラメーターによって変化する。
-- Fully Homomorphic Encryption(FHE) - 暗号文の状態で加算と乗算を行えて、どちらも制限回数がない。
-  この分け方の他にも世代として分類することもある。
+	- 暗号文のままの加算と乗算をあらかじめパラメーターによって定められた回数だけBootstrappingなしに行うことができる。
+- Fully Homomorphic Encryption(FHE) 
+	- Bootstrappingにより、暗号文の状態で加算と乗算を制限回数なしに行える。
+
+この分け方の他にも世代として分類することもある。
 
 FHEの主要方式として以下の方式が挙げられる。
 
@@ -111,15 +113,16 @@ FHEの主要方式として以下の方式が挙げられる。
 	- 後半で説明
 
 **FHEの課題**
-FHEには2つの大きな課題がある。
 
 - 実行コスト
 	- 平文から暗号文への変換により、データそのものが大きくなる
-	- 研究によりBootstrapping1回あたりの実行速度は数ms程度まで削減されているが、まだまだボトルネックとなっている
-- malleability
-	- 暗号にはnon-malleabilityと呼ばれる安全性の概念が存在する。
+	- 暗号文同士の演算は平文同士の演算よりもはるかに重い
+	- 研究によりBootstrapping1回あたりの実行速度は改善されているが、依然としてボトルネックになっている。
+- パラメータ設計
+	- 安全性と計算速度、その他の点でもFHEにはトレードオフがあり、それらの間でバランスをとるパラメータ設計が問題になる
+- 検証可能性
+	- クラウドコンピューティングなどのユースケースにおいてFHEを使って計算を外部に委託した際、計算結果が正しく得られたものなのかどうか確認することができない。
 	- FHEは準同型演算ができるが故にnon-malleabilityと呼ばれる安全性を満たすことができず、選択暗号文攻撃と呼ばれる種類の攻撃に対して脆弱になる。
-	- 仮に選択暗号文攻撃がされなくても、クラウドコンピューティングなどのユースケースにおいてFHEを使って計算を外部に委託した際、計算結果が正しく得られたものなのかどうか確認することができない。
 
 #### LWE暗号
 
@@ -268,14 +271,14 @@ LWEの多項式版
 **Gadget Decomposition**
 10進数と2進数の変換を思い出す。例：$19 = 1\cdot 2^4+0\cdot2^3+0\cdot2^2+1\cdot2^1+1$。
 これと似たようなことを整数の剰余に対してやるのがGadget Decomposition。
-mod $q$上のある値$r$に対して、基数$B$を用いて$r = \Sigma_{i=1}^l r_i\frac{q}{B^i}\;\;(0\le r_i < B)$と表したとき、$g^{-1}(r)=(r_1,r_2,\dots,r_l)$として、この操作をGadget Decompositionと呼ぶ。ベクトル$\mathbf{r}=(r_1,\dots,r_{k+1})$に対しては$G^{-1}(\mathbf{r})=(g^{-1}(r_1),\dots,g^{-1}(r_{k+1}))$とする。
+mod $q$上のある値$r$に対して、基数$B$を用いて$r = \Sigma_{i=0}^{l-1} r_i\frac{q}{B^{i+1}}\;\;(0\le r_i < B)$と表したとき、$g^{-1}(r)=(r_0,r_1,\dots,r_{l-1})$として、この操作をGadget Decompositionと呼ぶ。ベクトル$\mathbf{r}=(r_0,\dots,r_k)$に対しては$G^{-1}(\mathbf{r})=(g^{-1}(r_0),\dots,g^{-1}(r_k))$とする。
 	例：$B=4,l=3$とすると，$\mathbb{F}_{64}$上の値47のGadget Decompositionは，
 	$47=1\frac{64}{4}+0\frac{64}{16}+15\frac{64}{64}$
 	より、$g^{-1}(47)=(1,0,15)$
 >[!note]
 >$r_i$の範囲はノイズ管理の面で$-\lfloor B/2 \rfloor \le r_i < \lceil B/2 \rceil$とすることがある。($\lfloor a\rfloor$は切り下げ、$\lceil a\rceil$は切り上げ)
 
-多項式$f$に対しても同様のことを考えて、それぞれの項$a_ix^i$について$g^{-1}(a_i)$として、$\frac{q}{B^l}$について項をまとめ直し, $f=\Sigma_{i=1}^lf_i\frac{q}{B^l}$として、$g^{-1}(f)=(f_1,\dots,f_l)$とする。
+多項式$f$に対しても同様のことを考えて、それぞれの項$a_ix^i$について$g^{-1}(a_i)$として、$\frac{q}{B^{i+1}}$について項をまとめ直し, $f=\Sigma_{i=0}^{l-1}f_i\frac{q}{B^{i+1}}$として、$g^{-1}(f)=(f_0,\dots,f_{l-1})$とする。
 	例：$\mathbb{F}_{16}$上のモジュラス$x^3+1$の多項式に対して$B=2, l = 4$とすると，$f=15x^2+4x+7 \text{ mod }x^3+1$をGadget Decompositionをする。
 	まずそれぞれの係数に対してGadget Decompositionすると
 	$g^{-1}(15)=1\frac{16}{2}+1\frac{16}{4}+1\frac{16}{8}+1\frac{16}{16}$
@@ -287,7 +290,7 @@ mod $q$上のある値$r$に対して、基数$B$を用いて$r = \Sigma_{i=1}^l
 	ゆえに、
 	$g^{-1}(f)=(x^2,x^2+x+1,x^2+1,x^2+1)$
 
-多項式のベクトル$\mathbf{f}=(f_1,\dots,f_{k+1})$についても同様に$G^{-1}(\mathbf{f})=(g^{-1}(f_1),\dots,g^{-1}(f_{k+1}))$とする。
+多項式のベクトル$\mathbf{f}=(f_0,\dots,f_k)$についても同様に$G^{-1}(\mathbf{f})=(g^{-1}(f_0),\dots,g^{-1}(f_k))$とする。
 また、以下の行列をGadget Matrixと呼ぶ。
 $G^T=\begin{pmatrix}1/B & & &\\ \vdots & & &\\ 1/B^l & & &\\ & 1/B & \\ & \vdots & &\\ & 1/B^l & &\\ & & \ddots &\\ & & & 1/B\\ & & & \vdots \\ & & & 1/B^l\end{pmatrix}$
 もし$B^l=q$ならば、$G^{-1}(\mathbf{f})G^T=\mathbf{f}$が成り立つ
@@ -319,13 +322,13 @@ RLWEとRGSWを使うことで、$a_0,a_1\in\{0,1\}$に対して、ビット$b$�
 
 **平文の状態での考え方** 
 $\mathbf{a}=\left(a_0,a_1,\ldots,a_{k-1}\right),\mathbf{s}=\left(s_0,s_1,\ldots,s_{k-1}\right)$とすると、$\mathbf{as}=\Sigma_{i=0}^{k-1}a_is_i$と表せる。
-$x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\Sigma_{i=0}^{k-2}a_is_i}v\right)$ より、$Q_{k-1}:=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v$は$\ Q_0=x^{-b}v$として次の漸化式から求められる。$Q_{j-1}=x^{a_{j-1}s_{j-1}}Q_{j-2}=\left\{\begin{matrix}Q_{j-2}\;\;\;\;\text{ if }\ s_{j-2}=0\\x^{a_{j-1}}Q_{j-2}\text{ if } s_{j-1}=1\end{matrix}\right.$
+$x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\Sigma_{i=0}^{k-2}a_is_i}v\right)$ より、$Q_k:=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v$は$\ Q_0=x^{-b}v$として次の漸化式から求められる。$Q_{j+1}=x^{a_js_j}Q_j=\left\{\begin{matrix}Q_j\;\;\;\;\text{ if }\ s_j=0\\x^{a_j}Q_j\text{ if } s_j=1\end{matrix}\right.$
   よって$x^{-b+\mathbf{as}}v\;\text{mod}\;x^n+1$は以下のアルゴリズムから計算できる
 - $Q_0 \gets x^{-b}v$
-- for $j=2\dots k$
-	- $Q_{j-1} \gets \text{MUX}(s_{j-1}, Q_{j-2}, x^{a_{j-1}}Q_{j-2})$
-- return $Q_{k-1}\;(=x^{-b+\mathbf{as}}v)$
-これを準同型演算で記述する。すなわち、MUXをCMUXに置き換える。それに伴い、$s_{j-1}$をRGSWで暗号化し、$v$をRLWEで暗号化する
+- for $j=0\dots k-1$
+	- $Q_{j+1} \gets \text{MUX}(s_j, Q_j, x^{a_j}Q_j)$
+- return $Q_k\;(=x^{-b+\mathbf{as}}v)$
+これを準同型演算で記述する。すなわち、MUXをCMUXに置き換える。それに伴い、$s_j$をRGSWで暗号化し、$v$をRLWEで暗号化する
 
 >[!note]
 >正確に言うと$v$はノイズのない"自明な"RLWE暗号文として扱われる。すなわち、$v$を定数項以外の係数が0の多項式、aをゼロベクトルとすることで$v=\Sigma 0\cdot s + v+ 0\;\text{mod}\;x^n+1$とできるので、$v=\text{RLWE}_s(v)=(0,\dots,0,v)$とみなせる
@@ -340,9 +343,9 @@ $x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^
 - $\hat{\mathbf{a}}\gets\lceil \mathbf{a}\frac{2n}{q}\rfloor$
 - $\hat{b}\gets \lceil b\frac{2n}{q}\rfloor$
 - $Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(v)$ (RLWE暗号文は多項式をかけることができる。)
-- for $j=2\dots k$
-	- $Q_{j-1} \gets \text{CMUX}(\text{RGSW}_{\mathbf{s}'}(s_{j-1}), Q_{j-2}, x^{\hat{a}_{j-1}}Q_{j-2})$
-- return $Q_{k-1}(=\text{RLWE}_{\mathbf{s}'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v))$
+- for $j=0\dots k-1$
+	- $Q_{j+1} \gets \text{CMUX}(\text{RGSW}_{\mathbf{s}'}(s_j), Q_j, x^{\hat{a}_j}Q_j)$
+- return $Q_k(=\text{RLWE}_{\mathbf{s}'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v))$
 
 
 
@@ -362,8 +365,8 @@ $=\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,
 $\;\;\;+ m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
 $\;\;\;+(e_0+e1x+\dots+e_{n-1}x^{n-1})$
 実はこれの定数項$b'_0$がそのまま$m$のLWE暗号文になっている。
-$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は$\mathbf{a'}$と$\mathbf{s'}$の各要素の係数をいい感じに配置しなおしたベクトル$\mathbf{a''}=(a'_{1,0},-a'_{1,n-1},\dots,a'_{1,1},\dots,a'_{k,0},-a'_{k,n-1},\dots,a'_{k,1} )$
-$\mathbf{s''}=(s'_{1,0},-s'_{1,n-1},\dots,s'_{1,1},\dots,s'_{k,0},-s'_{k,n-1},\dots,s'_{k,1} )$
+$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は$\mathbf{a'}$と$\mathbf{s'}$の各要素の係数をいい感じに配置しなおしたベクトル$\mathbf{a''}=(a'_{0,0},-a'_{0,n-1},\dots,-a'_{0,1},\dots,a'_{k-1,0},-a'_{k-1,n-1},\dots,-a'_{k-1,1} )$
+$\mathbf{s''}=(s'_{0,0},s'_{0,1},\dots,s'_{0,n-1},\dots,s'_{k-1,0},s'_{k-1,1},\dots,s'_{k-1,n-1} )$
 を用いて
 $b'_0=\mathbf{a''s''}+m+e_0$
 と表せる。よって、$\mathbf{s''}$によるLWE暗号文$\text{LWE}_{s''}(m)=(\mathbf{a''},b_0)$が構成できる。
@@ -377,20 +380,20 @@ $b'_0=\mathbf{a''s''}+m+e_0$
 
 Sample Extractionで得られた暗号文$(\mathbf{a''},b_0)$は$\mathbf{s''}$による暗号文なので、これを$\mathbf{s}$による暗号文に変換する。
 わかりやすさのために$\mathbf{a''}$と$\mathbf{s''}$を
-$\mathbf{a''}=(a''_{0},a''_{2},\dots,a''_{kn-1})$
-$\mathbf{s''}=(s''_{0},s''_{2},\dots,s''_{kn-1} )$
+$\mathbf{a''}=(a''_{0},a''_{1},\dots,a''_{kn-1})$
+$\mathbf{s''}=(s''_{0},s''_{1},\dots,s''_{kn-1} )$
 と書き直しておく。
-$\mathbf{a''}$のGadget Decomposition $G^{-1}(\mathbf{a''})=(g^{-1}(a''_0),\dots,g^{-1}(a''_{kn-1}))$を考え、$g^{-1}(a''_i)=(\bar{a}_{i,1},\dots,\bar{a}_{i,l})$
+$\mathbf{a''}$のGadget Decomposition $G^{-1}(\mathbf{a''})=(g^{-1}(a''_0),\dots,g^{-1}(a''_{kn-1}))$を考え、$g^{-1}(a''_i)=(\bar{a}_{i,0},\dots,\bar{a}_{i,l-1})$
 とする。さらに、
-$ksk[i,j]=\text{LWE}_\mathbf{s}(s''_iB^{-j})(1\le i \le kn, 1 \le j \le l)$ (これをKey switching keyと呼ぶ)を考えると、目的の$\mathbf{s}$による$m$の暗号文$\text{LWE}_\mathbf{s}(m)$は次のように計算できる。
-$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l}_{j=1}\bar{a}_{i,j}ksk[i,j]$
+$ksk[i,j]=\text{LWE}_\mathbf{s}(s''_iB^{-(j+1)})(0\le i \le kn-1, 0 \le j \le l-1)$ (これをKey switching keyと呼ぶ)を考えると、目的の$\mathbf{s}$による$m$の暗号文$\text{LWE}_\mathbf{s}(m)$は次のように計算できる。
+$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
 なぜこれでうまくいくのか?
 以下のように変形する。
-$\text{LWE}_\mathbf{s}(m)= (0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}ksk[i,j]$
-$=(0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iB^{-j})$
-$=(0,\dots,0,b'_0)-\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iB^{-j})$
-$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn}_{i=1}\Sigma^{l}_{j=1}\bar{a}_{i,j}s''_iB^{-j})$
-$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn}_{i=1}a''_{i}s''_i)$
+$\text{LWE}_\mathbf{s}(m)= (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
+$=(0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iB^{-(j+1)})$
+$=(0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iB^{-(j+1)})$
+$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}s''_iB^{-(j+1)})$
+$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn-1}_{i=0}a''_{i}s''_i)$
 $=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
 ここで$\text{LWE}_\mathbf{s}(\mathbf{a''s''})=(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$と表すと、
 $(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
@@ -408,7 +411,7 @@ $v(x)=\Sigma_{i,j} f(\mu_i)x^{\mu_i+e_j} \;\text{mod}\; x^n+1$
 のようにすると、$x^{-i}v(x)$が$0\le i \le n-1$である限り。
 また、任意の多変数関数はKolmogorovの重ね合わせ定理により単変数多項式の線型結合で表現することができる
 関数評価を行わないノイズを減らすだけのProgrammable BootstrappingをNoise Bootstrappingと呼ぶことがある。
-
+また、最近はCKKSにおいてfunctional Bootstrappingと呼ばれる、近似値に対する任意関数の評価が研究されている
 
 
 #### HomNAND
@@ -568,7 +571,7 @@ $v(x) =  x + x^2 + x^3+x^4+  \text{ mod } x^4+1$
 [縫田20] 縫田光司，『耐量子計算機暗号』，森北出版，第１版第１刷，2020年8月7日．
 
 ### ライブラリ
-
+- OpenFHE https://openfhe.org/downloads/
 ### 技術ブログ
 
 [松岡] (完全)準同型暗号の最前線1（入門編）. online: https://qiita.com/nindanaoto/items/98335ad4d32b927effa9

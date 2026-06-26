@@ -40,8 +40,8 @@ PERSONA_OUT := $(OUTPUT_DIR)/02_Audience_Persona.json
 STRATEGY_OUT := $(OUTPUT_DIR)/03_Core_Strategy.json
 ARGUMENT_OUT := $(OUTPUT_DIR)/04_Governing_Argument.json
 BLUEPRINT_OUT := $(OUTPUT_DIR)/05_Narrative_Blueprint.json
-DRAFTS_OUT := $(OUTPUT_DIR)/06_Slide_Drafts.json
-VISUALS_OUT := $(OUTPUT_DIR)/07_Visual_Designs.json
+DRAFTS_OUT := $(OUTPUT_DIR)/06_Slide_Content.json
+VISUALS_OUT := $(OUTPUT_DIR)/07_Visual_Design.json
 REVIEW_OUT := $(OUTPUT_DIR)/08_Executive_Review.json
 EXPORT_OUT := $(OUTPUT_DIR)/09_Final_Export.json
 

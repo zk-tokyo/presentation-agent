@@ -1,8 +1,8 @@
 ---
 theme: seriph
-title: "Advanced Cryptography Program Week 1: Programmable Cryptography Overview"
+title: "Advanced Cryptography Program Week 5: 完全準同型暗号 (FHE)"
 info: |
-  Week 1 — Programmable Cryptography Overview
+  Week 5 — 完全準同型暗号 (FHE)
   担当: gohan
 transition: slide-left
 mdc: true
@@ -18,6 +18,10 @@ src: ./slides/SL02.md
 
 ---
 src: ./slides/SL03.md
+---
+
+---
+src: ./slides/SL04.md
 ---
 
 ---
@@ -37,15 +41,15 @@ src: ./slides/SL08.md
 ---
 
 ---
-src: ./slides/SL08b.md
----
-
----
 src: ./slides/SL09.md
 ---
 
 ---
 src: ./slides/SL10.md
+---
+
+---
+src: ./slides/SL11.md
 ---
 
 ---
@@ -97,29 +101,5 @@ src: ./slides/SL23.md
 ---
 
 ---
-src: ./slides/SL25.md
----
-
----
-src: ./slides/SL26.md
----
-
----
-src: ./slides/SL27.md
----
-
----
-src: ./slides/SL28.md
----
-
----
-src: ./slides/SL29.md
----
-
----
-src: ./slides/SL31.md
----
-
----
-src: ./slides/SL32.md
+src: ./slides/SL24.md
 ---
