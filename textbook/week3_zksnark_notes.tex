@@ -5,10 +5,13 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{geometry}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{longtable}
 \usepackage{tabularx}
+\usepackage{tikz}
 \usepackage{xcolor}
+\usetikzlibrary{arrows.meta,calc,positioning}
 
 \geometry{margin=25mm}
 \hypersetup{
@@ -80,6 +83,162 @@
   \paragraph*{発展内容}\begin{quote}
 }{%
   \end{quote}
+}
+
+\newenvironment{diagramfigure}[1]{%
+  \begin{center}
+  \begin{minipage}{0.98\linewidth}
+  \centering
+  {\small\textbf{#1}\par}\medskip
+}{%
+  \end{minipage}
+  \end{center}
+}
+
+\tikzset{
+  zknode/.style={draw=blue!55!black, fill=NoteBlue, rounded corners=2pt, align=center, inner sep=4pt, font=\normalsize},
+  zkgreen/.style={draw=green!40!black, fill=NoteGreen, rounded corners=2pt, align=center, inner sep=4pt, font=\normalsize},
+  zkyellow/.style={draw=yellow!45!black, fill=NoteYellow, rounded corners=2pt, align=center, inner sep=4pt, font=\normalsize},
+  zkred/.style={draw=red!45!black, fill=NoteRed, rounded corners=2pt, align=center, inner sep=4pt, font=\normalsize},
+  zkgray/.style={draw=gray!65!black, fill=NoteGray, rounded corners=2pt, align=center, inner sep=4pt, font=\normalsize},
+  zkhash/.style={draw=blue!50!black, fill=NoteBlue, circle, minimum size=8mm, align=center, font=\normalsize},
+  zkarrow/.style={-{Latex[length=2mm]}, thick, draw=blue!55!black},
+  zksoftarrow/.style={-{Latex[length=2mm]}, thick, draw=gray!65!black},
+  zkdotarrow/.style={-{Latex[length=2mm]}, dashed, thick, draw=gray!65!black}
+}
+
+\newcommand{\DiagramProverVerifier}{%
+\begin{diagramfigure}{ProverとVerifierの見える関係}
+\begin{tikzpicture}[node distance=8mm and 16mm]
+  \node[zkgray, text width=30mm, minimum height=12mm] (prover) {Prover\\証明者};
+  \node[zkgray, text width=30mm, minimum height=12mm, right=58mm of prover] (verifier) {Verifier\\検証者};
+  \node[zkred, text width=32mm, below=of prover] (witness) {鍵付きの箱\\witness \(w\)};
+  \node[zkgreen, text width=78mm, above=9mm of $(prover)!0.5!(verifier)$] (statement) {公開されたstatement \(x\)};
+  \node[zknode, text width=25mm, below=of $(prover)!0.5!(verifier)$] (proof) {proof\\ \(\pi\)};
+  \node[zkyellow, text width=36mm, below=of verifier] (check) {\(\Verify(x,\pi)=1\)};
+  \draw[zksoftarrow] (statement.south west) -- (prover.north);
+  \draw[zksoftarrow] (statement.south east) -- (verifier.north);
+  \draw[zkarrow] (witness) -- (proof);
+  \draw[zkarrow] (proof) -- (check);
+  \draw[zkdotarrow] (witness.east) to[bend right=16] node[below,font=\scriptsize] {ここは渡さない} (verifier.south);
+\end{tikzpicture}
+\end{diagramfigure}
+}
+
+\newcommand{\DiagramWaldoZk}{%
+\begin{diagramfigure}{場所を見せずに「知っている」と納得させる}
+\begin{tikzpicture}[x=6mm,y=6mm]
+  \node[font=\small] at (2.5,4.7) {全体の絵};
+  \foreach \x in {0,...,5} {
+    \foreach \y in {0,...,3} {
+      \draw[fill=NoteGray, draw=gray!55] (\x,\y) rectangle ++(1,1);
+    }
+  }
+  \fill[red!65] (3.5,2.5) circle (0.22);
+  \node[font=\scriptsize] at (3.5,2.5) {?};
+  \node[font=\small] at (12,4.7) {proofとして見せるもの};
+  \draw[fill=black!80, draw=black] (9,0) rectangle ++(6,4);
+  \draw[fill=white, draw=yellow!60!black, line width=1pt] (12,2) rectangle ++(1,1);
+  \fill[red!65] (12.5,2.5) circle (0.22);
+  \node[font=\scriptsize] at (12.5,2.5) {?};
+  \draw[zkarrow] (6.4,2) -- node[above,font=\scriptsize] {位置は隠す} (8.5,2);
+  \node[font=\scriptsize, align=center] at (12, -0.7) {周囲を隠した窓だけを見せる\\検証者は対象の存在を確認できる};
+\end{tikzpicture}
+\end{diagramfigure}
+}
+
+\newcommand{\DiagramSigmaProtocol}{%
+\begin{diagramfigure}{離散対数の知識証明: 三つのメッセージ}
+\begin{tikzpicture}[node distance=7mm and 20mm]
+  \node[zkgray, text width=24mm] (p) {Prover\\秘密 \(x\)};
+  \node[zkgray, text width=24mm, right=72mm of p] (v) {Verifier\\公開 \(g,y\)};
+  \coordinate (p1) at ($(p.south)+(0,-8mm)$);
+  \coordinate (v1) at ($(v.south)+(0,-8mm)$);
+  \coordinate (p2) at ($(p1)+(0,-9mm)$);
+  \coordinate (v2) at ($(v1)+(0,-9mm)$);
+  \coordinate (p3) at ($(p2)+(0,-9mm)$);
+  \coordinate (v3) at ($(v2)+(0,-9mm)$);
+  \draw[zkarrow] (p1) -- node[above] {\(a=g^r\)} (v1);
+  \draw[zkarrow] (v2) -- node[above] {challenge \(b\)} (p2);
+  \draw[zkarrow] (p3) -- node[above] {\(c=r+bx\)} (v3);
+  \node[zkyellow, text width=44mm, below=15mm of v] (check) {検証\\ \(g^c=ay^b\)};
+  \node[zkred, text width=52mm, below=11mm of p] (extract) {同じ \(a\) に二通り答えられるなら\\ \(x=c_1-c_0\)};
+  \draw[zksoftarrow] (v3) -- (check);
+\end{tikzpicture}
+\end{diagramfigure}
+}
+
+\newcommand{\DiagramFiniteFieldClock}{%
+\begin{diagramfigure}{F7の計算は時計のように回る}
+\begin{tikzpicture}[scale=0.95]
+  \foreach \i in {0,...,6} {
+    \node[draw=blue!55!black, fill=NoteBlue, circle, minimum size=8mm] (n\i) at ({90-360*\i/7}:2.1) {\i};
+  }
+  \draw[zkarrow] (n5) to[bend left=18] node[below left] {+6} (n4);
+  \draw[zkarrow] (n3) to[out=10,in=-25,looseness=1.45] node[right,xshift=2mm] {x5} (n1);
+  \node[align=center] at (5.2,0.5) {5+6=11, 余り4\\3x5=15, 余り1};
+\end{tikzpicture}
+\end{diagramfigure}
+}
+
+\newcommand{\DiagramFftButterfly}{%
+\begin{diagramfigure}{FFTの蝶形: 偶数次と奇数次を合流させる}
+\begin{tikzpicture}[node distance=14mm and 28mm]
+  \node[zknode, text width=31mm] (even) {\(\displaystyle f_{\mathrm{even}}(\omega^{2j})\)};
+  \node[zknode, text width=31mm, below=of even] (odd) {\(\displaystyle f_{\mathrm{odd}}(\omega^{2j})\)};
+  \node[zkyellow, text width=39mm, right=of even] (top) {\(\displaystyle f(\omega^j)\)};
+  \node[zkyellow, text width=39mm, right=of odd] (bottom) {\(\displaystyle f(\omega^{j+n/2})\)};
+  \draw[zkarrow] (even) -- (top);
+  \draw[zkarrow] (odd) -- node[pos=0.65,above,fill=white,inner sep=1pt,font=\normalsize] {\(\displaystyle \times\omega^j\)} (top);
+  \draw[zkarrow] (even) -- (bottom);
+  \draw[zkarrow] (odd) -- node[pos=0.43,below,fill=white,inner sep=1pt,font=\normalsize] {\(\displaystyle \times(-\omega^j)\)} (bottom);
+\end{tikzpicture}
+\end{diagramfigure}
+}
+
+\newcommand{\DiagramEllipticAddition}{%
+\begin{diagramfigure}{楕円曲線の点加算: 直線で交わり、上下を反転する}
+\begin{tikzpicture}[x=13mm,y=13mm]
+  \draw[->, gray!60] (-3,0) -- (3.2,0);
+  \draw[->, gray!60] (0,-2.1) -- (0,2.1);
+  \draw[blue!65!black, thick, domain=-2.1:2.1, samples=100, smooth] plot (\x,{0.28*(\x*\x*\x-\x)});
+  \coordinate (P) at (-1.55,-0.62);
+  \coordinate (Q) at (0.85,-0.03);
+  \coordinate (minusR) at (1.65,0.75);
+  \coordinate (R) at (1.65,-0.75);
+  \draw[gray!70, thick] (-2.05,-0.75) -- (2.1,0.95);
+  \fill[red!70] (P) circle (0.07) node[below left] {\(P\)};
+  \fill[red!70] (Q) circle (0.07) node[below right] {\(Q\)};
+  \fill[red!70] (minusR) circle (0.07) node[above right] {\(-R\)};
+  \fill[green!50!black] (R) circle (0.07) node[below right] {\(R=P+Q\)};
+  \draw[zksoftarrow] (minusR) -- node[right,font=\scriptsize] {反転} (R);
+\end{tikzpicture}
+\end{diagramfigure}
+}
+
+\newcommand{\DiagramMerkleTree}{%
+\begin{diagramfigure}{Merkle proof: 必要なのはrootまでのsiblingだけ}
+\begin{tikzpicture}[x=12mm,y=11mm]
+  \foreach \i in {0,...,7} {
+    \node[zkhash] (h\i) at (\i,0) {h\i};
+    \node[font=\small] at (\i,-0.65) {m\i};
+  }
+  \node[zkhash] (h01) at (0.5,1.2) {h01};
+  \node[zkhash] (h23) at (2.5,1.2) {h23};
+  \node[zkhash] (h45) at (4.5,1.2) {h45};
+  \node[zkhash] (h67) at (6.5,1.2) {h67};
+  \node[zkhash] (h03) at (1.5,2.4) {h03};
+  \node[zkhash] (h47) at (5.5,2.4) {h47};
+  \node[zkhash, fill=NoteYellow] (root) at (3.5,3.6) {root};
+  \foreach \a/\b in {h0/h01,h1/h01,h2/h23,h3/h23,h4/h45,h5/h45,h6/h67,h7/h67,h01/h03,h23/h03,h45/h47,h67/h47,h03/root,h47/root} {
+    \draw[zksoftarrow] (\a) -- (\b);
+  }
+  \foreach \n in {h2,h3,h01,h47,root} {
+    \draw[red!60, line width=1pt] (\n) circle (5mm);
+  }
+  \node[zkred, text width=38mm, right=12mm of h47] {leaf m2 のproof\\h3, h01, h47};
+\end{tikzpicture}
+\end{diagramfigure}
 }
 
 \title{Week 3 教材ノート\\zkSNARKを理解するための前提知識}
@@ -239,11 +398,15 @@ zkの文脈ではwitnessを秘密にしたいことが多いが、用語とし�
 例えば「公開値 \(y\) に対して、\(x^3 + x + 5 = y\) を満たす秘密の \(x\) を知っている」という主張では、
 \(y\) がstatement、\(x\) がwitnessである。
 
+\DiagramProverVerifier
+
 \subsection{ウォーリーを探せの直感}
 
 ウォーリーの場所を知っていることを示すには、場所そのものを教えればよい。
 しかし、それでは秘密が漏れてしまう。
 zero-knowledgeの直感は、「場所を直接教えずに、たしかに知っていると納得してもらう」ことにある。
+
+\DiagramWaldoZk
 
 実際のzkSNARKでは、数学的な制約と暗号的なcommitmentを使う。
 ただし、直感としては次の対応を持っておくとよい。
@@ -483,6 +646,8 @@ zkSNARKでは、似た言葉が同時に出るため、次の三つを分けて�
   が成り立つかを確認する。
 \end{enumerate}
 
+\DiagramSigmaProtocol
+
 完全性はすぐに確認できる。
 証明者が本当に \(x\) を知っていれば、
 
@@ -575,6 +740,8 @@ SNARKでも、対話をハッシュで置き換える発想がよく使われる
 \]
 
 となる。
+
+\DiagramFiniteFieldClock
 
 一般に、整数を \(m\) で割った余りの集合は \(\Z/m\Z\) と書く。
 足し算、引き算、掛け算は \(\Z/m\Z\) の中で閉じているので、これは剰余環である。
@@ -949,6 +1116,8 @@ FFTでは、多項式を偶数次と奇数次に分ける。
   f(X)=f_{\mathrm{even}}(X^2)+X f_{\mathrm{odd}}(X^2)
 \]
 
+\DiagramFftButterfly
+
 すると、
 
 \[
@@ -1075,6 +1244,8 @@ FFT & 点集合の対称性を使って再帰的に分解する & 大規模な�
 と計算する。
 この \((x_3,y_3)\) が \(P+Q\) である。
 割り算は有限体での逆元を使う。
+
+\DiagramEllipticAddition
 
 \(P=Q\) の場合、つまり点を2倍する場合は接線の傾きを使う。
 
@@ -1367,6 +1538,8 @@ leafにデータのハッシュを置き、隣り合うノードをハッシュ�
 証明サイズは \(O(\log n)\) であり、構造が単純で実装しやすい。
 安全性は主にハッシュ関数の衝突困難性や第二原像困難性に依存する。
 秘匿性が必要な場合は、leafに十分なランダム性を混ぜるなど、別の設計が必要になる。
+
+\DiagramMerkleTree
 
 ハッシュ関数に求められる性質は、目的によって少し違う。
 ハッシュ関数の安全性を考えるときは、少なくとも次を区別しておくとよい。
