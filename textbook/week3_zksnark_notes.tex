@@ -36,7 +36,7 @@
 \newcommand{\GT}{\mathbb{G}_T}
 \newcommand{\E}{\mathcal{E}}
 \newcommand{\Hash}{\mathsf{Hash}}
-\newcommand{\View}{\mathsf{View}}
+\newcommand{\Ext}{\mathsf{Ext}}
 \newcommand{\Sim}{\mathsf{Sim}}
 \newcommand{\negl}{\mathsf{negl}}
 
@@ -269,7 +269,7 @@ SNARKは、\textbf{Succinct Non-interactive Argument of Knowledge}の略であ�
 
 \begin{description}
   \item[Completeness] 正しいwitnessを持つ正直な証明者のproofが受理されること。
-  \item[Soundness / Knowledge soundness] 嘘の主張を通しにくく、有効なproofからwitnessの存在または知識を保証できること。
+  \item[Knowledge soundness] 有効なproofを作れるなら、対応するwitnessを取り出せること。
   \item[Zero-knowledge] witnessについて、statementの正しさ以上の情報を漏らさないこと。
   \item[Succinctness] proofが短く、検証が速いこと。
   \item[Non-interactive] 証明者と検証者が何度も対話しなくてよいこと。
@@ -300,7 +300,8 @@ ZKPは、この \(x\in L_R\) という主張を、\(w\) を明かさずに納得
   \negl(\lambda) < \frac{1}{p(\lambda)}
 \]
 となる関数を意味する。
-対話型プロトコル \(\Pi=(P,V)\) が関係 \(R\) に対するzero-knowledge proofまたはargumentであるとは、典型的には次を満たすことをいう。
+このノートではSNARKを見据え、健全性は最初からknowledge soundnessとして述べる。
+対話型プロトコル \(\Pi=(P,V)\) が関係 \(R\) に対するzero-knowledge argument of knowledgeであるとは、典型的には次を満たすことをいう。
 
 \begin{description}
   \item[Completeness]
@@ -310,27 +311,56 @@ ZKPは、この \(x\in L_R\) という主張を、\(w\) を明かさずに納得
   \]
   となる。
 
-  \item[Soundness]
-  \(x\notin L_R\) のとき、効率的な不正証明者 \(P^\ast\) が検証者を受理させる確率は高々 \(\negl(\lambda)\) である。
+  \item[Knowledge soundness]
+  任意の効率的な不正証明者 \(P^\ast\) に対して、効率的な抽出器 \(\Ext^{P^\ast}\) が存在する。
+  証明者が \(x\) について検証者を受理させる確率を
   \[
-    \Pr[\langle P^\ast,V\rangle(x)=1]\le \negl(\lambda)
+    \alpha_{P^\ast}(x)
+    :=
+    \Pr[\langle P^\ast,V\rangle(x)=1]
   \]
-  argumentでは、この条件を計算量的な攻撃者に対して要求する。
+  とおく。
+  このとき、抽出器は同じ証明者の振る舞いからwitnessを取り出し、
+  \[
+    \Pr[
+      w\leftarrow \Ext^{P^\ast}(x) : (x,w)\in R
+    ]
+    \ge
+    \alpha_{P^\ast}(x)-\negl(\lambda)
+  \]
+  を満たす。
+  つまり、受理されるproofを高い確率で作れる証明者からは、対応するwitnessもほぼ同じ確率で取り出せる。
+  実際の定義では、抽出器が証明者を巻き戻すか、共通参照文字列を使うかなどに応じて実験の細部を定める。
 
   \item[Zero-knowledge]
   任意の効率的な不正検証者 \(V^\ast\) に対して、効率的なシミュレータ \(S\) が存在し、
   \[
-    \View_{V^\ast}^{P(w)}(x) \stackrel{c}{\approx} S(x)
+    \mathsf{Real}_{P,V^\ast}(x,w) \stackrel{c}{\approx}
+    \mathsf{Sim}_{S,V^\ast}(x)
   \]
   が成り立つ。
-  左辺は本物の証明で検証者が見る会話全体、右辺はwitnessを使わずに生成した擬似的な会話である。
-  二つが計算量的に区別できないなら、検証者はwitness由来の追加情報を得ていないと考える。
+  左辺は本物の実行で検証者が得る記録、右辺はwitnessを使わずに生成した擬似的な記録である。
+  この記録には、公開入力、検証者の乱数、送受信したメッセージ、最終的な受理または拒否の結果が含まれる。
+  文献ではこの記録をviewと呼ぶことが多い。
+  二つの記録が計算量的に区別できないなら、検証者はwitness由来の追加情報を得ていないと考える。
 \end{description}
 
-SNARKでいうknowledge soundnessは、soundnessをさらに強めた性質である。
-有効なproofを作れる証明者から、対応するwitnessを取り出す抽出器が存在する、という形で定式化する。
-非対話型のZKPでは、検証者のviewはproof \(\pi\) そのものに近い。
-その場合のzero-knowledge性は、実 proof の分布
+SNARKのような非対話型ZKPでは、会話は一つのproof \(\pi\) に圧縮される。
+この場合のknowledge soundnessは、受理される \(\pi\) を作る証明者から、抽出器が \(R(x,w)=1\) を満たす \(w\) を取り出せる、という形で読む。
+少し形式的には、任意の効率的な証明生成アルゴリズム \(A\) に対して抽出器 \(\Ext^A\) が存在し、
+\[
+  \Pr[
+    \Verify(\mathsf{vk},x,\pi)=1
+    \ \text{and}\
+    (x,w)\notin R
+    :
+    (x,\pi,w)\leftarrow \mathsf{KExp}_{A,\Ext^A}(\mathsf{pp})
+  ]
+  \le \negl(\lambda)
+\]
+と書ける。
+ここで \(\mathsf{KExp}\) は、同じ公開パラメータ \(\mathsf{pp}\) のもとで \(A\) からstatementとproofを得て、抽出器からwitnessを得る実験を表す。
+その場合のzero-knowledge性は、実proofの分布
 \[
   \{\pi \leftarrow P(x,w)\}
 \]
@@ -339,6 +369,10 @@ SNARKでいうknowledge soundnessは、soundnessをさらに強めた性質で�
   \{\pi \leftarrow S(x)\}
 \]
 が計算量的に区別できない、という形で読むとよい。
+ここでいう「同じ」は、proofの文字列が毎回一致するという意味ではない。
+証明生成には乱数が入ることがあり、同じstatementとwitnessから複数の異なるproofが出てもよい。
+重要なのは、実proofとsimulated proofを見分ける効率的な検証者が存在しないことである。
+perfect zero-knowledgeでは分布が完全に一致し、statistical zero-knowledgeでは統計的に近く、computational zero-knowledgeでは計算量的に区別できない。
 \end{advancedbox}
 
 \subsection{zkSNARKの部品一覧}
@@ -464,7 +498,7 @@ zkSNARKでは、似た言葉が同時に出るため、次の三つを分けて�
 
 だからである。
 
-健全性の直感は、「証明者が \(b=0\) と \(b=1\) の両方に答えられるなら \(x\) を取り出せる」ことである。
+知識健全性の直感は、「証明者が \(b=0\) と \(b=1\) の両方に答えられるなら \(x\) を取り出せる」ことである。
 同じ \(a\) に対して
 
 \[
@@ -2128,7 +2162,7 @@ DSLや開発者体験に興味がある & 課題E & arithmetizationをAPI設計�
 \begin{description}
   \item[statement] 公開された主張。検証者が確認したい対象。
   \item[witness] 主張を成り立たせる補助情報。zkでは通常、検証者に隠したい入力として扱う。
-  \item[proof / argument] witnessを直接明かさず、statementが正しいことを示す証拠。SNARKでは計算量的健全性に基づくargumentと呼ぶのが厳密である。
+  \item[proof / argument] witnessを直接明かさず、statementが正しいことを示す証拠。SNARKでは計算量的な知識健全性に基づくargumentと呼ぶのが厳密である。
   \item[SNARK] Succinct Non-interactive Argument of Knowledgeの略。短い非対話なargumentで、知識健全性を持つ。
   \item[有限体] 有限個の要素からなり、足し算、引き算、掛け算、0以外での割り算ができる代数構造。
   \item[\(\Z/m\Z\)] 整数を \(m\) で割った余りの集合。足し算、引き算、掛け算が閉じた剰余環。
