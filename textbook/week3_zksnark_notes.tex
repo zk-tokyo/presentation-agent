@@ -2041,18 +2041,51 @@ boundary constraintは、例えば
 
 \subsection{Plonkish arithmetization}
 
-Plonkish arithmetizationでは、計算を表のように並べ、各行にgateを割り当てる。
-主な概念は次の通りである。
+Plonkish arithmetizationでは、計算を長方形の表として並べる。
+行は「計算の場所」、列は「値の種類」と考えるとよい。
+各セルには有限体の元が入る。
+R1CSが掛け算を一つずつ制約に分解する見方だとすると、Plonkishは「各行にどの形の制約を置くか」を設計する見方である。
+
+\[
+\begin{array}{c|ccc|cc}
+\text{row} & a & b & c & q_{\mathrm{mul}} & q_{\mathrm{add}}\\
+\hline
+0 & a_0 & b_0 & c_0 & 1 & 0\\
+1 & a_1 & b_1 & c_1 & 0 & 1\\
+2 & a_2 & b_2 & c_2 & 1 & 0
+\end{array}
+\]
+
+この表で、\(a,b,c\) は計算中の値を置く列、\(q_{\mathrm{mul}},q_{\mathrm{add}}\) はどのgateを有効にするかを表す列である。
+例えば \(q_{\mathrm{mul}}=1\) の行では掛け算gateを使い、\(q_{\mathrm{add}}=1\) の行では足し算gateを使う。
 
 \begin{description}
-  \item[wire] 各行に入る値。
-  \item[selector] その行でどの制約を有効にするかを選ぶ係数。
-  \item[gate] 足し算、掛け算、カスタム演算などの制約。
-  \item[copy constraint] 別の場所にある値が同じであることを示す制約。
-  \item[lookup] ある値が事前定義された表に含まれることを示す仕組み。
+  \item[advice column] 証明者がwitnessから埋める列。秘密の中間値は主にここに入る。
+  \item[instance column] 公開入力を置く列。検証者も値を知っている。
+  \item[fixed column] 回路ごとに固定された列。selectorやlookup tableの値を置く。
+  \item[wire] gateが読むセルの値。たとえば現在行の \(a_i,b_i,c_i\) など。
+  \item[selector] その行でどの制約を有効にするかを選ぶ固定係数。
+  \item[gate] 行ごとに満たすべき多項式制約。足し算、掛け算、カスタム演算などを表す。
+  \item[copy constraint] 別の場所にあるセルが同じ値であることを示す制約。
+  \item[lookup] ある値や値の組が、事前定義された表に含まれることを示す仕組み。
 \end{description}
 
-カスタムゲートやlookupを使うと、R1CSでは多くの制約が必要な処理を、より自然に、少ない行数で表せることがある。
+Plonkishで大切なのは、表の各行を直接チェックするだけで終わらせず、列全体を多項式として扱う点である。
+行数を \(n\)、評価領域を
+
+\[
+  H=\{1,\omega,\omega^2,\ldots,\omega^{n-1}\}
+\]
+
+とする。
+列 \(a\) は、各行の値 \(a_i\) を満たす多項式 \(A(X)\) として表す。
+
+\[
+  A(\omega^i)=a_i
+\]
+
+同様に、列 \(b,c,q_{\mathrm{mul}},q_{\mathrm{add}}\) も多項式 \(B(X),C(X),Q_{\mathrm{mul}}(X),Q_{\mathrm{add}}(X)\) になる。
+この変換により、「すべての行でgateが満たされる」という条件を、多項式が \(H\) 上でゼロになる条件として扱える。
 
 \subsection{Plonkishのgateを式で見る}
 
@@ -2089,10 +2122,145 @@ selectorを使うと、同じ表の中で行ごとに有効なgateを切り替�
 掛け算gateにしたい行では \(q_M=1\)、\(q_O=-1\)、他を0にする。
 足し算gateにしたい行では \(q_L=q_R=1\)、\(q_O=-1\)、他を0にする。
 
+\[
+\begin{array}{c|ccccc|l}
+\text{gate} & q_M & q_L & q_R & q_O & q_C & \text{得られる制約}\\
+\hline
+\text{mul} & 1 & 0 & 0 & -1 & 0 & a_i b_i-c_i=0\\
+\text{add} & 0 & 1 & 1 & -1 & 0 & a_i+b_i-c_i=0\\
+\text{const} & 0 & 1 & 0 & 0 & -k & a_i-k=0
+\end{array}
+\]
+
+列全体で書くと、次の多項式
+
+\[
+  G(X)
+  =
+  Q_M(X)A(X)B(X)
+  +Q_L(X)A(X)
+  +Q_R(X)B(X)
+  +Q_O(X)C(X)
+  +Q_C(X)
+\]
+
+が評価領域 \(H\) 上でゼロになることを要求する。
+つまり、
+
+\[
+  G(\omega^i)=0\qquad(i=0,\ldots,n-1)
+\]
+
+である。
+これはさらに、vanishing polynomial
+
+\[
+  Z_H(X)=X^n-1
+\]
+
+を使って、
+
+\[
+  Z_H(X)\mid G(X)
+\]
+
+と表せる。
+この「行ごとの制約」を「割り切りの主張」に変えるところが、Plonkishを多項式commitmentと組み合わせやすくする。
+
+\begin{examplebox}{小例: \(x^3+x+5=y\) をPlonkish風に配置する}
+秘密入力を \(x\)、公開入力を \(y\) とする。
+中間値を
+\[
+  t_1=x^2,\qquad t_2=t_1x,\qquad t_3=x+5
+\]
+と置く。
+3本のadvice列 \(a,b,c\) を使うと、次のような配置にできる。
+
+\[
+\begin{array}{c|ccc|l}
+\text{row} & a & b & c & \text{gate}\\
+\hline
+0 & x & x & t_1 & a\cdot b=c\\
+1 & t_1 & x & t_2 & a\cdot b=c\\
+2 & x & 5 & t_3 & a+b=c\\
+3 & t_2 & t_3 & y & a+b=c
+\end{array}
+\]
+
+この表だけを見ると、row 0の \(t_1\) とrow 1の \(t_1\) が同じ値であること、各行に現れる \(x\) が同じ値であること、row 1の \(t_2\) とrow 3の \(t_2\) が同じ値であること、row 2の \(t_3\) とrow 3の \(t_3\) が同じ値であること、row 3の \(y\) が公開入力 \(y\) と同じ値であることも制約として入れる必要がある。
+そこでcopy constraintを加える。
+\[
+  c_0=a_1,\qquad a_0=b_0=b_1=a_2,\qquad c_1=a_3,\qquad c_2=b_3,\qquad c_3=y_{\mathrm{public}}
+\]
+のように、同じ値として扱うセルを結ぶ。
+\end{examplebox}
+
 copy constraintは、別々の行や列に置かれた値が同じであることを保証する。
-例えば、ある行で計算した \(t_1\) を次の行でも使いたい場合、表の別の場所に同じ値を置くだけでは不十分である。
-「この二つのセルは同じ値である」という制約が必要になる。
+例えば、ある行で計算した \(t_1\) を次の行でも使いたい場合、「この二つのセルは同じ値である」という制約が必要になる。
 Plonk系では、この同値関係をpermutation argumentなどでまとめて扱う。
+
+\subsection{copy constraintとpermutation argument}
+
+Plonkishのcopy constraintは、「同じ値であるべきセルたち」を集合として指定する。
+例えば、次の三つのセルが同じ値を持つべきだとする。
+
+\[
+  (a,0),\qquad (b,3),\qquad (c,7)
+\]
+
+これは
+
+\[
+  a_0=b_3=c_7
+\]
+
+という意味である。
+全てのcopy constraintを一つずつ検証すると数が多くなる。
+そこでPlonk系では、セル位置全体にpermutationを作る。
+同じ値であるべきセルを一つのcycleに並べ、
+
+\[
+  (a,0)\mapsto (b,3)\mapsto (c,7)\mapsto (a,0)
+\]
+
+のようにする。
+証明者は、値の列がこのpermutationの前後で同じ多重集合に見えることを示す。
+
+少し式で見る。
+各セル位置に一意なラベルを付ける多項式を \(ID_j(X)\)、copy constraintに従って並べ替えたラベルを \(\Sigma_j(X)\) とする。
+ここで \(j\) は列番号で、例として \(j=1,2,3\) が \(a,b,c\) に対応すると考える。
+検証者がランダムな \(\beta,\gamma\) を選ぶと、正しい割り当てでは次のような積が一致する。
+
+\[
+  \prod_{i=0}^{n-1}\prod_{j=1}^{3}
+  \bigl(w_j(\omega^i)+\beta ID_j(\omega^i)+\gamma\bigr)
+  =
+  \prod_{i=0}^{n-1}\prod_{j=1}^{3}
+  \bigl(w_j(\omega^i)+\beta \Sigma_j(\omega^i)+\gamma\bigr)
+\]
+
+ここで \(w_1=A,w_2=B,w_3=C\) である。
+左辺は元のセル位置で値を見る積、右辺はcopy constraintでつないだ先のセル位置で値を見る積である。
+同じ値として結ばれたセルが本当に同じなら、二つの積は一致する。
+どこかで値がずれると、ランダムな \(\beta,\gamma\) に対して偶然一致する確率は小さくなる。
+
+実際のプロトコルでは、この積全体をそのまま計算する形よりも、grand product polynomial \(Z(X)\) を使って段階的に確認する。
+直感的には、
+
+\[
+  Z(\omega^{i+1})
+  =
+  Z(\omega^i)
+  \cdot
+  \frac{
+    \prod_j\bigl(w_j(\omega^i)+\beta ID_j(\omega^i)+\gamma\bigr)
+  }{
+    \prod_j\bigl(w_j(\omega^i)+\beta \Sigma_j(\omega^i)+\gamma\bigr)
+  }
+\]
+
+という更新を全行で満たすことを示す。
+最初と最後が \(1\) に戻れば、全体の積が一致したことになる。
 
 \subsection{lookupを式の気持ちで理解する}
 
@@ -2107,11 +2275,49 @@ lookupは、「この値は許可された表の中にある」という制約�
 これをbit分解で表すこともできるが、lookup tableを使えば「\(v\) がbyte tableに含まれる」として扱える。
 ハッシュ関数、範囲チェック、VM命令のopcodeなど、表で確認したい処理に向いている。
 
+lookupも、多重集合の一致として理解できる。
+例えば、証明中で出てくる値の列を
+
+\[
+  v_0,v_1,\ldots,v_{r-1}
+\]
+
+とし、許可されたtableを
+
+\[
+  T=\{0,1,\ldots,255\}
+\]
+
+とする。
+証明したいことは、各 \(v_i\) が \(T\) の中に含まれることである。
+実際のlookup argumentでは、入力列とtable列を圧縮したり、並べ替えたり、余分なtable要素を追加したりして、「入力で使った値をtable側で受け止められる」ことを示す。
+
+複数列のlookupもよく使う。
+例えば命令表が
+
+\[
+\begin{array}{c|ccc}
+\text{opcode} & x & y & z\\
+\hline
+1 & x & y & x+y\\
+2 & x & y & x\cdot y
+\end{array}
+\]
+
+のような意味を持つとき、\((\text{opcode},x,y,z)\) というタプルがtableに含まれることを示せば、VMの一命令を一つのlookupとして扱える。
+この発想は、zkVMやハッシュ関数の実装で頻繁に使われる。
+
+\begin{warnbox}
+lookupは便利だが、tableの意味を正しく設計する必要がある。
+例えばbyte tableを使っても、その値がどの整数表現の一部なのか、桁の順序は何か、overflowをどう扱うかは別の制約で決める。
+lookupは「表に含まれる」という主張を助ける道具であり、プログラム全体の意味づけは周辺のgateやcopy constraintと合わせて決まる。
+\end{warnbox}
+
 \subsection{CCS}
 
 CCSは、Customizable Constraint Systemsの略で、R1CSなどを一般化して扱うための枠組みである。
 特にfolding schemeやNova系の文脈で現れる。
-初学者にとっては、詳細な式を追うよりも、「複数のarithmetizationを統一的に扱うための表現」として理解するとよい。
+CCSの目的は、さまざまな制約表現を、同じ形の「線形結合の積の和」として扱うことである。
 
 R1CSでは各制約が
 
@@ -2123,8 +2329,174 @@ R1CSでは各制約が
 CCSでは、より一般に、複数の線形結合の積や和を組み合わせて制約を表せる。
 そのため、R1CSを特別な場合として含みつつ、folding schemeで扱いやすい形に整理できる。
 
-初学者向けには、CCSを「制約の共通フォーマット」として捉えるとよい。
-R1CS、Plonkish、その他の制約表現を、再帰証明やfoldingの都合がよい形へ持ち込むための抽象化である。
+\subsection{CCSの定義}
+
+有限体を \(\F\) とする。
+CCSでは、まず次のデータを固定する。
+
+\begin{itemize}
+  \item 行数 \(m\) と変数数 \(n\)。
+  \item 行列 \(M_1,\ldots,M_t\in\F^{m\times n}\)。
+  \item 項を指定する集合 \(S_1,\ldots,S_q\)。各 \(S_i\) は \(\{1,\ldots,t\}\) の部分集合または多重集合である。
+  \item 係数 \(c_1,\ldots,c_q\in\F\)。
+\end{itemize}
+
+公開入力を \(x\)、witnessを \(w\) とし、定数 \(1\) も含めて
+
+\[
+  z=(w,x,1)\in\F^n
+\]
+
+と置く。
+各行列 \(M_j\) は、変数ベクトル \(z\) から \(m\) 個の線形結合を作る。
+
+\[
+  M_jz\in\F^m
+\]
+
+CCSの制約は、次のベクトル等式である。
+
+\[
+  \sum_{i=1}^{q}
+  c_i\cdot
+  \bigcirc_{j\in S_i}(M_jz)
+  =
+  0\in\F^m
+\]
+
+ここで \(\bigcirc\) はHadamard積、つまり成分ごとの積である。
+二つのベクトル \(u,v\in\F^m\) について、
+
+\[
+  (u\circ v)_r=u_rv_r
+\]
+
+である。
+したがって、
+
+\[
+  \bigcirc_{j\in S_i}(M_jz)
+\]
+
+は、いくつかの線形結合を行ごとに掛け合わせたベクトルを意味する。
+成分ごとに書くと、各行 \(r=1,\ldots,m\) について
+
+\[
+  \sum_{i=1}^{q}
+  c_i
+  \prod_{j\in S_i}(M_jz)_r
+  =
+  0
+\]
+
+が成り立つという意味である。
+各 \(S_i\) の大きさの最大値をdegreeと呼ぶことが多い。
+R1CSはdegree 2の典型例である。
+
+\subsection{R1CSはCCSの特別な場合}
+
+R1CSの制約は、行列 \(A,B,C\) を使って
+
+\[
+  (Az)\circ(Bz)-Cz=0
+\]
+
+と書ける。
+これはCCSで
+
+\[
+  M_1=A,\qquad M_2=B,\qquad M_3=C
+\]
+
+\[
+  S_1=\{1,2\},\qquad S_2=\{3\}
+\]
+
+\[
+  c_1=1,\qquad c_2=-1
+\]
+
+と置いた場合である。
+実際、
+
+\[
+  c_1\bigl((M_1z)\circ(M_2z)\bigr)
+  +
+  c_2(M_3z)
+  =
+  (Az)\circ(Bz)-Cz
+\]
+
+となる。
+つまりCCSは、R1CSの「左の線形結合と右の線形結合を掛け、別の線形結合と等しい」という形を、より広い和と積の形へ拡張している。
+
+\subsection{Plonkish風のgateもCCSで見る}
+
+Plonkishの標準的なgate
+
+\[
+  q_Mab+q_La+q_Rb+q_Oc+q_C=0
+\]
+
+も、行ごとに見れば「線形結合の積の和」である。
+各行について、行列が次の値を取り出すように作られていると考える。
+
+\[
+  M_1z=(q_Ma)_i,\quad
+  M_2z=b_i,\quad
+  M_3z=(q_La)_i,\quad
+  M_4z=(q_Rb)_i,\quad
+  M_5z=(q_Oc)_i,\quad
+  M_6z=(q_C)_i
+\]
+
+すると、各行の制約は
+
+\[
+  (M_1z)\circ(M_2z)
+  +(M_3z)+(M_4z)+(M_5z)+(M_6z)=0
+\]
+
+というCCSの形で表せる。
+ここで \(q_M,q_L,q_R,q_O,q_C\) は回路側で固定されたselectorなので、対応する行列の係数に組み込める。
+
+より高いdegreeのカスタムゲートも同じ考え方で表せる。
+例えば
+
+\[
+  a_i b_i c_i-d_i=0
+\]
+
+というdegree 3のgateは、
+
+\[
+  (M_1z)\circ(M_2z)\circ(M_3z)-(M_4z)=0
+\]
+
+という形になる。
+CCSでは、\(S_i\) の大きさを変えることで、degree 2のR1CSから高degree gateまで同じ記法で扱える。
+
+\subsection{CCSがfoldingで役立つ理由}
+
+folding schemeでは、二つの証明対象を一つの証明対象へまとめる。
+直感的には、「instance 1が正しい」「instance 2が正しい」という二つの主張を、ランダム係数で混ぜた一つの主張に圧縮する。
+これを繰り返すと、長い計算の各stepを少しずつ畳み込める。
+
+このとき、制約が共通の形式で書かれていると扱いやすい。
+CCSでは、制約が
+
+\[
+  \sum_i c_i\cdot\prod_{j\in S_i}\text{linear form}_{i,j}(z)=0
+\]
+
+という形にそろっている。
+各項は「線形結合を作る」「同じ行どうしで掛ける」「係数を掛けて足す」という操作に分かれている。
+この構造により、R1CS、Plonkish風のgate、高degree gateを、folding用の共通インターフェースへ持ち込みやすくなる。
+
+\begin{warnbox}
+CCSの役割は、計算をどのような制約として表すかを決めるarithmetization形式である。
+短いproofを作る段階では、commitment scheme、sumcheck、folding schemeなどのプロトコル部品と組み合わせる。
+\end{warnbox}
 
 \subsection{比較表}
 
@@ -2160,13 +2532,15 @@ CCS & 一般化された制約 & folding-friendlyな表現 & Nova系 & 複数方
   \item R1CSで \(x^3+x+5=y\) を表すとき、なぜ中間変数が必要になるか。
   \item AIRでboundary constraintとtransition constraintを分ける理由を説明せよ。
   \item Plonkish arithmetizationでlookupが役立つ例を一つ考えよ。
+  \item CCSの式で、R1CSがどのように表されるか説明せよ。
 \end{enumerate}
 \end{checkpointbox}
 
 \begin{keybox}
 \begin{itemize}
   \item arithmetizationは、計算を有限体上の制約へ翻訳する工程である。
-  \item 方式ごとに、何を自然に表せるかが違う。
+  \item Plonkishでは、行、列、gate、selector、copy constraint、lookupを組み合わせて回路を表す。
+  \item CCSでは、複数の線形結合のHadamard積を足し合わせる形で制約を統一的に書く。
   \item 開発者が書くAPIと、証明システムが扱う制約の間にはコンパイル過程がある。
 \end{itemize}
 \end{keybox}
@@ -2435,6 +2809,7 @@ DSLや開発者体験に興味がある & 課題E & arithmetizationをAPI設計�
   \item R1CSの各制約は基本的に一つの乗算を扱うため、\(x^2\) や \(x^3\) を中間変数に分ける必要がある。
   \item transition constraintは各stepの関係を、boundary constraintは始点や終点など外側の条件を表すため。
   \item byte range check、固定テーブルからの値選択、ハッシュ関数内部の小さな演算表などで役立つ。
+  \item CCSで \(M_1=A,M_2=B,M_3=C\)、\(S_1=\{1,2\},S_2=\{3\}\)、\(c_1=1,c_2=-1\) と置くと、制約は \((Az)\circ(Bz)-Cz=0\) となり、R1CSと同じ形になる。
 \end{enumerate}
 
 \end{document}
