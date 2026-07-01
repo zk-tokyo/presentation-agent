@@ -191,7 +191,7 @@ const cap = computed(() => captions[phase.value])
       <transition name="pf-fade">
         <g v-if="verified" class="pf-accept">
           <rect x="966" y="163" width="128" height="34" rx="6" class="pf-accept-box"/>
-          <text x="1030" y="186" text-anchor="middle" class="pf-accept-text">✓ accepted</text>
+          <text x="1030" y="186" text-anchor="middle" class="pf-accept-text">✓ 受理</text>
         </g>
       </transition>
 

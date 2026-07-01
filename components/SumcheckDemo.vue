@@ -139,7 +139,7 @@ const pinnedVars = computed(() => {
                 stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="1040" y="68" text-anchor="middle" class="sc-side-title">検証者</text>
-        <text x="1040" y="88" text-anchor="middle" class="sc-side-sub">{{ verifierAccepted ? 'accepted ✓' : '少ない通信で確信' }}</text>
+        <text x="1040" y="88" text-anchor="middle" class="sc-side-sub">{{ verifierAccepted ? '受理 ✓' : '少ない通信で確信' }}</text>
       </g>
 
       <!-- Round lanes -->
