@@ -53,19 +53,7 @@ src: ./slides/SL11.md
 ---
 
 ---
-src: ./slides/SL32.md
----
-
----
-src: ./slides/SL33.md
----
-
----
 src: ./slides/SL12.md
----
-
----
-src: ./slides/SL12b.md
 ---
 
 ---
@@ -89,18 +77,6 @@ src: ./slides/SL17.md
 ---
 
 ---
-src: ./slides/SL21.md
----
-
----
-src: ./slides/SL17b.md
----
-
----
-src: ./slides/SL22.md
----
-
----
 src: ./slides/SL18.md
 ---
 
@@ -109,15 +85,15 @@ src: ./slides/SL19.md
 ---
 
 ---
-src: ./slides/SL19b.md
----
-
----
 src: ./slides/SL20.md
 ---
 
 ---
-src: ./slides/SL20b.md
+src: ./slides/SL21.md
+---
+
+---
+src: ./slides/SL22.md
 ---
 
 ---
@@ -130,10 +106,6 @@ src: ./slides/SL24.md
 
 ---
 src: ./slides/SL25.md
----
-
----
-src: ./slides/SL25b.md
 ---
 
 ---
@@ -161,9 +133,37 @@ src: ./slides/SL31.md
 ---
 
 ---
+src: ./slides/SL32.md
+---
+
+---
+src: ./slides/SL33.md
+---
+
+---
 src: ./slides/SL34.md
 ---
 
 ---
 src: ./slides/SL35.md
+---
+
+---
+src: ./slides/SL36.md
+---
+
+---
+src: ./slides/SL37.md
+---
+
+---
+src: ./slides/SL38.md
+---
+
+---
+src: ./slides/SL39.md
+---
+
+---
+src: ./slides/SL40.md
 ---
