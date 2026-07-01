@@ -199,7 +199,7 @@ const tableCells = [
                 fill="#dcfce7" stroke="#059669" stroke-width="3"
                 style="filter: drop-shadow(0 0 10px rgba(5, 150, 105, 0.5));"/>
           <text x="1015" y="295" text-anchor="middle" class="jt-accept-title">✓ zkVM proof</text>
-          <text x="1015" y="320" text-anchor="middle" class="jt-accept-sub">Groth16 / PLONK 比 2x faster prover</text>
+          <text x="1015" y="320" text-anchor="middle" class="jt-accept-sub">Groth16 / PLONK 比 証明生成 2x 高速</text>
           <text x="1015" y="345" text-anchor="middle" class="jt-accept-sub-em">プログラムを書き直さず証明できる</text>
         </g>
       </transition>

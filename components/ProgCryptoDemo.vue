@@ -221,7 +221,7 @@ const runFlow      = computed(() => phase.value === 2)
            ========================================================== -->
       <g class="cc-arrow-g" :class="{ 'is-active': showRun }">
         <text x="864" y="195" text-anchor="middle" class="cc-arrow-label">run</text>
-        <text x="864" y="218" text-anchor="middle" class="cc-arrow-sub">prover / protocol</text>
+        <text x="864" y="218" text-anchor="middle" class="cc-arrow-sub">証明者 / プロトコル</text>
         <text x="864" y="232" text-anchor="middle" class="cc-arrow-sub">/ FHE eval</text>
         <line x1="827" y1="247" x2="900" y2="247" class="cc-arrow-line" marker-end="url(#cc-ar-green)"/>
 

@@ -34,7 +34,7 @@ onBeforeUnmount(() => { if (timeoutId) clearTimeout(timeoutId) })
 const captions = [
   { code: 'H = Σ_{x∈{0,1}³} f(x₁, x₂, x₃)', note: '主張: 多変数多項式の総和' },
   { code: 'P → V :  g₁(X) = Σ_{x₂,x₃} f(X, x₂, x₃)', note: 'Round 1 — 1 変数 X についての partial sum' },
-  { code: 'V → P :  r₁  ←$  𝔽    /    check  g₁(0)+g₁(1) = H', note: 'Round 1 challenge — verifier がランダム点を返す' },
+  { code: 'V → P :  r₁  ←$  𝔽    /    check  g₁(0)+g₁(1) = H', note: 'Round 1 challenge — 検証者がランダム点を返す' },
   { code: 'P → V :  g₂(X) = Σ_{x₃} f(r₁, X, x₃)', note: 'Round 2 — r₁ を固定して同じ操作' },
   { code: 'P → V :  g₃(X) = f(r₁, r₂, X)', note: 'Round 3 — 残り 1 変数' },
   { code: '✓  V evaluates  f(r₁, r₂, r₃)  at single point', note: 'soundness error ≤ d·n / |𝔽|  (Schwartz-Zippel)' },
@@ -124,7 +124,7 @@ const pinnedVars = computed(() => {
           <circle cx="0" cy="-2" r="7" fill="#475569"/>
           <path d="M -10,9 Q 0,5 10,9 L 9,18 L -9,18 Z" fill="#475569"/>
         </g>
-        <text x="160" y="68" text-anchor="middle" class="sc-side-title">Prover</text>
+        <text x="160" y="68" text-anchor="middle" class="sc-side-title">証明者</text>
         <text x="160" y="88" text-anchor="middle" class="sc-side-sub">f を知っている</text>
       </g>
 
@@ -138,7 +138,7 @@ const pinnedVars = computed(() => {
           <path v-if="verifierAccepted" d="M -4,2 L 0,6 L 6,-3"
                 stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
         </g>
-        <text x="1040" y="68" text-anchor="middle" class="sc-side-title">Verifier</text>
+        <text x="1040" y="68" text-anchor="middle" class="sc-side-title">検証者</text>
         <text x="1040" y="88" text-anchor="middle" class="sc-side-sub">{{ verifierAccepted ? 'accepted ✓' : '少ない通信で確信' }}</text>
       </g>
 

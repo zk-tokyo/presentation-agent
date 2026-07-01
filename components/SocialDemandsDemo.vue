@@ -4,7 +4,7 @@ import { ref, onMounted, onBeforeUnmount, computed } from 'vue'
 // Cycling climax — each line ties one column's anxiety to PC's answer
 const climaxes = [
   '監査済みコードでも防げない時代 — 攻撃面が「運用」に移った',
-  'data 層が解けたら、次のボトルネックは prover の cost',
+  'data 層が解けたら、次のボトルネックは証明者の cost',
   '機関マネーは「全公開」で取引できず、「全秘密」では監査できない',
 ]
 const climaxIdx = ref(0)
@@ -46,12 +46,12 @@ const columns = [
     cat: 'Ethereum scaling × ZK rollup 競争',
     color: 'g',
     trend1: 'Pectra (2025/5) → Fusaka (2025/12) で',
-    trend2: 'data 層が解け、競争軸は prover に移動',
+    trend2: 'data 層が解け、競争軸は証明者に移動',
     ev1: 'Fusaka PeerDAS で validator DL 85% 削減',
     ev1b: '(1 日 750 MB → 112 MB)',
     ev2: 'L2 fee 下落予想 −40〜60% (post-Fusaka)',
-    ev2b: '次のボトルネック = prover throughput',
-    ev3: 'Linea / Scroll / Polygon / Taiko が prover 速度競争',
+    ev2b: '次のボトルネック = 証明者 throughput',
+    ev3: 'Linea / Scroll / Polygon / Taiko が証明者の速度競争',
     stat: '−50%',
     statLabel: 'L2 fee 下落予想 (Fusaka 後)',
     statSrc: 'Crypto.com Research / Fidelity 2026',

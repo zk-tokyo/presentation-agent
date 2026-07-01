@@ -142,7 +142,7 @@ const verifierAccept = computed(() => phase.value >= 4)
           <text v-else x="0" y="6" text-anchor="middle" fill="white"
                 font-size="18" font-weight="900">?</text>
         </g>
-        <text x="1050" y="180" text-anchor="middle" class="lf-node-title">Verifier</text>
+        <text x="1050" y="180" text-anchor="middle" class="lf-node-title">検証者</text>
         <text x="1050" y="202" text-anchor="middle" class="lf-node-sub">EC site / 銀行</text>
       </g>
 

@@ -121,7 +121,7 @@ const codeFragments = computed(() => {
             <circle cx="0" cy="-5" r="6.5" class="pm-actor-icon"/>
             <path d="M -9,4 Q 0,1 9,4 L 8,16 L -8,16 Z" class="pm-actor-icon"/>
           </g>
-          <text x="485" y="234" text-anchor="middle" class="pm-actor-label">Prover</text>
+          <text x="485" y="234" text-anchor="middle" class="pm-actor-label">証明者</text>
         </g>
 
         <!-- Verifier -->
@@ -131,7 +131,7 @@ const codeFragments = computed(() => {
             <path d="M 0,-12 L 10,-7 L 10,5 Q 10,14 0,16 Q -10,14 -10,5 L -10,-7 Z" class="pm-actor-shield"/>
             <path d="M -5,1 L 0,6 L 6,-4" class="pm-actor-check" fill="none"/>
           </g>
-          <text x="715" y="234" text-anchor="middle" class="pm-actor-label">Verifier</text>
+          <text x="715" y="234" text-anchor="middle" class="pm-actor-label">検証者</text>
           <!-- OK ✓ chip when active -->
           <transition name="pm-pop">
             <g v-if="infoActive" class="pm-ok-chip">
@@ -200,7 +200,7 @@ const codeFragments = computed(() => {
             <circle cx="0" cy="-5" r="6.5" class="pm-actor-icon"/>
             <path d="M -9,4 Q 0,1 9,4 L 8,16 L -8,16 Z" class="pm-actor-icon"/>
           </g>
-          <text x="865" y="234" text-anchor="middle" class="pm-actor-label">Prover</text>
+          <text x="865" y="234" text-anchor="middle" class="pm-actor-label">証明者</text>
         </g>
 
         <!-- Verifier -->
@@ -210,7 +210,7 @@ const codeFragments = computed(() => {
             <path d="M 0,-12 L 10,-7 L 10,5 Q 10,14 0,16 Q -10,14 -10,5 L -10,-7 Z" class="pm-actor-shield"/>
             <path d="M -5,1 L 0,6 L 6,-4" class="pm-actor-check" fill="none"/>
           </g>
-          <text x="1095" y="234" text-anchor="middle" class="pm-actor-label">Verifier</text>
+          <text x="1095" y="234" text-anchor="middle" class="pm-actor-label">検証者</text>
           <!-- OK ✓ chip when active -->
           <transition name="pm-pop">
             <g v-if="compActive" class="pm-ok-chip">

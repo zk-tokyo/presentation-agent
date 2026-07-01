@@ -36,7 +36,7 @@ const row2: Milestone[] = [
   // commitment (above) — 6 cards, width 160, shorter sub texts
   { id: 'basefold',  side: 'commit', year: '2024', x: 220,  label: 'BaseFold',   sub: 'multilinear FRI',      era: 'modern' },
   { id: 'binius',    side: 'commit', year: '2024', x: 385,  label: 'Binius',     sub: 'small-field / 2 進',   era: 'modern' },
-  { id: 'whir',      side: 'commit', year: '2024', x: 550,  label: 'WHIR',       sub: 'fast verifier',        era: 'modern' },
+  { id: 'whir',      side: 'commit', year: '2024', x: 550,  label: 'WHIR',       sub: '高速な検証',        era: 'modern' },
   { id: 'fribin',    side: 'commit', year: '2024', x: 715,  label: 'FRI-Binius', sub: 'binary tower combo',   era: 'modern' },
   { id: 'frivail',   side: 'commit', year: '2025', x: 880,  label: 'FRIVail',    sub: 'DAS application',      era: 'latest' },
   { id: 'longfellow',side: 'commit', year: '2024', x: 1045, label: 'Longfellow', sub: 'Ligero / MPC-in-the-head', era: 'modern' },

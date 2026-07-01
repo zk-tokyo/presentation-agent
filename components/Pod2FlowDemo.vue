@@ -93,7 +93,7 @@ const cap = computed(() => captions[phase.value])
       </g>
       <g class="pf-band">
         <rect x="945" y="42" width="176" height="128" rx="10" class="pf-band-verifier"/>
-        <text x="961" y="62" class="pf-band-label pf-band-label-v">Verifier（アプリ / on-chain）</text>
+        <text x="961" y="62" class="pf-band-label pf-band-label-v">検証者（アプリ / on-chain）</text>
       </g>
 
       <!-- ===== highway wires ===== -->
@@ -184,7 +184,7 @@ const cap = computed(() => captions[phase.value])
           <path d="M 0,-14 L 12,-9 L 12,5 Q 12,15 0,17 Q -12,15 -12,5 L -12,-9 Z" class="pf-ic-shield"/>
           <path d="M -5,1 L -1,5 L 6,-4" class="pf-ic-check" fill="none"/>
         </g>
-        <text x="1030" y="138" text-anchor="middle" class="pf-node-title">Verifier</text>
+        <text x="1030" y="138" text-anchor="middle" class="pf-node-title">検証者</text>
       </g>
 
       <!-- accepted badge -->

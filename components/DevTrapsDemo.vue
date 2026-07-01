@@ -62,11 +62,11 @@ const traps = [
     trapLines: [
       '制約系: R1CS / Plonkish / AIR / CCS',
       '証明系: Groth16 / PLONK / Halo2 / Jolt / SP1 / Longfellow',
-      '検証コスト・対応言語・prover メモリが桁違い',
+      '検証コスト・対応言語・証明者メモリが桁違い',
     ],
     fixLines: [
-      'ターゲット環境 (verifier gas / prover RAM / DSL) を最初に固定',
-      'Jolt = prover メモリ大 → mobile / IoT には不向き',
+      'ターゲット環境 (検証者 gas / 証明者 RAM / DSL) を最初に固定',
+      'Jolt = 証明者メモリ大 → mobile / IoT には不向き',
     ],
   },
   {

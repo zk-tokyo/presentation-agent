@@ -94,7 +94,7 @@ const kelpContrast    = computed(() => phase.value === 5)
         <rect x="475" y="245" width="250" height="120" rx="8"
               fill="rgba(180,83,9,0.06)" stroke="#fcd34d"
               stroke-width="1.5" stroke-dasharray="6 4"/>
-        <text x="600" y="265" text-anchor="middle" class="zb-chain-label zb-chain-label-off">OFF-CHAIN (prover)</text>
+        <text x="600" y="265" text-anchor="middle" class="zb-chain-label zb-chain-label-off">OFF-CHAIN (証明者)</text>
       </g>
 
       <!-- Source: User burns -->
@@ -147,7 +147,7 @@ const kelpContrast    = computed(() => phase.value === 5)
                   :transform="`rotate(${i * 60})`" fill="currentColor"/>
           </g>
         </g>
-        <text x="615" y="312" text-anchor="middle" class="zb-prover-title">ZK Prover</text>
+        <text x="615" y="312" text-anchor="middle" class="zb-prover-title">ZK 証明者</text>
         <text x="615" y="332" text-anchor="middle" class="zb-prover-sub">Sumcheck / zkVM</text>
       </g>
 
@@ -163,7 +163,7 @@ const kelpContrast    = computed(() => phase.value === 5)
                 stroke-linecap="round" stroke-linejoin="round"/>
         </g>
         <text x="890" y="165" text-anchor="middle" class="zb-node-title">Light Client</text>
-        <text x="890" y="183" text-anchor="middle" class="zb-node-sub">on-chain verifier</text>
+        <text x="890" y="183" text-anchor="middle" class="zb-node-sub">on-chain 検証者</text>
       </g>
 
       <!-- Destination: Release -->

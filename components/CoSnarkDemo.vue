@@ -33,9 +33,9 @@ onBeforeUnmount(() => { if (timeoutId) clearTimeout(timeoutId) })
 
 const captions = [
   { code: '① 各 party が witness の share を持つ', note: '誰も witness 全体を知らない（秘密分散）' },
-  { code: '② MPC で prover を協調実行', note: 'secret-sharing 上で証明生成 — 互いの入力は見せない' },
+  { code: '② MPC で証明者を協調実行', note: 'secret-sharing 上で証明生成 — 互いの入力は見せない' },
   { code: '③ 1 つの SNARK proof が出力される', note: 'succinct・公開検証可（普通の proof と同じ）' },
-  { code: '④ 誰でも検証できる', note: 'verifier からは通常の ZK と区別がつかない' },
+  { code: '④ 誰でも検証できる', note: '検証者からは通常の ZK と区別がつかない' },
 ]
 
 const partyY = [75, 180, 285]
@@ -61,7 +61,7 @@ const partyY = [75, 180, 285]
 
       <!-- chain band: parties + MPC = off-chain proving -->
       <rect x="30" y="28" width="600" height="304" rx="12" fill="rgba(99,102,241,0.04)" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6 4"/>
-      <text x="600" y="322" text-anchor="end" class="cs-band">distributed provers</text>
+      <text x="600" y="322" text-anchor="end" class="cs-band">分散した証明者</text>
 
       <!-- party cards -->
       <g v-for="(py, i) in partyY" :key="'p'+i" class="cs-party" :class="{ 'is-on': phase >= 1 }">

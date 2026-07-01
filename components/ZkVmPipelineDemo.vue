@@ -32,11 +32,11 @@ onMounted(() => { if (isPlaying.value) scheduleNext() })
 onBeforeUnmount(() => { if (timeoutId) clearTimeout(timeoutId) })
 
 const captions = [
-  { code: '① Source — Rust / C で普通のプログラムを書く', note: '回路を手書きしない。暗号の知識は不要' },
-  { code: '② Compile — RISC-V ELF にコンパイル', note: 'VM の ISA に落とす (StarkNet は Cairo)' },
-  { code: '③ Execute — エミュレータが実行トレースを生成', note: '1 命令ずつ状態を記録する' },
-  { code: '④ Prove — トレースを算術化して STARK/SNARK 証明', note: 'prover は重い (native 比 10³⁺) / verify は軽い' },
-  { code: '⑤ Verify — 小さな proof を再実行せず検証', note: 'on-chain でも安価に検証できる' },
+  { code: '① Rust / C で普通のプログラムを書く', note: '回路を手書きしない。暗号の知識は不要' },
+  { code: '② RISC-V ELF にコンパイル', note: 'VM の ISA に落とす' },
+  { code: '③ エミュレータが実行トレースを生成', note: '1 命令ずつ状態を記録する' },
+  { code: '④ トレースを算術化して STARK/SNARK 証明', note: '証明者は重い (native 比 10³⁺) / 検証は軽い' },
+  { code: '⑤ 小さな proof を再実行せず検証', note: 'on-chain でも安価に検証できる' },
 ]
 
 // stage i is lit when phase >= i ; current when phase === i

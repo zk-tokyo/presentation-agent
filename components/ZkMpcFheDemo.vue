@@ -35,7 +35,7 @@
               <circle cx="0" cy="-7" r="7" fill="#b45309"/>
               <path d="M -10,4 Q 0,1 10,4 L 9,17 L -9,17 Z" fill="#b45309"/>
             </g>
-            <text x="80" y="120" text-anchor="middle" class="zm-actor-title">Prover</text>
+            <text x="80" y="120" text-anchor="middle" class="zm-actor-title">証明者</text>
             <text x="80" y="140" text-anchor="middle" class="zm-actor-sub">witness w 🔒</text>
           </g>
 
@@ -53,15 +53,15 @@
               <path d="M 0,-15 L 13,-9 L 13,4 Q 13,15 0,18 Q -13,15 -13,4 L -13,-9 Z" fill="#059669"/>
               <path d="M -5,2 L 0,7 L 7,-3" stroke="white" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
             </g>
-            <text x="300" y="120" text-anchor="middle" class="zm-actor-title">Verifier</text>
+            <text x="300" y="120" text-anchor="middle" class="zm-actor-title">検証者</text>
             <text x="300" y="140" text-anchor="middle" class="zm-actor-sub">✓ accept</text>
           </g>
         </svg>
 
         <ul class="zm-attrs">
-          <li><span class="zm-attr-key">隠す対象</span><span class="zm-attr-val">prover の witness w</span></li>
-          <li><span class="zm-attr-key">信頼前提</span><span class="zm-attr-val">Prover を信頼しなくてよい (math が保証)</span></li>
-          <li><span class="zm-attr-key">敵対モデル</span><span class="zm-attr-val"><strong>Prover</strong> (偽証) ／ <strong>Verifier</strong> (witness 窃取)</span></li>
+          <li><span class="zm-attr-key">隠す対象</span><span class="zm-attr-val">証明者の witness w</span></li>
+          <li><span class="zm-attr-key">信頼前提</span><span class="zm-attr-val">証明者を信頼しなくてよい (math が保証)</span></li>
+          <li><span class="zm-attr-key">敵対モデル</span><span class="zm-attr-val"><strong>証明者</strong> (偽証) ／ <strong>検証者</strong> (witness 窃取)</span></li>
           <li class="zm-attr-emph"><span class="zm-attr-key">主な用途</span><span class="zm-attr-val">年齢証明 — 生年月日を出さず「18 以上」を証明</span></li>
         </ul>
       </div>
