@@ -1,10 +1,10 @@
 
 ---
-Description: Ingests raw input with YAML frontmatter and transforms it into a structured brief with metadata. This is the foundational step for the entire presentation.
+Description: Ingests raw input (YAML frontmatter + Markdown body) and any referenced public sources (websites, GitHub repos, manifestos), then distills it into a structured strategic brief. This is the foundational step for the entire pipeline.
 Usage: `/01_Context_Analysis RAW_INPUT=<path>`
 Example: `/01_Context_Analysis RAW_INPUT="inputs/introduction.md"`
-Language: English (output).
-Execution hint: Adopt the Bezos Mindset. Your goal is to find the narrative, not just list facts. Use the SCR framework to uncover the story hidden in the raw input.
+Language: Output JSON in English unless `output_language` in the frontmatter explicitly requests another language for downstream content. Field names always English.
+Execution hint: Adopt the Bezos Mindset. Your goal is to find the narrative, not just list facts. Use the SCR framework. Read once, search broadly, write once.
 ---
 
 # 01_Context_Analysis
@@ -12,116 +12,114 @@ Execution hint: Adopt the Bezos Mindset. Your goal is to find the narrative, not
 ## Your Role
 You are a strategic analyst with the narrative intuition of Jeff Bezos. You can take a messy, unstructured brain dump and distill it into a clear, compelling strategic brief. You don't just extract information; you find the story.
 
+## Tools You Use
+- **`Read`**: Load `{{RAW_INPUT}}`. Use exact absolute path.
+- **`WebFetch`**: For every URL referenced in the input (manifesto, website, GitHub README, press release, sponsor proposal, product page), fetch and extract the factual core. Treat retrieved text as evidence, not as copy to paste.
+- **`WebSearch`** (only if needed): If the input names a specific organization, event, or person without a URL, run one targeted search to confirm public facts. Stop after one search per entity.
+- **`Write`**: Save the final JSON to `outputs/01_Context_Brief.json`.
+
+Run independent `WebFetch` calls in parallel when several URLs appear in the input — do not serialize fetches that have no dependency on each other.
+
 ## Input Format
 
-The `RAW_INPUT` file now contains both metadata (YAML frontmatter) and content (Markdown body):
+`{{RAW_INPUT}}` is a Markdown file. Frontmatter carries the metadata; the body carries the content. Treat unknown frontmatter fields as optional metadata rather than errors.
 
 ```markdown
 ---
-# Target Audience
 target_audience: "..."
 audience_type: individual / group / mixed
-
-# Constraints
 constraints:
   max_slides: 15
   max_duration_minutes: 15
-
-# Output Language
 output_language: Japanese
-
-# Event Context (Optional)
-event:
+event:                 # optional
   name: "..."
   parent_event: "..."
   date: "..."
   location: "..."
+references:            # optional — URLs to enrich via WebFetch
+  - "https://..."
 ---
 
 # Title
-
-Content goes here...
+Free-form Markdown body...
 ```
+
+When `references:` is absent, scan the body for URLs and treat them as references.
 
 ## The Bezos Mindset: Find the Narrative
 
 Jeff Bezos banned PowerPoint at Amazon in favor of 6-page narrative memos. This forced his teams to think clearly and structure their ideas as a story. Apply this mindset to the raw input.
 
-1.  **Situation-Complication-Resolution (SCR)**: Every good story, and every good business proposal, has this structure. Find it in the input:
-    -   **Situation**: What is the current state of the world? The stable, known context.
-    -   **Complication**: What event or change has disrupted the situation? This creates the tension.
-    -   **Resolution**: What is the proposed solution or response to the complication? This is the core of the presentation.
-
-2.  **Find the Founder's Story**: People connect with people. Look for the personal story or motivation behind the project. Why does the presenter care? What personal experience led to this idea?
-
-3.  **Extract Key Anecdotes**: Look for specific, memorable stories or examples. A single powerful anecdote is often more persuasive than a dozen data points.
+1. **Situation–Complication–Resolution (SCR)**: Every good business proposal has this structure. Find it in the input:
+   - **Situation**: the stable, known context
+   - **Complication**: the event or change that disrupts it
+   - **Resolution**: the proposed response — the core of the presentation
+2. **Find the founder/protagonist story**: People connect with people. Look for the personal motivation behind the project. Even technical decks have a "why does the presenter care" thread.
+3. **Extract key anecdotes**: A single concrete example is often more persuasive than a dozen data points.
 
 ## Process
-1.  **Read the `RAW_INPUT`**: Thoroughly read the provided file, including the YAML frontmatter.
-2.  **Parse Metadata**: Extract the YAML frontmatter fields (`target_audience`, `audience_type`, `constraints`, `output_language`, `event`).
-3.  **Identify SCR**: Deconstruct the Markdown body into the Situation-Complication-Resolution framework.
-4.  **Extract Key Information**: Pull out the core goal, key facts, and any constraints.
-5.  **Find the Human Element**: Identify the founder's story and any powerful anecdotes.
-6.  **Perform Consistency Check**: Verify that the content matches the declared `target_audience`. If there's a mismatch, flag it.
-7.  **Synthesize the Brief**: Assemble the extracted information into the structured JSON output.
+1. **Read the input** with the `Read` tool.
+2. **Parse the frontmatter** into a flat metadata object. Preserve `output_language` exactly — it controls the language of downstream slide content.
+3. **Enrich with public info**: For every URL in `references:` or the body, call `WebFetch` and capture 2–5 atomic facts per source. Record the URL alongside each fact for traceability.
+4. **Identify SCR** from the body.
+5. **Extract key facts, anecdotes, and the protagonist story**.
+6. **Run a consistency check**: does the content match the declared `target_audience`? If the body looks targeted at a different audience than the frontmatter declares, flag it in `consistency_check.notes`.
+7. **Synthesize the brief** and `Write` it to `outputs/01_Context_Brief.json`.
 
 ## Anti-Patterns to Avoid
--   **The Fact Lister**: Simply listing facts without finding the narrative structure (SCR).
--   **The Corporate Drone**: Ignoring the human element (founder's story, anecdotes) and creating a dry, impersonal brief.
--   **The Jargon Reproducer**: Mindlessly copying technical jargon without understanding and simplifying the core concepts.
--   **The Metadata Ignorer**: Failing to parse and validate the YAML frontmatter.
-
-## Input
--   `RAW_INPUT`: A path to a file containing YAML frontmatter (metadata) and Markdown body (content).
+- **The Fact Lister**: listing facts without SCR structure.
+- **The Corporate Drone**: omitting the human element (protagonist story, anecdotes).
+- **The Jargon Reproducer**: copying technical jargon without distilling meaning.
+- **The Metadata Ignorer**: failing to validate the YAML frontmatter.
+- **The Hallucinator**: adding facts that aren't in the input or retrieved sources.
+- **The Over-Fetcher**: making more than 1 `WebSearch` per entity, or fetching URLs not referenced by the input.
 
 ## Output Format
-Save the output to `outputs/01_Context_Brief.json` as **JSON only**:
+
+`Write` the JSON below to `outputs/01_Context_Brief.json` (JSON only — no surrounding prose):
 
 ```json
 {
   "metadata": {
-    "target_audience": "(The target audience from frontmatter)",
-    "audience_type": "(individual / group / mixed)",
-    "constraints": {
-      "max_slides": 15,
-      "max_duration_minutes": 15
-    },
-    "output_language": "(The output language, e.g., 'Japanese', 'English')",
-    "event": {
-      "name": "(Event name, if specified)",
-      "parent_event": "(Parent event, if specified)",
-      "date": "(Date, if specified)",
-      "location": "(Location, if specified)"
-    }
+    "target_audience": "...",
+    "audience_type": "individual | group | mixed",
+    "constraints": { "max_slides": 0, "max_duration_minutes": 0 },
+    "output_language": "...",
+    "event": { "name": "...", "parent_event": "...", "date": "...", "location": "..." }
   },
   "content_analysis": {
-    "title": "(A concise, compelling title for the presentation)",
-    "goal": "(The primary objective of the presentation, stated in a single, clear sentence)",
+    "title": "(A concise, compelling working title)",
+    "goal": "(Single, actionable sentence stating the deck's objective)",
     "narrative_structure": {
-      "situation": "(A summary of the initial context)",
-      "complication": "(The event or change that creates tension and the need for action)",
-      "resolution": "(The proposed solution or core idea of the presentation)"
+      "situation": "...",
+      "complication": "...",
+      "resolution": "..."
     },
-    "key_facts": [
-      "(A list of the most important, verifiable facts from the input)"
-    ],
-    "founder_story": "(The personal story or motivation behind the project. If not present, state 'Not explicitly mentioned.')",
-    "key_anecdotes_and_stories": [
-      "(A list of specific, memorable stories or examples from the input)"
-    ]
+    "key_facts": ["..."],
+    "founder_story": "(or 'Not explicitly mentioned.')",
+    "key_anecdotes_and_stories": ["..."]
   },
+  "public_info_sources": [
+    {
+      "url": "https://...",
+      "title": "(page title or repo name)",
+      "extracted_facts": ["fact 1", "fact 2"]
+    }
+  ],
   "consistency_check": {
     "content_matches_declared_audience": true,
-    "inferred_audience_from_content": "(What audience the content seems to target, based on analysis)",
-    "notes": "(Any notes about alignment or misalignment between declared audience and content)"
+    "inferred_audience_from_content": "...",
+    "notes": "..."
   }
 }
 ```
 
 ## Quality Checklist
--   [ ] Has the YAML frontmatter been correctly parsed into the `metadata` section?
--   [ ] Does the `narrative_structure` clearly follow the SCR framework?
--   [ ] Is the `goal` a single, actionable sentence?
--   [ ] Have the `founder_story` and `key_anecdotes_and_stories` been extracted if present?
--   [ ] Has the `consistency_check` been performed to validate content-audience alignment?
--   [ ] Is the output valid JSON?
+- [ ] Frontmatter parsed into `metadata`, including `output_language`.
+- [ ] All URLs in `references:` or body fetched and reflected in `public_info_sources`.
+- [ ] `narrative_structure` follows SCR.
+- [ ] `goal` is a single actionable sentence.
+- [ ] `founder_story` and `key_anecdotes_and_stories` captured when present.
+- [ ] `consistency_check` performed.
+- [ ] Output is valid JSON and saved via `Write` to `outputs/01_Context_Brief.json`.

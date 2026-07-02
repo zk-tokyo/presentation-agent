@@ -1,0 +1,1295 @@
+{
+  "machine_name": "Multi-Core CPU Die Floorplan",
+  "assembly_instructions": "Open floorplan of a monolithic 8-core ring-bus processor die, modeled on the Intel Core i9-9900K (Coffee Lake Refresh, 14nm, ~177 mm2 silicon). Coordinate convention: +X is the long die axis, +Z is port/left, +Y is up; the scene is meant to be read from above. The physical die is ~16 mm across; it is scaled up roughly 750x so the 12 m long model is comfortable to inspect (bounds.radius = 6). Build order: (1) lay the silicon die_substrate as a thin black plate with its top at y=0.3 and bottom at y=0; (2) place the 2x4 grid of eight CPU cores on the +Z and -Z halves; (3) drop a per-core L2 cache slice between each core and the central shared L3 cache strip; (4) trace the bidirectional ring interconnect as a raised copper rectangle (two rails + two end links) with eight vertical ring-stop posts tapping each core into the ring; (5) add the dual-channel integrated memory controller and system agent along the -X short edge; (6) place the integrated GPU with its EU-array sub-block along the +Z long edge and the I/O / PCIe block along the -Z long edge; (7) cap each core with its private L1-cache slice and its out-of-order execution back-end, split the I/O block into a PCIe-lane bank and a DMI link, and cap the system agent with its display engine so every functional block is decomposed and visible from above. No package lid or heat spreader is modeled so every functional block stays visible from above.",
+  "metadata": {
+    "reference": "https://en.wikipedia.org/wiki/Coffee_Lake",
+    "domain": "microprocessor-architecture",
+    "thumbnail_camera": [
+      7.8,
+      6.14,
+      7.8
+    ],
+    "info": {
+      "japanese_name": "マルチコアCPUダイ・フロアプラン",
+      "english_name": "Multi-Core CPU Die Floorplan",
+      "summary": "An above-view 3D floorplan of a monolithic 8-core desktop processor die, showing how cores, cache, interconnect, memory controller, integrated GPU and I/O share one piece of silicon. It illustrates the spatial trade-offs that define a modern CPU's architecture.",
+      "description": "The floorplan follows an Intel Core i9-9900K class design: eight identical out-of-order CPU cores arranged in a 2x4 grid, each with a private L2 cache slice, all sharing a 16 MB last-level L3 cache laid out as a central strip. A bidirectional ring interconnect links every core, every L3 slice, the integrated GPU and the system agent; each agent joins the ring at a 'ring stop'. Along one short edge sits the system agent with a dual-channel DDR4 integrated memory controller; one long edge carries the Gen9.5 integrated GPU with its execution-unit array, and the opposite long edge carries the I/O and PCIe 3.0 block. The real die is fabricated on a 14nm process, measures roughly 177 mm2, and dissipates a 95 W TDP at base clock.",
+      "operator": "Intel Corporation",
+      "contractor": "Intel Corporation",
+      "contract_date": "2018-10-19",
+      "contract_value": "USD 488 launch price (i9-9900K)",
+      "status": "Architecture floorplan reference (Coffee Lake Refresh, launched 2018)",
+      "facts": [
+        {
+          "label": "Cores / Threads",
+          "value": "8 cores / 16 threads"
+        },
+        {
+          "label": "Process node",
+          "value": "Intel 14nm++"
+        },
+        {
+          "label": "Die area",
+          "value": "~177 mm2"
+        },
+        {
+          "label": "L2 cache",
+          "value": "256 KB per core (2 MB total)"
+        },
+        {
+          "label": "L3 cache",
+          "value": "16 MB shared, ring-connected"
+        },
+        {
+          "label": "Interconnect",
+          "value": "Bidirectional ring bus"
+        },
+        {
+          "label": "Memory controller",
+          "value": "Dual-channel DDR4-2666"
+        },
+        {
+          "label": "Integrated GPU",
+          "value": "Gen9.5 UHD 630, 24 EUs"
+        },
+        {
+          "label": "I/O",
+          "value": "16 lanes PCIe 3.0"
+        },
+        {
+          "label": "TDP",
+          "value": "95 W base"
+        }
+      ],
+      "sources": [
+        {
+          "title": "Coffee Lake — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Coffee_Lake"
+        },
+        {
+          "title": "Ring bus interconnect — WikiChip",
+          "url": "https://en.wikichip.org/wiki/intel/mesh_interconnect_architecture"
+        },
+        {
+          "title": "Intel Core i9-9900K product specifications",
+          "url": "https://www.intel.com/content/www/us/en/products/sku/186605/intel-core-i99900k-processor.html"
+        }
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "die_substrate",
+      "name": "Silicon Die",
+      "shape": "box",
+      "position": [
+        0,
+        0.15,
+        0
+      ],
+      "size": [
+        12,
+        0.3,
+        10
+      ],
+      "material": "black composite",
+      "role": "The monolithic silicon substrate on which every functional block is fabricated; the structural root of the floorplan.",
+      "connections": [
+        "core_0",
+        "core_1",
+        "core_2",
+        "core_3",
+        "core_4",
+        "core_5",
+        "core_6",
+        "core_7",
+        "l3_cache",
+        "mem_controller_ch0",
+        "mem_controller_ch1",
+        "system_agent",
+        "igpu_block",
+        "io_pcie_block",
+        "ring_link_west",
+        "ring_link_east"
+      ]
+    },
+    {
+      "id": "core_0",
+      "name": "CPU Core 0",
+      "shape": "box",
+      "position": [
+        -0.3,
+        0.7,
+        2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_0",
+        "ring_stop_0",
+        "core_0_exec",
+        "core_0_l1"
+      ]
+    },
+    {
+      "id": "core_1",
+      "name": "CPU Core 1",
+      "shape": "box",
+      "position": [
+        1.5,
+        0.7,
+        2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_1",
+        "ring_stop_1",
+        "core_1_exec",
+        "core_1_l1"
+      ]
+    },
+    {
+      "id": "core_2",
+      "name": "CPU Core 2",
+      "shape": "box",
+      "position": [
+        3.3,
+        0.7,
+        2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_2",
+        "ring_stop_2",
+        "core_2_exec",
+        "core_2_l1"
+      ]
+    },
+    {
+      "id": "core_3",
+      "name": "CPU Core 3",
+      "shape": "box",
+      "position": [
+        5.1,
+        0.7,
+        2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_3",
+        "ring_stop_3",
+        "core_3_exec",
+        "core_3_l1"
+      ]
+    },
+    {
+      "id": "core_4",
+      "name": "CPU Core 4",
+      "shape": "box",
+      "position": [
+        -0.3,
+        0.7,
+        -2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_4",
+        "ring_stop_4",
+        "core_4_exec",
+        "core_4_l1"
+      ]
+    },
+    {
+      "id": "core_5",
+      "name": "CPU Core 5",
+      "shape": "box",
+      "position": [
+        1.5,
+        0.7,
+        -2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_5",
+        "ring_stop_5",
+        "core_5_exec",
+        "core_5_l1"
+      ]
+    },
+    {
+      "id": "core_6",
+      "name": "CPU Core 6",
+      "shape": "box",
+      "position": [
+        3.3,
+        0.7,
+        -2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_6",
+        "ring_stop_6",
+        "core_6_exec",
+        "core_6_l1"
+      ]
+    },
+    {
+      "id": "core_7",
+      "name": "CPU Core 7",
+      "shape": "box",
+      "position": [
+        5.1,
+        0.7,
+        -2
+      ],
+      "size": [
+        1.6,
+        0.8,
+        1.8
+      ],
+      "material": "glass display",
+      "role": "An out-of-order CPU core with its own front-end, execution units and L1 caches; one of eight identical cores.",
+      "connections": [
+        "die_substrate",
+        "l2_7",
+        "ring_stop_7",
+        "core_7_exec",
+        "core_7_l1"
+      ]
+    },
+    {
+      "id": "core_0_exec",
+      "name": "Core 0 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        -0.65,
+        1.25,
+        2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 0's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_0"
+      ]
+    },
+    {
+      "id": "core_0_l1",
+      "name": "Core 0 L1 Cache",
+      "shape": "box",
+      "position": [
+        0.1,
+        1.25,
+        2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 0's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_0"
+      ]
+    },
+    {
+      "id": "core_1_exec",
+      "name": "Core 1 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        1.15,
+        1.25,
+        2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 1's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_1"
+      ]
+    },
+    {
+      "id": "core_1_l1",
+      "name": "Core 1 L1 Cache",
+      "shape": "box",
+      "position": [
+        1.9,
+        1.25,
+        2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 1's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_1"
+      ]
+    },
+    {
+      "id": "core_2_exec",
+      "name": "Core 2 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        2.95,
+        1.25,
+        2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 2's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_2"
+      ]
+    },
+    {
+      "id": "core_2_l1",
+      "name": "Core 2 L1 Cache",
+      "shape": "box",
+      "position": [
+        3.7,
+        1.25,
+        2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 2's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_2"
+      ]
+    },
+    {
+      "id": "core_3_exec",
+      "name": "Core 3 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        4.75,
+        1.25,
+        2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 3's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_3"
+      ]
+    },
+    {
+      "id": "core_3_l1",
+      "name": "Core 3 L1 Cache",
+      "shape": "box",
+      "position": [
+        5.5,
+        1.25,
+        2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 3's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_3"
+      ]
+    },
+    {
+      "id": "core_4_exec",
+      "name": "Core 4 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        -0.65,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 4's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_4"
+      ]
+    },
+    {
+      "id": "core_4_l1",
+      "name": "Core 4 L1 Cache",
+      "shape": "box",
+      "position": [
+        0.1,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 4's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_4"
+      ]
+    },
+    {
+      "id": "core_5_exec",
+      "name": "Core 5 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        1.15,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 5's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_5"
+      ]
+    },
+    {
+      "id": "core_5_l1",
+      "name": "Core 5 L1 Cache",
+      "shape": "box",
+      "position": [
+        1.9,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 5's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_5"
+      ]
+    },
+    {
+      "id": "core_6_exec",
+      "name": "Core 6 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        2.95,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 6's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_6"
+      ]
+    },
+    {
+      "id": "core_6_l1",
+      "name": "Core 6 L1 Cache",
+      "shape": "box",
+      "position": [
+        3.7,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 6's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_6"
+      ]
+    },
+    {
+      "id": "core_7_exec",
+      "name": "Core 7 Out-of-Order Execution Back-End",
+      "shape": "box",
+      "position": [
+        4.75,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.78,
+        0.3,
+        1.5
+      ],
+      "material": "dark anodized aluminum",
+      "role": "Core 7's out-of-order back-end: integer and AVX execution ports, schedulers and reorder buffer; the largest logic region of the core, capped on top for inspectability.",
+      "connections": [
+        "core_7"
+      ]
+    },
+    {
+      "id": "core_7_l1",
+      "name": "Core 7 L1 Cache",
+      "shape": "box",
+      "position": [
+        5.5,
+        1.25,
+        -2
+      ],
+      "size": [
+        0.62,
+        0.3,
+        1.5
+      ],
+      "material": "brass",
+      "role": "Core 7's private L1 caches — 32 KB instruction plus 32 KB data — feeding its execution units at register speed.",
+      "connections": [
+        "core_7"
+      ]
+    },
+    {
+      "id": "l2_0",
+      "name": "L2 Cache Slice 0",
+      "shape": "box",
+      "position": [
+        -0.3,
+        0.5,
+        0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 0, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_0",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l2_1",
+      "name": "L2 Cache Slice 1",
+      "shape": "box",
+      "position": [
+        1.5,
+        0.5,
+        0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 1, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_1",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l2_2",
+      "name": "L2 Cache Slice 2",
+      "shape": "box",
+      "position": [
+        3.3,
+        0.5,
+        0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 2, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_2",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l2_3",
+      "name": "L2 Cache Slice 3",
+      "shape": "box",
+      "position": [
+        5.1,
+        0.5,
+        0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 3, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_3",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l2_4",
+      "name": "L2 Cache Slice 4",
+      "shape": "box",
+      "position": [
+        -0.3,
+        0.5,
+        -0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 4, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_4",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l2_5",
+      "name": "L2 Cache Slice 5",
+      "shape": "box",
+      "position": [
+        1.5,
+        0.5,
+        -0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 5, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_5",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l2_6",
+      "name": "L2 Cache Slice 6",
+      "shape": "box",
+      "position": [
+        3.3,
+        0.5,
+        -0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 6, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_6",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l2_7",
+      "name": "L2 Cache Slice 7",
+      "shape": "box",
+      "position": [
+        5.1,
+        0.5,
+        -0.95
+      ],
+      "size": [
+        1.2,
+        0.4,
+        0.5
+      ],
+      "material": "brass",
+      "role": "The private 256 KB mid-level cache for core 7, sitting between the core and the shared L3 strip.",
+      "connections": [
+        "core_7",
+        "l3_cache"
+      ]
+    },
+    {
+      "id": "l3_cache",
+      "name": "Shared L3 Cache",
+      "shape": "box",
+      "position": [
+        2,
+        0.55,
+        0
+      ],
+      "size": [
+        7.4,
+        0.5,
+        1.4
+      ],
+      "material": "copper",
+      "role": "The 16 MB last-level cache shared by all eight cores, laid out as a central strip between the two core rows and tied into the ring bus.",
+      "connections": [
+        "die_substrate",
+        "l2_0",
+        "l2_1",
+        "l2_2",
+        "l2_3",
+        "l2_4",
+        "l2_5",
+        "l2_6",
+        "l2_7",
+        "ring_rail_north",
+        "ring_rail_south"
+      ]
+    },
+    {
+      "id": "ring_rail_north",
+      "name": "Ring Interconnect Rail (North)",
+      "shape": "cylinder",
+      "position": [
+        2.3,
+        1,
+        1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        1.5708
+      ],
+      "size": [
+        0.1,
+        7.4
+      ],
+      "material": "copper",
+      "role": "One rail of the bidirectional ring bus, running along the +Z core row and carrying coherent traffic between cores and cache.",
+      "connections": [
+        "l3_cache",
+        "ring_link_west",
+        "ring_link_east",
+        "ring_stop_0",
+        "ring_stop_1",
+        "ring_stop_2",
+        "ring_stop_3"
+      ]
+    },
+    {
+      "id": "ring_rail_south",
+      "name": "Ring Interconnect Rail (South)",
+      "shape": "cylinder",
+      "position": [
+        2.3,
+        1,
+        -1.25
+      ],
+      "rotation": [
+        0,
+        0,
+        1.5708
+      ],
+      "size": [
+        0.1,
+        7.4
+      ],
+      "material": "copper",
+      "role": "The opposite rail of the bidirectional ring bus, running along the -Z core row to close the coherent ring.",
+      "connections": [
+        "l3_cache",
+        "ring_link_west",
+        "ring_link_east",
+        "ring_stop_4",
+        "ring_stop_5",
+        "ring_stop_6",
+        "ring_stop_7",
+        "io_pcie_block"
+      ]
+    },
+    {
+      "id": "ring_link_west",
+      "name": "Ring Link (West End)",
+      "shape": "cylinder",
+      "position": [
+        -1.4,
+        1,
+        0
+      ],
+      "rotation": [
+        1.5708,
+        0,
+        0
+      ],
+      "size": [
+        0.1,
+        2.5
+      ],
+      "material": "copper",
+      "role": "The west cross-link that joins the two ring rails into a closed loop and connects the memory side of the die into the ring.",
+      "connections": [
+        "ring_rail_north",
+        "ring_rail_south",
+        "mem_controller_ch0",
+        "mem_controller_ch1",
+        "igpu_block"
+      ]
+    },
+    {
+      "id": "ring_link_east",
+      "name": "Ring Link (East End)",
+      "shape": "cylinder",
+      "position": [
+        6,
+        1,
+        0
+      ],
+      "rotation": [
+        1.5708,
+        0,
+        0
+      ],
+      "size": [
+        0.1,
+        2.5
+      ],
+      "material": "copper",
+      "role": "The east cross-link that closes the ring loop at the far end of the core grid.",
+      "connections": [
+        "ring_rail_north",
+        "ring_rail_south"
+      ]
+    },
+    {
+      "id": "ring_stop_0",
+      "name": "Ring Stop 0",
+      "shape": "cylinder",
+      "position": [
+        -0.3,
+        0.85,
+        1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 0 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_north",
+        "core_0"
+      ]
+    },
+    {
+      "id": "ring_stop_1",
+      "name": "Ring Stop 1",
+      "shape": "cylinder",
+      "position": [
+        1.5,
+        0.85,
+        1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 1 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_north",
+        "core_1"
+      ]
+    },
+    {
+      "id": "ring_stop_2",
+      "name": "Ring Stop 2",
+      "shape": "cylinder",
+      "position": [
+        3.3,
+        0.85,
+        1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 2 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_north",
+        "core_2"
+      ]
+    },
+    {
+      "id": "ring_stop_3",
+      "name": "Ring Stop 3",
+      "shape": "cylinder",
+      "position": [
+        5.1,
+        0.85,
+        1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 3 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_north",
+        "core_3"
+      ]
+    },
+    {
+      "id": "ring_stop_4",
+      "name": "Ring Stop 4",
+      "shape": "cylinder",
+      "position": [
+        -0.3,
+        0.85,
+        -1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 4 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_south",
+        "core_4"
+      ]
+    },
+    {
+      "id": "ring_stop_5",
+      "name": "Ring Stop 5",
+      "shape": "cylinder",
+      "position": [
+        1.5,
+        0.85,
+        -1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 5 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_south",
+        "core_5"
+      ]
+    },
+    {
+      "id": "ring_stop_6",
+      "name": "Ring Stop 6",
+      "shape": "cylinder",
+      "position": [
+        3.3,
+        0.85,
+        -1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 6 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_south",
+        "core_6"
+      ]
+    },
+    {
+      "id": "ring_stop_7",
+      "name": "Ring Stop 7",
+      "shape": "cylinder",
+      "position": [
+        5.1,
+        0.85,
+        -1.25
+      ],
+      "size": [
+        0.16,
+        0.5
+      ],
+      "material": "copper",
+      "role": "The ring agent that taps core 7 and its L3 slice onto the ring interconnect.",
+      "connections": [
+        "ring_rail_south",
+        "core_7"
+      ]
+    },
+    {
+      "id": "mem_controller_ch0",
+      "name": "Integrated Memory Controller — Channel A",
+      "shape": "box",
+      "position": [
+        -4.6,
+        0.6,
+        1.9
+      ],
+      "size": [
+        1.4,
+        0.6,
+        3.4
+      ],
+      "material": "welded steel",
+      "role": "One of two DDR4 channels of the on-die memory controller, driving external DRAM along the short edge of the die.",
+      "connections": [
+        "die_substrate",
+        "system_agent",
+        "ring_link_west"
+      ]
+    },
+    {
+      "id": "mem_controller_ch1",
+      "name": "Integrated Memory Controller — Channel B",
+      "shape": "box",
+      "position": [
+        -4.6,
+        0.6,
+        -1.9
+      ],
+      "size": [
+        1.4,
+        0.6,
+        3.4
+      ],
+      "material": "welded steel",
+      "role": "The second DDR4 channel of the on-die memory controller, giving the die its dual-channel memory bandwidth.",
+      "connections": [
+        "die_substrate",
+        "system_agent",
+        "ring_link_west"
+      ]
+    },
+    {
+      "id": "system_agent",
+      "name": "System Agent",
+      "shape": "box",
+      "position": [
+        -4.6,
+        0.575,
+        0
+      ],
+      "size": [
+        1.4,
+        0.55,
+        1.2
+      ],
+      "material": "dark anodized aluminum",
+      "role": "The uncore block hosting the display engine, power management and the bridge between the memory controllers and the ring.",
+      "connections": [
+        "die_substrate",
+        "mem_controller_ch0",
+        "mem_controller_ch1",
+        "io_pcie_block",
+        "display_engine"
+      ]
+    },
+    {
+      "id": "display_engine",
+      "name": "Display Engine & Power Control Unit",
+      "shape": "box",
+      "position": [
+        -4.6,
+        1,
+        0
+      ],
+      "size": [
+        1,
+        0.3,
+        0.9
+      ],
+      "material": "glass display",
+      "role": "The display engine and package power-control unit (PCU) inside the system agent, driving external displays and managing per-core voltage and frequency; capped on top for inspectability.",
+      "connections": [
+        "system_agent"
+      ]
+    },
+    {
+      "id": "igpu_block",
+      "name": "Integrated GPU",
+      "shape": "box",
+      "position": [
+        1.5,
+        0.65,
+        4
+      ],
+      "size": [
+        8,
+        0.7,
+        1.6
+      ],
+      "material": "white composite",
+      "role": "The Gen9.5 integrated graphics processor occupying the +Z long edge, ring-connected like a CPU core.",
+      "connections": [
+        "die_substrate",
+        "ring_link_west",
+        "igpu_eu_array"
+      ]
+    },
+    {
+      "id": "igpu_eu_array",
+      "name": "iGPU Execution-Unit Array",
+      "shape": "box",
+      "position": [
+        1.5,
+        1.15,
+        4
+      ],
+      "size": [
+        6,
+        0.3,
+        1
+      ],
+      "material": "glass display",
+      "role": "The grid of 24 execution units inside the integrated GPU; shown raised on top of the iGPU block for inspectability.",
+      "connections": [
+        "igpu_block"
+      ]
+    },
+    {
+      "id": "io_pcie_block",
+      "name": "I/O and PCIe Block",
+      "shape": "box",
+      "position": [
+        1.5,
+        0.6,
+        -4
+      ],
+      "size": [
+        8,
+        0.6,
+        1.6
+      ],
+      "material": "white composite",
+      "role": "The off-die I/O block hosting the 16 PCIe 3.0 lanes and DMI link along the -Z long edge.",
+      "connections": [
+        "die_substrate",
+        "system_agent",
+        "ring_rail_south",
+        "io_pcie_lanes",
+        "io_dmi_link"
+      ]
+    },
+    {
+      "id": "io_pcie_lanes",
+      "name": "PCIe 3.0 Lane Bank",
+      "shape": "box",
+      "position": [
+        0.3,
+        1.05,
+        -4
+      ],
+      "size": [
+        5.4,
+        0.3,
+        1
+      ],
+      "material": "glass display",
+      "role": "The bank of 16 PCIe 3.0 lanes connecting the die to discrete GPUs and NVMe storage; raised on the I/O block for inspectability.",
+      "connections": [
+        "io_pcie_block"
+      ]
+    },
+    {
+      "id": "io_dmi_link",
+      "name": "DMI 3.0 Chipset Link",
+      "shape": "box",
+      "position": [
+        4.3,
+        1.05,
+        -4
+      ],
+      "size": [
+        1.6,
+        0.3,
+        1
+      ],
+      "material": "brass",
+      "role": "The DMI 3.0 x4 link that ties the CPU die to the platform chipset (PCH) for SATA, USB and network I/O.",
+      "connections": [
+        "io_pcie_block"
+      ]
+    }
+  ]
+}

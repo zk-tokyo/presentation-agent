@@ -34,6 +34,9 @@ BACKGROUND_COLOR ?= \#FFFFFF
 # Tone for the presentation (derived from Core Strategy, can be overridden)
 TONE ?= Respectfully ambitious and intellectually rigorous.
 
+# Max iterations for the visual refinement loop (make refine / all_refined)
+REFINE_ITERS ?= 5
+
 # --- Output Files ---
 CONTEXT_OUT := $(OUTPUT_DIR)/01_Context_Brief.json
 PERSONA_OUT := $(OUTPUT_DIR)/02_Audience_Persona.json
@@ -55,7 +58,9 @@ CLAUDE_FLAGS ?= --dangerously-skip-permissions --output-format json
         context_analysis audience_persona core_strategy \
         governing_argument narrative_blueprint \
         slide_drafting visual_design \
-        executive_review final_export
+        executive_review final_export \
+        polish all_polished refine all_refined \
+        scene scene-improve
 
 # ==============================================================================
 # Main Targets
@@ -66,7 +71,14 @@ all: final_export
 	@echo "Pipeline complete!"
 	@echo "Final manifest: $(EXPORT_OUT)"
 	@echo "Slides directory: $(SLIDES_DIR)/"
+	@echo ""
+	@echo "Optional next step: run 'make polish' to iterate the deck"
+	@echo "through the executive rubric (build → PNG → score → fix → repeat)."
 	@echo "============================================"
+
+# Run steps 01-09 and then the recursive self-improvement loop.
+all_polished: all polish
+	@echo "Full pipeline + polish loop complete."
 
 help:
 	@echo "============================================================================"
@@ -76,7 +88,13 @@ help:
 	@echo "Usage: make [target]"
 	@echo ""
 	@echo "Main Targets:"
-	@echo "  all            - Run the entire 9-step pipeline from start to finish."
+	@echo "  all            - Run the entire 9-step generation pipeline."
+	@echo "  polish         - Run the recursive self-improvement loop on existing slides/."
+	@echo "  refine         - Externalized visual self-improvement loop (visually-3d method)."
+	@echo "  scene          - Generate + self-improve an interactive 3D model for a slide."
+	@echo "  scene-improve  - Re-run the 3D self-improvement loop on an existing scene."
+	@echo "  all_polished   - Run 'all' then 'polish' (full generation + quality loop)."
+	@echo "  all_refined    - Run 'all' then 'refine' (full generation + visual loop)."
 	@echo "  validate       - Validate that inputs/introduction.md has required frontmatter."
 	@echo "  clean          - Remove all generated outputs."
 	@echo ""
@@ -98,6 +116,16 @@ help:
 	@echo "  Phase 4: Polish & Export (Review & Output)"
 	@echo "    8. executive_review   - Conduct a final 'murder board' review."
 	@echo "    9. final_export       - Apply revisions and export to Slidev Markdown."
+	@echo ""
+	@echo "  Phase 5: Quality Loop (Optional)"
+	@echo "   10. polish             - Build, export PNGs, score the 8-axis rubric,"
+	@echo "                             apply targeted fixes, and iterate up to 7 cycles"
+	@echo "                             until every axis is >= 4.5."
+	@echo "   11. refine             - Visually-3d method: a shell loop renders the deck"
+	@echo "                             to PNGs, one Claude call per iteration scores the"
+	@echo "                             rubric from the renders and edits slides, with"
+	@echo "                             per-iteration history under .refine/."
+	@echo "                             Tune with REFINE_ITERS=N (default 5)."
 	@echo ""
 	@echo "Configuration:"
 	@echo "  All presentation metadata is configured in inputs/introduction.md frontmatter:"
@@ -233,3 +261,76 @@ $(EXPORT_OUT): $(PROMPTS_DIR)/09_Final_Export.md $(DRAFTS_OUT) $(VISUALS_OUT) $(
 	prompt="$$(sed -e 's|{{SLIDE_DRAFTS}}|$(DRAFTS_OUT)|g' -e 's|{{VISUAL_DESIGNS}}|$(VISUALS_OUT)|g' -e 's|{{EXECUTIVE_REVIEW}}|$(REVIEW_OUT)|g' -e "s|{{STYLE_GUIDE}}|$$style_guide|g" $<)"; \
 	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/09_Final_Export.json
 	@if [ -f "$(EXPORT_OUT)" ]; then echo "[Step 9/9] Complete. Final manifest at $(EXPORT_OUT)"; else echo "[Step 9/9] Warning: $(EXPORT_OUT) not found."; fi
+
+# ==============================================================================
+# Phase 5: Quality Loop (Optional)
+# ==============================================================================
+
+# Build → PNG export → 8-axis rubric → targeted fixes → repeat (up to 7 cycles)
+# until every axis is >= 4.5. Modifies slides/ in place.
+#
+# Standalone: works on any deck where slides.md + slides/ exist, regardless
+# of whether the JSON outputs/ from steps 01-09 are present.
+polish: | init
+	@echo "[Step 10/10] Recursive Self-Improvement..."
+	@if [ ! -f "slides.md" ]; then \
+		echo "ERROR: slides.md not found. Run 'make all' first, or create slides.md manually."; \
+		exit 1; \
+	fi
+	@if [ ! -d "$(SLIDES_DIR)" ] || [ -z "$$(ls -A $(SLIDES_DIR) 2>/dev/null)" ]; then \
+		echo "ERROR: $(SLIDES_DIR)/ is empty. Run 'make all' first."; \
+		exit 1; \
+	fi
+	@prompt="$$(cat $(PROMPTS_DIR)/10_Recursive_Self_Improvement.md)"; \
+	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/10_Recursive_Self_Improvement.json
+	@echo "[Step 10/10] Complete. Review the report in $(LOG_DIR)/10_Recursive_Self_Improvement.json"
+	@echo "             and inspect the updated slides under $(SLIDES_DIR)/."
+
+# ------------------------------------------------------------------------------
+# refine — externalized visual self-improvement loop (the visually-3d method).
+#
+# Unlike `polish` (one agentic Claude call that loops internally), `refine` runs
+# an explicit shell loop: each iteration renders the deck to per-slide PNGs,
+# invokes Claude ONCE to score the rubric from those renders and apply surgical
+# edits, then re-renders as a regression guard. Every iteration's prompt, PNGs,
+# JSONL thinking trace and a deck snapshot are kept under .refine/ for audit.
+#
+# Standalone: works on any deck where slides.md + slides/ exist.
+# Tune iteration count with REFINE_ITERS=N (default 5).
+refine:
+	@echo "[Refine] Externalized visual self-improvement loop..."
+	@sh scripts/refine.sh $(REFINE_ITERS)
+
+# Run steps 01-09, then the externalized visual refinement loop.
+all_refined: all refine
+	@echo "Full pipeline + visual refinement loop complete."
+
+# ------------------------------------------------------------------------------
+# 3D scenes — generate an interactive 3D model and embed it live in a slide.
+#
+# `make scene` generates a visually-3d MachineSceneDescriptor with Claude, then
+# runs the recursive self-improvement loop (render PNG -> VLM visual critique
+# -> improved descriptor) on it. The result lands at public/scenes/<id>.json;
+# drop `<Scene3D src="/scenes/<id>.json" />` into any slide to render it live
+# and orbit-able. Tune the loop with SCENE_ITERS=N (default 4).
+#
+#   make scene SCENE_ID=cpu SCENE_NAME="CPU die floorplan" \
+#              SCENE_HINT="Cores, shared L3 cache, memory controllers, ..."
+#   make scene-improve SCENE_ID=cpu     # re-run the loop on an existing scene
+SCENE_ITERS ?= 4
+
+scene:
+	@if [ -z "$(SCENE_ID)" ] || [ -z "$(SCENE_NAME)" ] || [ -z "$(SCENE_HINT)" ]; then \
+		echo 'usage: make scene SCENE_ID=<id> SCENE_NAME="<name>" SCENE_HINT="<description>"'; \
+		exit 1; \
+	fi
+	@echo "[Scene] Generating 3D scene '$(SCENE_ID)'..."
+	@node scripts/scene-generate.mjs "$(SCENE_ID)" "$(SCENE_NAME)" "$(SCENE_HINT)"
+	@echo "[Scene] Recursive self-improvement (visual feedback loop)..."
+	@sh scripts/scene-improve.sh "$(SCENE_ID)" $(SCENE_ITERS)
+	@echo "[Scene] Done. Embed it in a slide with:"
+	@echo "          <Scene3D src=\"/scenes/$(SCENE_ID).json\" />"
+
+scene-improve:
+	@if [ -z "$(SCENE_ID)" ]; then echo 'usage: make scene-improve SCENE_ID=<id>'; exit 1; fi
+	@sh scripts/scene-improve.sh "$(SCENE_ID)" $(SCENE_ITERS)
