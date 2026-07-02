@@ -1,5 +1,5 @@
 ---
-target_audience: "Advanced Cryptography Program Week 1 受講者 (オンサイト20-25名 / 学部生〜社会人エンジニア混在 / バックグラウンドにばらつきあり)"
+target_audience: "Advanced Cryptography Program Week 5 受講者 (オンサイト20-25名 / 学部生〜社会人エンジニア混在 / バックグラウンドにばらつきあり)"
 audience_type: group
 constraints:
   max_slides: 30
@@ -52,7 +52,7 @@ event:
 	    - Dec$(c, key_{dec})\to m$: 暗号文と鍵から平文を生成する（復号）
   - 共通鍵暗号と公開鍵暗号
     - 共通鍵暗号(Symmetric Key Encryption): EncとDecで同じkeyを用いる。
-    - 公開鍵暗号(Public Key Encryption): Genが鍵のペア(pk,sk)を生成し、pk(公開鍵)が公開されてsk(秘密鍵)が公開されない。Encで使うkeyがpkであり、Decで使うkeyがskである。
+    - 公開鍵暗号(Public Key Encryption): Genが鍵のペア(pk,sk)を生成し、pk(公開鍵)が暗号化に使われsk(秘密鍵)が復号に使われる。Encで使うkeyがpkであり、Decで使うkeyがskである。
 
 **FHEの概念**
 
@@ -90,7 +90,7 @@ FHEにはいくつかの種類がある。
 - Fully Homomorphic Encryption(FHE) 
 	- Bootstrappingにより、暗号文の状態で加算と乗算を制限回数なしに行える。
 
-この分け方の他にも世代として分類することもある。
+※この分け方の他にも世代として分類することもある。
 
 FHEの主要方式として以下の方式が挙げられる。
 
@@ -176,6 +176,7 @@ LWE暗号文はこのままでも、平文との加算・乗算、暗号文同�
 - Gentry's Blue Print
 	- 暗号文を多項式のベクトル表現として解釈し、暗号文同士の積を多項式の積として行う
 	- ノイズは指数関数的に増加する
+	- 暗号文を暗号文の状態で復号することでノイズを削減する
 - BGV, BFV, CKKS
 	- ベクトルである暗号文同士のテンソル積を計算する
 	- テンソル積により暗号文の値が正規のものから変化するので、BGVではRelinearizationとModulus Switching、BFVではRelinearizationのみ、CKKSではRescalingを行う
@@ -236,11 +237,10 @@ LWE暗号文はこのままでも、平文との加算・乗算、暗号文同�
 	- 多項式をLookup Tableとして使う
 	    - 平文空間のすべての平文を係数にエンコードした多項式$v(x)=\Sigma_{i,j} m_ix^{m_i+e_j} \;\text{mod}\; x^n+1$とノイズの増加した暗号文$\mathbf{c}=LWE_\mathbf{s}(m)=(\mathbf{a},b)$を考え、$x^{-(c-\mathbf{as})}v(x) \;\text{mod}\; x^n+1=x^{-(m+e)}v(x)\;\text{mod}\; x^n+1$として、この多項式の定数項を抜き出すと平文$m$が出てくる。この一連の処理を暗号文の状態でやる
 	    - $v(x)$の次数はありえる$\Delta m +e$の値の総数、すなわち$q$にしなければならないように思えるが、$q$は実際には2048bitなどの巨大な数であるため、単純に$v$の次数を$q$にすると$v$が大きくなり過ぎてしまう。そこで、$v$の次数を$q$より小さな値$n$としておき、暗号文$(\mathbf{a},b)$に対して、$\hat{\mathbf{a}}=\lceil \mathbf{a}\frac{2n}{q}\rfloor, \hat{b}=\lceil b\frac{2n}{q}\rfloor$とすることで暗号文に対応する平文とテスト多項式の次数を対応させる（この操作をリスケーリングと呼ぶ）。
-	- **$x^{-(\hat{b}-\hat{\mathbf{a}}\mathbf{s})}v$の数値による具体例([Ko25]のものを改変)
 - Programmable Bootstrappingは以下の３つのサブアルゴリズムから構成される
 	- Blind Rotation: ノイズの溜まった暗号文を使って暗号化された多項式を回転させる
 	- Sample Extraction: 回転した多項式から定数項を暗号文の状態で抜き出す
-    - Key Switching: 定数項の暗号文の鍵を元の暗号文の鍵と一致させる**
+    - Key Switching: 定数項の暗号文の鍵を元の暗号文の鍵と一致させる
 
 **多項式をLUTとして使うとうまくいくことの確認**
 - 前提

@@ -32,7 +32,7 @@ FONT ?= BIZ UDPMincho
 BACKGROUND_COLOR ?= \#FFFFFF
 
 # Tone for the presentation (derived from Core Strategy, can be overridden)
-TONE ?= Respectfully ambitious and intellectually rigorous.
+TONE ?= Pedagogically precise and lecture-style. Prioritize conceptual clarity and mathematical rigor.
 
 # --- Output Files ---
 CONTEXT_OUT := $(OUTPUT_DIR)/01_Context_Brief.json
@@ -49,6 +49,15 @@ EXPORT_OUT := $(OUTPUT_DIR)/09_Final_Export.json
 export CLAUDE_CODE_PERMISSIONS := bypassPermissions
 export CLAUDE_CODE_MAX_OUTPUT_TOKENS := 100000
 CLAUDE_FLAGS ?= --dangerously-skip-permissions --output-format json
+MODEL_01 ?= opus
+MODEL_02 ?= opus
+MODEL_03 ?= opus
+MODEL_04 ?= opus
+MODEL_05 ?= opus
+MODEL_06 ?= opus
+MODEL_07 ?= opus
+MODEL_08 ?= opus
+MODEL_09 ?= opus
 
 # --- Phony Targets ---
 .PHONY: all init clean help validate \
@@ -162,21 +171,21 @@ context_analysis: $(CONTEXT_OUT)
 $(CONTEXT_OUT): $(PROMPTS_DIR)/01_Context_Analysis.md $(RAW_INPUT) | init
 	@echo "[Step 1/9] Context Analysis..."
 	@prompt="$$(sed -e 's|{{RAW_INPUT}}|$(RAW_INPUT)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/01_Context_Analysis.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_01) -p "$$prompt" > $(LOG_DIR)/01_Context_Analysis.json
 	@if [ -f "$(CONTEXT_OUT)" ]; then echo "[Step 1/9] Complete."; else echo "[Step 1/9] Warning: $(CONTEXT_OUT) not found."; fi
 
 audience_persona: $(PERSONA_OUT)
 $(PERSONA_OUT): $(PROMPTS_DIR)/02_Audience_Persona.md $(CONTEXT_OUT) | init
 	@echo "[Step 2/9] Audience Persona..."
 	@prompt="$$(sed -e 's|{{CONTEXT_BRIEF}}|$(CONTEXT_OUT)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/02_Audience_Persona.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_02) -p "$$prompt" > $(LOG_DIR)/02_Audience_Persona.json
 	@if [ -f "$(PERSONA_OUT)" ]; then echo "[Step 2/9] Complete."; else echo "[Step 2/9] Warning: $(PERSONA_OUT) not found."; fi
 
 core_strategy: $(STRATEGY_OUT)
 $(STRATEGY_OUT): $(PROMPTS_DIR)/03_Core_Strategy.md $(CONTEXT_OUT) $(PERSONA_OUT) | init
 	@echo "[Step 3/9] Core Strategy..."
 	@prompt="$$(sed -e 's|{{CONTEXT_BRIEF}}|$(CONTEXT_OUT)|g' -e 's|{{AUDIENCE_PERSONA}}|$(PERSONA_OUT)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/03_Core_Strategy.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_03) -p "$$prompt" > $(LOG_DIR)/03_Core_Strategy.json
 	@if [ -f "$(STRATEGY_OUT)" ]; then echo "[Step 3/9] Complete."; else echo "[Step 3/9] Warning: $(STRATEGY_OUT) not found."; fi
 
 # ==============================================================================
@@ -187,14 +196,14 @@ governing_argument: $(ARGUMENT_OUT)
 $(ARGUMENT_OUT): $(PROMPTS_DIR)/04_Governing_Argument.md $(STRATEGY_OUT) $(PERSONA_OUT) | init
 	@echo "[Step 4/9] Governing Argument..."
 	@prompt="$$(sed -e 's|{{CORE_STRATEGY}}|$(STRATEGY_OUT)|g' -e 's|{{AUDIENCE_PERSONA}}|$(PERSONA_OUT)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/04_Governing_Argument.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_04) -p "$$prompt" > $(LOG_DIR)/04_Governing_Argument.json
 	@if [ -f "$(ARGUMENT_OUT)" ]; then echo "[Step 4/9] Complete."; else echo "[Step 4/9] Warning: $(ARGUMENT_OUT) not found."; fi
 
 narrative_blueprint: $(BLUEPRINT_OUT)
 $(BLUEPRINT_OUT): $(PROMPTS_DIR)/05_Narrative_Blueprint.md $(ARGUMENT_OUT) $(STRATEGY_OUT) $(CONTEXT_OUT) | init
 	@echo "[Step 5/9] Narrative Blueprint..."
 	@prompt="$$(sed -e 's|{{GOVERNING_ARGUMENT}}|$(ARGUMENT_OUT)|g' -e 's|{{CORE_STRATEGY}}|$(STRATEGY_OUT)|g' -e 's|{{CONTEXT_BRIEF}}|$(CONTEXT_OUT)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/05_Narrative_Blueprint.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_05) -p "$$prompt" > $(LOG_DIR)/05_Narrative_Blueprint.json
 	@if [ -f "$(BLUEPRINT_OUT)" ]; then echo "[Step 5/9] Complete."; else echo "[Step 5/9] Warning: $(BLUEPRINT_OUT) not found."; fi
 
 # ==============================================================================
@@ -205,14 +214,14 @@ slide_drafting: $(DRAFTS_OUT)
 $(DRAFTS_OUT): $(PROMPTS_DIR)/06_Slide_Drafting.md $(BLUEPRINT_OUT) $(CONTEXT_OUT) | init
 	@echo "[Step 6/9] Slide Drafting..."
 	@prompt="$$(sed -e 's|{{NARRATIVE_BLUEPRINT}}|$(BLUEPRINT_OUT)|g' -e 's|{{CONTEXT_BRIEF}}|$(CONTEXT_OUT)|g' -e 's|{{TONE}}|$(TONE)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/06_Slide_Drafting.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_06) -p "$$prompt" > $(LOG_DIR)/06_Slide_Drafting.json
 	@if [ -f "$(DRAFTS_OUT)" ]; then echo "[Step 6/9] Complete."; else echo "[Step 6/9] Warning: $(DRAFTS_OUT) not found."; fi
 
 visual_design: $(VISUALS_OUT)
 $(VISUALS_OUT): $(PROMPTS_DIR)/07_Visual_Design.md $(DRAFTS_OUT) | init
 	@echo "[Step 7/9] Visual Design..."
 	@prompt="$$(sed -e 's|{{SLIDE_DRAFTS}}|$(DRAFTS_OUT)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/07_Visual_Design.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_07) -p "$$prompt" > $(LOG_DIR)/07_Visual_Design.json
 	@if [ -f "$(VISUALS_OUT)" ]; then echo "[Step 7/9] Complete."; else echo "[Step 7/9] Warning: $(VISUALS_OUT) not found."; fi
 
 # ==============================================================================
@@ -223,7 +232,7 @@ executive_review: $(REVIEW_OUT)
 $(REVIEW_OUT): $(PROMPTS_DIR)/08_Executive_Review.md $(DRAFTS_OUT) $(VISUALS_OUT) $(PERSONA_OUT) $(STRATEGY_OUT) | init
 	@echo "[Step 8/9] Executive Review..."
 	@prompt="$$(sed -e 's|{{SLIDE_DRAFTS}}|$(DRAFTS_OUT)|g' -e 's|{{VISUAL_DESIGNS}}|$(VISUALS_OUT)|g' -e 's|{{AUDIENCE_PERSONA}}|$(PERSONA_OUT)|g' -e 's|{{CORE_STRATEGY}}|$(STRATEGY_OUT)|g' $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/08_Executive_Review.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_08) -p "$$prompt" > $(LOG_DIR)/08_Executive_Review.json
 	@if [ -f "$(REVIEW_OUT)" ]; then echo "[Step 8/9] Complete."; else echo "[Step 8/9] Warning: $(REVIEW_OUT) not found."; fi
 
 final_export: $(EXPORT_OUT)
@@ -231,5 +240,5 @@ $(EXPORT_OUT): $(PROMPTS_DIR)/09_Final_Export.md $(DRAFTS_OUT) $(VISUALS_OUT) $(
 	@echo "[Step 9/9] Final Export..."
 	@style_guide='{"theme":"$(SLIDEV_THEME)","font":"$(FONT)","backgroundColor":"$(BACKGROUND_COLOR)"}'; \
 	prompt="$$(sed -e 's|{{SLIDE_DRAFTS}}|$(DRAFTS_OUT)|g' -e 's|{{VISUAL_DESIGNS}}|$(VISUALS_OUT)|g' -e 's|{{EXECUTIVE_REVIEW}}|$(REVIEW_OUT)|g' -e "s|{{STYLE_GUIDE}}|$$style_guide|g" $<)"; \
-	claude $(CLAUDE_FLAGS) -p "$$prompt" > $(LOG_DIR)/09_Final_Export.json
+	claude $(CLAUDE_FLAGS) --model $(MODEL_09) -p "$$prompt" > $(LOG_DIR)/09_Final_Export.json
 	@if [ -f "$(EXPORT_OUT)" ]; then echo "[Step 9/9] Complete. Final manifest at $(EXPORT_OUT)"; else echo "[Step 9/9] Warning: $(EXPORT_OUT) not found."; fi
