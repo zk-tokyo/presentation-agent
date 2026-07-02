@@ -32,11 +32,20 @@ onMounted(() => { if (isPlaying.value) scheduleNext() })
 onBeforeUnmount(() => { if (timeoutId) clearTimeout(timeoutId) })
 
 const captions = [
-  { code: '① 各 party が witness の share を持つ', note: '誰も witness 全体を知らない（秘密分散）' },
-  { code: '② MPC で証明者を協調実行', note: 'secret-sharing 上で証明生成 — 互いの入力は見せない' },
-  { code: '③ 1 つの SNARK proof が出力される', note: 'succinct・公開検証可（普通の proof と同じ）' },
-  { code: '④ 誰でも検証できる', note: '検証者からは通常の ZK と区別がつかない' },
+  { code: '① witness を秘密分散して配る', note: '各 party は自分の share だけ・誰も w 全体を知らない（信頼できる第三者なし）' },
+  { code: '② SNARK prover を MPC で協調実行', note: '線形演算（MSM・FFT）は share 上でローカル＝無料・乗算だけ通信ラウンド' },
+  { code: '③ share を結合して 1 つの proof に復元', note: 'group 要素を open・single-prover と byte-identical な succinct proof' },
+  { code: '④ 誰でも検証（検証は無変更）', note: '通常の SNARK 検証と区別不能・ZK で witness は漏れない' },
 ]
+
+// co-SNARK の実際のパイプライン。各 phase で対応行をハイライト（自然な上→下順）。
+const formula = [
+  { label: '分散', expr: '[w] ← Share(w)', com: '誰も w 全体を持たない（N 者へ秘密分散）' },
+  { label: 'MPC', expr: 'Prove(pk, x; [w])', com: '線形 MSM·FFT = ローカル / 乗算のみ通信' },
+  { label: 'open', expr: 'π ← Open(A, B, C)', com: 'single-prover と byte-identical な 1 proof' },
+  { label: 'verify', expr: 'Verify(vk, x, π)', com: '検証者・vk・proof サイズは無変更' },
+]
+const phaseToLine = [0, 1, 2, 3]
 
 const partyY = [75, 180, 285]
 </script>
@@ -61,7 +70,7 @@ const partyY = [75, 180, 285]
 
       <!-- chain band: parties + MPC = off-chain proving -->
       <rect x="30" y="28" width="600" height="304" rx="12" fill="rgba(99,102,241,0.04)" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="6 4"/>
-      <text x="600" y="322" text-anchor="end" class="cs-band">分散した証明者</text>
+      <text x="600" y="322" text-anchor="end" class="cs-band">分散した証明者 — 信頼できる第三者なし</text>
 
       <!-- party cards -->
       <g v-for="(py, i) in partyY" :key="'p'+i" class="cs-party" :class="{ 'is-on': phase >= 1 }">
@@ -90,6 +99,12 @@ const partyY = [75, 180, 285]
         <circle cx="460" cy="180" r="54" class="cs-hub-bg"/>
         <text x="460" y="174" text-anchor="middle" class="cs-hub-t">MPC</text>
         <text x="460" y="196" text-anchor="middle" class="cs-hub-s">協調 prove</text>
+      </g>
+
+      <!-- cost annotation: linear = local, mult = communication -->
+      <g class="cs-anno" :class="{ 'is-on': phase >= 1 }">
+        <text x="460" y="252" text-anchor="middle" class="cs-anno-l1">MSM · FFT → ローカル（無料）</text>
+        <text x="460" y="272" text-anchor="middle" class="cs-anno-l2">乗算 → 通信ラウンド</text>
       </g>
 
       <!-- hub -> proof arrow -->
@@ -123,6 +138,14 @@ const partyY = [75, 180, 285]
         <text x="1010" y="262" text-anchor="middle" class="cs-plabel">誰でも検証</text>
       </g>
     </svg>
+
+    <div class="cs-formula">
+      <div v-for="(f, i) in formula" :key="'f'+i" class="cs-fline" :class="{ 'is-active': i === phaseToLine[phase] }">
+        <span class="cs-flabel">{{ f.label }}</span>
+        <span class="cs-fexpr">{{ f.expr }}</span>
+        <span class="cs-fcom">{{ f.com }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -155,6 +178,11 @@ const partyY = [75, 180, 285]
 .cs-hub-t { font-size: 22px; font-weight: 900; fill: #4338ca; font-family: 'JetBrains Mono', monospace; }
 .cs-hub-s { font-size: 12px; font-weight: 700; fill: #6366f1; }
 
+.cs-anno { opacity: 0; transition: opacity 0.5s; }
+.cs-anno.is-on { opacity: 1; }
+.cs-anno-l1 { font-size: 14px; font-weight: 800; fill: #4338ca; font-family: 'JetBrains Mono', monospace; }
+.cs-anno-l2 { font-size: 14px; font-weight: 800; fill: #b45309; font-family: 'JetBrains Mono', monospace; }
+
 .cs-proof { opacity: 0.4; transition: opacity 0.5s; }
 .cs-proof.is-on { opacity: 1; }
 .cs-shield { fill: #fffbeb; stroke: #f59e0b; stroke-width: 2.5; transition: filter 0.4s; }
@@ -168,4 +196,12 @@ const partyY = [75, 180, 285]
 .cs-fade-enter-active, .cs-fade-leave-active { transition: opacity 0.4s ease, transform 0.4s ease; }
 .cs-fade-enter-from { opacity: 0; transform: translateY(4px); }
 .cs-fade-leave-to { opacity: 0; transform: translateY(-4px); }
+
+.cs-formula { display: flex; flex-direction: column; gap: 2px; padding: 10px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.75rem; }
+.cs-fline { display: flex; align-items: baseline; gap: 12px; padding: 3px 8px; border-radius: 6px; opacity: 0.4; transition: opacity 0.45s, background 0.45s; }
+.cs-fline.is-active { opacity: 1; background: #fffbeb; }
+.cs-flabel { flex: 0 0 82px; text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: #6366f1; }
+.cs-fexpr { flex: 0 0 268px; font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 800; color: #374151; }
+.cs-fline.is-active .cs-fexpr { color: #b45309; }
+.cs-fcom { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #94a3b8; }
 </style>

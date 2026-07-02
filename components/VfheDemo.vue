@@ -34,7 +34,7 @@ onBeforeUnmount(() => { if (timeoutId) clearTimeout(timeoutId) })
 const captions = [
   { code: '① ユーザがデータを暗号化して送る', note: 'E(x) — サーバには中身が見えない' },
   { code: '② サーバが暗号文のまま f を計算（FHE）', note: 'E(f(x)) を得る。だが「正しく計算したか」は不明' },
-  { code: '③ 計算の正しさを ZK 証明 π で添える（+ ZK）', note: 'vFHE = FHE（機密性）+ ZK（正しさ）' },
+  { code: '③ 計算の正しさを ZK 証明 π で添える（+ ZK）', note: 'Verifiable FHE = FHE（機密性）+ ZK（正しさ）' },
   { code: '④ ユーザが復号 + π を検証', note: '機密性（FHE）AND 計算の正しさ（ZK）を同時に得る' },
 ]
 </script>
