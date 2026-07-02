@@ -159,3 +159,11 @@ src: ./slides/SL37.md
 ---
 src: ./slides/SL38.md
 ---
+
+---
+src: ./slides/SL39.md
+---
+
+---
+src: ./slides/SL40.md
+---
