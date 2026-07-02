@@ -85,6 +85,10 @@ src: ./slides/SL19.md
 ---
 
 ---
+src: ./slides/SL19 b.md
+---
+
+---
 src: ./slides/SL20.md
 ---
 
@@ -101,5 +105,29 @@ src: ./slides/SL23.md
 ---
 
 ---
+src: ./slides/SL23 b.md
+---
+
+---
 src: ./slides/SL24.md
+---
+
+---
+src: ./slides/SL24 b.md
+---
+
+---
+src: ./slides/SL25.md
+---
+
+---
+src: ./slides/SL25 b.md
+---
+
+---
+src: ./slides/SL26.md
+---
+
+---
+src: ./slides/SL27.md
 ---
