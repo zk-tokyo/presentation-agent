@@ -171,7 +171,3 @@ src: ./slides/SL40.md
 ---
 src: ./slides/SL41.md
 ---
-
----
-src: ./slides/SL42.md
----
