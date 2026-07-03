@@ -185,3 +185,35 @@ th {
   border-top: 1px solid #e0e0e0;
   margin: 1.5rem 0;
 }
+
+/* ===== Week 3 PDF deck ===== */
+.slidev-layout.week3-pdf-slide {
+  padding: 0 !important;
+  overflow: hidden;
+  background: #f4f4f4 !important;
+}
+
+.week3-pdf-viewer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #ffffff;
+}
+
+.week3-pdf-fallback {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #000000;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
