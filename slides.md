@@ -1,66 +1,20 @@
 ---
 theme: seriph
-title: スライドタイトル
+title: zkSNARK part1
 info: |
-  スライドタイトル
+  Week 3: 有限体・多項式・Commitment・Arithmetization
 transition: slide-left
 mdc: true
 colorSchema: 'light'
-src: ./slides/SL01.md
+class: week3-pdf-slide
 ---
 
----
-src: ./slides/SL02.md
----
+<iframe
+  class="week3-pdf-viewer"
+  src="/week3_zksnark_slides.pdf"
+  title="zkSNARK part1 PDF"
+></iframe>
 
----
-src: ./slides/SL03.md
----
-
----
-src: ./slides/SL04.md
----
-
----
-src: ./slides/SL05.md
----
-
----
-src: ./slides/SL06.md
----
-
----
-src: ./slides/SL07.md
----
-
----
-src: ./slides/SL08.md
----
-
----
-src: ./slides/SL09.md
----
-
----
-src: ./slides/SL10.md
----
-
----
-src: ./slides/SL11.md
----
-
----
-src: ./slides/SL12.md
----
-
----
-src: ./slides/SL13.md
----
-
----
-src: ./slides/SL14.md
----
-
----
-src: ./slides/SL15.md
----
+<a class="week3-pdf-fallback" href="/week3_zksnark_slides.pdf" target="_blank" rel="noreferrer">
+  PDFを開く
+</a>
