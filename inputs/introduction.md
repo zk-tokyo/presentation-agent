@@ -6,7 +6,7 @@ constraints:
   max_duration_minutes: 120
 output_language: Japanese
 event:
-  name: "Advanced Cryptography Program — Week 1"
+  name: "Advanced Cryptography Program — Week 5"
   parent_event: "Merkle Japan × 東京大学ブロックチェーンイノベーション寄付講座"
   date: "2026 年度"
   location: "東京大学 講義室 (オンサイト)"
@@ -29,15 +29,16 @@ event:
 
 | 時刻  | セクション                         | 内容                                                                                                                                                       | 時間（分） |
 | --- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
-|     | FHEの概要                        | • FHEの概念と歴史 <br>◦ 前の週まででEncryption Schemeの話はしない気がするのでそこらへんも軽く触る <br>• HE, SHE, LHE, FHEのカテゴリ <br>• FHEの主要方式 <br>• FHEの課題 <br>◦ 速度 <br>◦ non-malleability | 25    |
-|     | LWE暗号                         | • 近似連立方程式 <br>• LWE問題 <br>• LWE暗号 <br>• LWE暗号文同士の演算<br>• LWE以外の方式に基づくFHE                                                                                 | 15    |
-|     | Bootstrappingの基本概念            | • ノイズを削減する基本的な発想                                                                                                                                         | 5     |
-|     | TFHEの概略                       | • TFHEの基本情報 <br>• Bootstrappingでノイズ削減しながら関数評価できるよって話                                                                                                     | 5     |
-|     | Programmable Bootstrappingの概観 | • 円分多項式（week4まででやってなければ） <br>• Programmable Bootstrappingの基本アイディア                                                                                        | 15    |
-|     | 休憩                            | -                                                                                                                                                        | 10    |
-|     | RLWEとRGSW                     | • RLWE暗号 <br>• Gadget Decomposition <br>• RGSW暗号 <br>• RLWEとRGSWによるexternal product <br>• cmux                                                           | 10    |
-|     | Programmable Bootstrappingの流れ | • BlindRotation <br>• SampleExtraction <br>• KeySwitching                                                                                                | 30    |
-|     | HomNAND                       |                                                                                                                                                          | 5     |
+|     | FHEの概要                        | • FHEの概念と歴史 <br>◦ 前の週まででEncryption Schemeの話はしない気がするのでそこらへんも軽く触る <br>• HE, SHE, LHE, FHEのカテゴリ <br>• FHEの主要方式 <br>• FHEの課題 <br>◦ 速度 <br>◦ non-malleability |       |
+|     | LWE暗号                         | • 近似連立方程式 <br>• LWE問題 <br>• LWE暗号 <br>• LWE暗号文同士の演算<br>• LWE以外の方式に基づくFHE                                                                                 |       |
+|     | Bootstrappingの基本概念            | • ノイズを削減する基本的な発想                                                                                                                                         |       |
+|     | TFHEの概略                       | • TFHEの基本情報 <br>• Bootstrappingでノイズ削減しながら関数評価できるよって話                                                                                                     |       |
+|     | Programmable Bootstrappingの概観 | • 円分多項式（week4まででやってなければ） <br>• Programmable Bootstrappingの基本アイディア                                                                                        |       |
+|     | 休憩                            | -                                                                                                                                                        |       |
+|     | RLWEとRGSW                     | • RLWE暗号 <br>• Gadget Decomposition <br>• RGSW暗号 <br>• RLWEとRGSWによるexternal product <br>• cmux                                                           |       |
+|     | Programmable Bootstrappingの流れ | • BlindRotation <br>• SampleExtraction <br>• KeySwitching                                                                                                |       |
+|     | HomNAND                       |                                                                                                                                                          |       |
+|     |                               |                                                                                                                                                          |       |
 
 ### コンテンツ
 
@@ -74,11 +75,11 @@ event:
 			D -->|Dec| B
 	  ```
 
-	- 暗号文のまま平文の加算と乗算両方は行えない。
+	- 加法だけ、あるいは乗法だけが使える方式を部分準同型暗号(PHE)と呼ぶことがある。FHEでは加算と乗算の両方を暗号文上で扱う。
 	- RSA暗号やElgamal暗号は暗号文同士の乗算が平文同士の乗算になり、Paillier暗号は暗号文同士の乗算が平文同士の加算になる 
 	- 暗号文の状態での演算を準同型演算と呼ぶ。
-  完全準同型暗号(Fully Homomophic Encyption, 以下FHE)は暗号文のまま加算と乗算が行える。加算と乗算が行えればNAND演算を評価できる。すなわち、平文$m_1,m_2\in \{0,1\}$に対して$1-m_1m_2$を暗号文の状態で計算することで、平文に対するNAND演算を評価できる。そのため、暗号文のまま加算と乗算が行えれば、理論上任意のプログラムを暗号文のまま評価することできる。
-  FHEの概念自体は1978にRSA暗号で有名なRivestらにより提唱され[RAD78]、具体的な構成方法は格子を用いた方式[Gen09]がGentryにより2009年に提案された。このGentryによる方式(Gentry's Blue Printと呼ばれることがある)では、Bootstrappingと呼ばれる操作を導入することによりFHEを実現したが、この論文におけるBootstrappigの計算量は非常に大きく、全く実用的なものではなかった。しかし、このGentryによる提案をきっかけにFHEの研究は急速に発展していき、現在に至るまでGentryの方式で用いられた格子と呼ばれる数学的な構造は主要なFHEのベースになっている。特にBootstrappingはFHEに関する研究の潮流の中心にあり、Boostrappingの性能を改善する方法やBootstrapping回避する方式が数多く研究されている。
+  完全準同型暗号(Fully Homomorphic Encryption, 以下FHE)は暗号文のまま加算と乗算が行える。加算と乗算が行えればNAND演算を評価できる。すなわち、平文$m_1,m_2\in \{0,1\}$に対して$1-m_1m_2$を暗号文の状態で計算することで、平文に対するNAND演算を評価できる。そのため、暗号文のまま加算と乗算が行えれば、理論上任意のBoolean回路を暗号文のまま評価できる。
+  FHEの概念自体は1978年にRSA暗号で有名なRivestらにより提唱され[RAD78]、具体的な構成方法は格子を用いた方式[Gen09]がGentryにより2009年に提案された。このGentryによる方式(Gentry's blueprintと呼ばれることがある)では、Bootstrappingと呼ばれる操作を導入することによりFHEを実現したが、当初の方式は計算量が非常に大きく、実用には遠かった。しかし、このGentryによる提案をきっかけにFHEの研究は急速に発展していき、現在に至るまで格子・LWE/RLWE系の構成が主要なFHEのベースになっている。特にBootstrappingはFHEに関する研究の中心にあり、Bootstrappingの性能を改善する方法や、回路深さを先に決めてBootstrappingなしで評価するleveled FHEが数多く研究されている。
 
 **FHEのカテゴリと主要方式**
 FHEにはいくつかの種類がある。
@@ -94,23 +95,24 @@ FHEにはいくつかの種類がある。
 
 FHEの主要方式として以下の方式が挙げられる。
 
-- Gentry's Blue Print
+- Gentry's blueprint
 	- Bootstrappingを導入することで初めてFHEを構成した方式。
 - BFV/BGV  
 	- 整数値に対する演算を行うことのできるFHE
 	- Bootstrapping自体は重たいが、準同型演算自体は比較的高速
-	- SV packingと呼ばれる手法により、暗号文のままのSIMD演算が可能
-	- ある程度準同型演算を行うとBootstrappingを行う必要性が生ずるため、パラメーターを調整してLHEとして使われることがメイン
+	- Smart-Vercauteren packing/batching系の手法により、暗号文のままSIMD的な演算が可能
+	- 実用上は評価したい回路深さに合わせてパラメーターを調整し、LHEとして使われることが多い
 - CKKS
 	- 浮動小数点などの近似値計算を準同型演算することができるFHE
 	- 機械学習と相性が良く、最近盛んに研究されている。
 	- BFV/BGVと同様に準同型演算が比較的高速で、主にLHEとして運用される
 - GSW
-	- 近似固有ベクトルの概念を利用して暗号文の形を工夫することにより、Bootstrappingの速度を大きく改善した
+	- 近似固有ベクトルの概念を利用して、暗号文を行列として扱えるようにしたLWEベースの方式
+	- RGSW/TGSWとして、FHEW/TFHE系のexternal productやCMUXの部品になる
 - FHEW
-	- Homomorphic Accumulatorと呼ばれる操作を導入することにより、GSWからさらにBootstrappingを高速化
+	- Homomorphic Accumulatorと呼ばれる考え方により、NAND/refreshのBootstrappingを1秒未満まで高速化した方式
 - TFHE
-	- 後半で説明
+	- FHEWの流れを発展させたtorus上の方式。gate bootstrappingやprogrammable bootstrappingを後半で扱う
 
 **FHEの課題**
 
@@ -122,7 +124,9 @@ FHEの主要方式として以下の方式が挙げられる。
 	- 安全性と計算速度、その他の点でもFHEにはトレードオフがあり、それらの間でバランスをとるパラメータ設計が問題になる
 - 検証可能性
 	- クラウドコンピューティングなどのユースケースにおいてFHEを使って計算を外部に委託した際、計算結果が正しく得られたものなのかどうか確認することができない。
-	- FHEは準同型演算ができるが故にnon-malleabilityと呼ばれる安全性を満たすことができず、選択暗号文攻撃と呼ばれる種類の攻撃に対して脆弱になる。
+- 安全性モデル
+	- FHEは暗号文を意図的に変形して別の平文の暗号文を作る機能を持つため、通常の意味でのnon-malleabilityとは相性が悪い。
+	- 多くのFHE方式は基本的にCPA安全性を中心に議論される。CCA安全性が必要な応用では、利用形態や追加の認証・検証レイヤーを別途設計する必要がある。
 
 #### LWE暗号
 
@@ -147,8 +151,8 @@ LWE暗号は共通鍵暗号としても公開鍵暗号としても構成でき�
 		- $\Delta$は$\Delta:=q/p$であり、スケーリングファクターと呼ばれる。
 		- 以降、平文$m$の秘密鍵$\mathbf{s}$によるLWE暗号文を$\text{LWE}_{\mathbf{s}}(m)$と書く。
 - Dec$(c,\mathbf{s})\to m \in \mathbb{F}_p$:
-	- $\lceil \frac{b-\mathbf{as} \text{ mod }q}{\Delta}\rfloor \text{ mod } p=\lceil \frac{\Delta m + e \text{ mod }q}{\Delta}\rfloor \text{ mod } p=\lceil m+\frac{e \text{ mod }q}{\Delta}\rfloor \text{ mod } p=m$により復号する
-		- $\lceil a \rfloor$は$a$をもっとも近い整数値にする操作。要は四捨五入
+	- $\left\lfloor \frac{b-\mathbf{as} \text{ mod }q}{\Delta}\right\rceil \text{ mod } p=\left\lfloor \frac{\Delta m + e \text{ mod }q}{\Delta}\right\rceil \text{ mod } p=\left\lfloor m+\frac{e \text{ mod }q}{\Delta}\right\rceil \text{ mod } p=m$により復号する
+		- $\lfloor a \rceil$は$a$をもっとも近い整数値にする操作。要は四捨五入
 		- $-\frac{\Delta}{2}\le e < \frac{\Delta}{2}$であれば正常に復号可能
 
 > [!note]
@@ -173,14 +177,14 @@ LWE暗号文はこのままでも、平文との加算・乗算、暗号文同�
 これらの操作により出力される暗号文はもとの暗号文よりもノイズが増えている。よって、暗号文に対する演算を続けると、ノイズはいずれ$-\frac{\Delta}{2}\le e < \frac{\Delta}{2}$に収まらなくなる
 
 **LWE暗号文同士の乗算とノイズ**
-- Gentry's Blue Print
+- Gentry's blueprint
 	- 暗号文を多項式のベクトル表現として解釈し、暗号文同士の積を多項式の積として行う
 	- ノイズは指数関数的に増加する
 	- 暗号文を暗号文の状態で復号することでノイズを削減する
 - BGV, BFV, CKKS
 	- ベクトルである暗号文同士のテンソル積を計算する
-	- テンソル積により暗号文の値が正規のものから変化するので、BGVではRelinearizationとModulus Switching、BFVではRelinearizationのみ、CKKSではRescalingを行う
-		- これらの操作の際にノイズの増大も遅らせされる
+	- テンソル積により暗号文の次数・形が通常の暗号文から外れるので、Relinearization/Key Switchingで通常形へ戻す
+	- BGVではModulus Switching、CKKSではRescalingがノイズ・スケール管理の中心になる。BFVでも実装上はmodulus switching/rescalingに相当するRNS・modulus管理が使われることがある
 - GSW
 	- 暗号文の形を工夫して行列の形で表すことで、暗号文同士の積を行列の同士の掛け算で実現
 	- ノイズの増大を抑えるためにGadget Decompositionを導入
@@ -195,14 +199,14 @@ LWE暗号文はこのままでも、平文との加算・乗算、暗号文同�
 
 **TFHEの基本情報**
 
-- zamaが2020年に提案した方式
-- それまでの方式と比べるとBootstrappingが非常に高速かつ省メモリであり、数MBのメモリ消費でミリ秒単位で実行可能
+- Chillotti, Gama, Georgieva, Izabachèneらによる方式。
+- それまでの方式と比べるとgate bootstrappingが非常に高速であり、論文中では1 bitのgate bootstrappingを約13msで実行するパラメータ例が報告されている。
 - トーラスと呼ばれる代数構造を利用する
 	- トーラスの話をするとややこしくなるので、レクチャーの中ではトーラスを使わない方法を扱う
 - FHEWと呼ばれる方式を拡張した方式
 
 > [!note]
-> トーラスを考えるとどんないいことがあるのか気になる人は[Chi20+],[Zha24+]を読むことをお勧めする
+> トーラスを考えるとどんないいことがあるのか気になる人は[Chi20+],[Joy22]を読むことをお勧めする
 
 #### Programmable Bootstrappingの概観
 
@@ -229,20 +233,18 @@ LWE暗号文はこのままでも、平文との加算・乗算、暗号文同�
 
 **Programmable Bootstrappingの基本アイディア**
 
-- Lookup Table
-	- あるアルゴリズムをプログラムの実行中に計算するのではなく、よく使われる値とそれに対応する出力を事前計算してテーブルを作成しておき、プログラムの実行中はそのテーブルを参照するようにすることで実行速度を上げるテクニック
-	- 平文とそれに対応するノイズの少ない暗号文のテーブルを作り、暗号文のノイズを削減したい時は、その暗号文と同じ平文を持つノイズの少ない暗号文をテーブルから引っ張ってくるようにすることでBootstrappingを高速化する
+
 - key observation
-	- $f(x)=a_0+a_1x+\dots+a_{n-1}x^{n-1} \;\text{mod}\;x^n+1$を考える。これに$x^{-i}\;(0\le i\le n-1)$をかけると、$x^{-i}f(x) \;\text{mod}\;x^n+1=a_i+a_{i+1}x\dots+a_{n-1}x^{n-1-i}-a_0x^{n-i}-a_1x^{n-i+1}-\dots-(i-1)x^{n-1} \;\text{mod}\;x^n+1$となり、$a_i$が定数項になる
-	- 多項式をLookup Tableとして使う
-	    - 平文空間のすべての平文を係数にエンコードした多項式$v(x)=\Sigma_{i,j} m_ix^{m_i+e_j} \;\text{mod}\; x^n+1$とノイズの増加した暗号文$\mathbf{c}=LWE_\mathbf{s}(m)=(\mathbf{a},b)$を考え、$x^{-(c-\mathbf{as})}v(x) \;\text{mod}\; x^n+1=x^{-(m+e)}v(x)\;\text{mod}\; x^n+1$として、この多項式の定数項を抜き出すと平文$m$が出てくる。この一連の処理を暗号文の状態でやる
-	    - $v(x)$の次数はありえる$\Delta m +e$の値の総数、すなわち$q$にしなければならないように思えるが、$q$は実際には2048bitなどの巨大な数であるため、単純に$v$の次数を$q$にすると$v$が大きくなり過ぎてしまう。そこで、$v$の次数を$q$より小さな値$n$としておき、暗号文$(\mathbf{a},b)$に対して、$\hat{\mathbf{a}}=\lceil \mathbf{a}\frac{2n}{q}\rfloor, \hat{b}=\lceil b\frac{2n}{q}\rfloor$とすることで暗号文に対応する平文とテスト多項式の次数を対応させる（この操作をリスケーリングと呼ぶ）。
+	- $f(x)=a_0+a_1x+\dots+a_{n-1}x^{n-1} \;\text{mod}\;x^n+1$を考える。これに$x^{-i}\;(0\le i\le n-1)$をかけると、$x^{-i}f(x) \;\text{mod}\;x^n+1=a_i+a_{i+1}x\dots+a_{n-1}x^{n-1-i}-a_0x^{n-i}-a_1x^{n-i+1}-\dots-a_{i-1}x^{n-1} \;\text{mod}\;x^n+1$となり、$a_i$が定数項になる
+	    - 平文空間のすべての入力に対応する出力値を係数にエンコードした多項式$v(x)$と、ノイズの増加した暗号文$\mathbf{c}=\text{LWE}_\mathbf{s}(m)=(\mathbf{a},b)$を考える。
+	    - LWE暗号文は$b-\mathbf{as}= \Delta m+e$であることに着目し、$x^{-(b-\mathbf{as})}v(x) \;\text{mod}\; x^n+1$の定数項に、入力$m$に対応する係数が来るように$v(x)$を設計する。この一連の処理を暗号文の状態で行うのがBlind Rotationである。
+	    - $v(x)$の次数はありえる$\Delta m +e$の値の総数、すなわち$q$にしなければならないように思えるが、実用的なパラメータでは$q$をそのまま多項式次数にするには大きすぎる。そこで、$v$の次数を$q$より小さな値$n$としておき、暗号文$(\mathbf{a},b)$に対して、$\hat{\mathbf{a}}=\lceil \mathbf{a}\frac{2n}{q}\rfloor, \hat{b}=\lceil b\frac{2n}{q}\rfloor$とすることで暗号文に対応する平文とテスト多項式の次数を対応させる（この操作をリスケーリングと呼ぶ）。
 - Programmable Bootstrappingは以下の３つのサブアルゴリズムから構成される
 	- Blind Rotation: ノイズの溜まった暗号文を使って暗号化された多項式を回転させる
 	- Sample Extraction: 回転した多項式から定数項を暗号文の状態で抜き出す
     - Key Switching: 定数項の暗号文の鍵を元の暗号文の鍵と一致させる
 
-**多項式をLUTとして使うとうまくいくことの確認**
+**多項式を使うとうまくいくことの確認**
 - 前提
 平文空間:$\{0,1,2,3,4,5,6,7\}$
 暗号文空間:$\{0,1,2,\dots,63\}$
@@ -339,7 +341,7 @@ $x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^
 
 
 
-**Blind Rotaionのアルゴリズム**
+**Blind Rotationのアルゴリズム**
 - $\hat{\mathbf{a}}\gets\lceil \mathbf{a}\frac{2n}{q}\rfloor$
 - $\hat{b}\gets \lceil b\frac{2n}{q}\rfloor$
 - $Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(v)$ (RLWE暗号文は多項式をかけることができる。)
@@ -364,15 +366,15 @@ $b'=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}=\mathbf{a's'}+\mu+e$
 $=\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$
 $\;\;\;+ m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
 $\;\;\;+(e_0+e1x+\dots+e_{n-1}x^{n-1})$
-実はこれの定数項$b'_0$がそのまま$m$のLWE暗号文になっている。
+この定数項$b'_0$から、$m$を平文とするLWE暗号文を構成できる。
 $x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は$\mathbf{a'}$と$\mathbf{s'}$の各要素の係数をいい感じに配置しなおしたベクトル$\mathbf{a''}=(a'_{0,0},-a'_{0,n-1},\dots,-a'_{0,1},\dots,a'_{k-1,0},-a'_{k-1,n-1},\dots,-a'_{k-1,1} )$
 $\mathbf{s''}=(s'_{0,0},s'_{0,1},\dots,s'_{0,n-1},\dots,s'_{k-1,0},s'_{k-1,1},\dots,s'_{k-1,n-1} )$
 を用いて
 $b'_0=\mathbf{a''s''}+m+e_0$
-と表せる。よって、$\mathbf{s''}$によるLWE暗号文$\text{LWE}_{s''}(m)=(\mathbf{a''},b_0)$が構成できる。
+と表せる。よって、$\mathbf{s''}$によるLWE暗号文$\text{LWE}_{s''}(m)=(\mathbf{a''},b'_0)$が構成できる。
 
-> ![todo]
-> $a'',s''$の要素に急にマイナスが出てくる理由の説明を記述
+> [!note]
+> $\mathbf{a''}$にマイナスが現れるのは、環が$\mathbb{F}_q[x]/(x^n+1)$であり、$x^n=-1$として折り返されるためである。積の中で次数が$n$以上になった項は定数項へ寄与するときに符号が反転する。
 
 **Sample Extractionのアルゴリズム**
 
@@ -403,25 +405,41 @@ $=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + m +e_0 - \tilde{e})$
 
 **Key Switchingのアルゴリズム**
 
-**Programable Bootstrappingのアルゴリズム**
+**Programmable Bootstrappingのアルゴリズム**
 
 **なぜ"Programmable" Bootstrappingなのか**
 テスト多項式を工夫することで、ノイズを削減しながら任意の一変数関数$f$を評価できる。すなわち、
 $v(x)=\Sigma_{i,j} f(\mu_i)x^{\mu_i+e_j} \;\text{mod}\; x^n+1$
-のようにすると、$x^{-i}v(x)$が$0\le i \le n-1$である限り。
-また、任意の多変数関数はKolmogorovの重ね合わせ定理により単変数多項式の線型結合で表現することができる
-関数評価を行わないノイズを減らすだけのProgrammable BootstrappingをNoise Bootstrappingと呼ぶことがある。
+のようにすると、$x^{-i}v(x)$が$0\le i \le n-1$の範囲で正しく定数項へ写る限り、Bootstrappingの結果が$f(m)$の暗号文になる。
+多変数関数は実用上、bit分解・回路分解・LUTの合成によって扱う。
+関数評価を行わず、ノイズを減らすことだけを目的としたBootstrappingをNoise Bootstrappingと呼ぶことがある。
 また、最近はCKKSにおいてfunctional Bootstrappingと呼ばれる、近似値に対する任意関数の評価が研究されている
 
 
 #### HomNAND
 
-平文空間を{0,1.2.3}、暗号文空間を{0,1,2,3,4,5,6,7,8}とする。
-このとき$\Delta=2$よりノイズ$e$の許容範囲は$0\le e\le 1$
-二つの暗号文$c_0,c_1$に対して$c_b=(0,\dots,0,5)-c_0-c_1$を計算してからBootstrappingする。
-この際、テスト多項式は
-$v(x) =  x + x^2 + x^3+x^4+  \text{ mod } x^4+1$
-としておくと、
+ここではトーラス表現を使わず、整数mod $q$のtoy exampleとして説明する。
+暗号文空間を$\mathbb{Z}_8$とし、ビットを次のように離れた値へエンコードする。
+
+- bit $0 \mapsto 0$
+- bit $1 \mapsto 2$
+
+2つの入力暗号文$c_1,c_2$がそれぞれ$m_1,m_2\in\{0,2\}$を暗号化しているとき、
+
+$c=(0,\dots,0,5)-c_1-c_2$
+
+を計算してからProgrammable Bootstrappingを行う。平文レベルで見ると、
+
+| $m_1$ | $m_2$ | $5-m_1-m_2 \pmod 8$ | NAND |
+| --- | --- | --- | --- |
+| $0$ | $0$ | $5$ | $1$ |
+| $2$ | $0$ | $3$ | $1$ |
+| $0$ | $2$ | $3$ | $1$ |
+| $2$ | $2$ | $1$ | $0$ |
+
+となる。したがって、テスト多項式を「入力が$1$付近なら$0$、$3$または$5$付近なら$2$」を返すLookup Tableとして設計すれば、Bootstrapping後にNANDの暗号文が得られる。
+
+実際のTFHE論文とはスケールと記法が異なるが、このレクチャーでは上のように整数mod $q$へスケールした例として扱う。
 
 ## ホワイトボードセッション
 
@@ -442,7 +460,7 @@ $v(x) =  x + x^2 + x^3+x^4+  \text{ mod } x^4+1$
   - CPA, CCA1, CCA2安全性とは何か
     - 形式的な定義と、現実世界でのどのような状況を指すか
   - One-wayness, Indistinguishability, Non-malleabilityとは何か（形式的な定義）とそれらの等価性
-  - BFG/BGV, CKKS, TFHEはどの安全性を持つか
+  - BFV/BGV, CKKS, TFHEはどの安全性を持つか
   - FHEに対する新たな安全性の先行研究
 - 発表すること：
 
@@ -538,13 +556,13 @@ $v(x) =  x + x^2 + x^3+x^4+  \text{ mod } x^4+1$
 **FHEの概念の初出**
 [Riv78+] Ronald L. Rivest, Len Adleman, and Michael L. Dertouzos. On data banks and privacy homomorphisms. In R. A. DeMillo et al., editors, Foundations of Secure Computation, pages 165–179. Academic Press, 1978. online: https://people.csail.mit.edu/rivest/pubs.html#RAD78.
 
-**Gnetry's Blue Print**
+**Gentry's blueprint**
 [Gen09] Gentry, Craig. "Fully homomorphic encryption using ideal lattices." *Proceedings of the forty-first annual ACM symposium on Theory of computing*. 2009. online: https://dl.acm.org/doi/abs/10.1145/1536414.1536440
 
 **TFHE**
 [Chi20+] Chillotti, Ilaria, et al. "TFHE: Fast Fully Homomorphic Encryption Over the Torus: I. online: Chillotti et al." *Journal of Cryptology* 33.1 (2020): 34-91. https://idp.springer.com/authorize/casa?redirect_uri=https://link.springer.com/article/10.1007/s00145-019-09319-x&casa_token=c_x0bNeB64gAAAAA:fizFBp08C1rUeRx7THtpIzytowXZlV9eiFtea4lPQ_h8o9XthUADw0Jo-OUG6Vmk1fCcs9OOadr8D27N
 
-[Zha24+] Zhang, Junxue, et al. "Sok: Fully homomorphic encryption accelerators." *ACM Computing Surveys* 56.12 (2024): 1-32. online: https://dl.acm.org/doi/abs/10.1145/3676955
+[Joy22] Joye, Marc. "SoK: Fully Homomorphic Encryption over the [Discretized] Torus." *IACR Transactions on Cryptographic Hardware and Embedded Systems* 2022.4 (2022): 661-692. online: https://doi.org/10.46586/tches.v2022.i4.661-692
 
 **CKKS**
 [Che17+]Cheon, Jung Hee, et al. "Homomorphic encryption for arithmetic of approximate numbers." *International conference on the theory and application of cryptology and information security*. Cham: Springer International Publishing, 2017. online: https://link.springer.com/chapter/10.1007/978-3-319-70694-8_15
