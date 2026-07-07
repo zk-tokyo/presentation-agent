@@ -1,66 +1,49 @@
 ---
 theme: seriph
-title: スライドタイトル
+title: "Advanced Cryptography Program Week 2: MPC"
 info: |
-  スライドタイトル
+  Week 2 — Multi-Party Computation (MPC)
+  担当: 中江
 transition: slide-left
 mdc: true
 colorSchema: 'light'
-src: ./slides/SL01.md
+canvasWidth: 1280
+aspectRatio: 16/9
+src: ./slides/start.md
 ---
 
 ---
-src: ./slides/SL02.md
+src: slides/part0.md
 ---
 
 ---
-src: ./slides/SL03.md
+src: slides/part1.md
 ---
 
 ---
-src: ./slides/SL04.md
+src: slides/part2.md
 ---
 
 ---
-src: ./slides/SL05.md
+src: slides/part3.md
 ---
 
 ---
-src: ./slides/SL06.md
+src: slides/part4.md
 ---
 
 ---
-src: ./slides/SL07.md
+src: slides/part5.md
 ---
 
 ---
-src: ./slides/SL08.md
+src: slides/part6.md
 ---
 
 ---
-src: ./slides/SL09.md
+src: slides/part7.md
 ---
 
 ---
-src: ./slides/SL10.md
----
-
----
-src: ./slides/SL11.md
----
-
----
-src: ./slides/SL12.md
----
-
----
-src: ./slides/SL13.md
----
-
----
-src: ./slides/SL14.md
----
-
----
-src: ./slides/SL15.md
+src: slides/end.md
 ---
