@@ -32,8 +32,13 @@ share のまま計算できるものがある
 (模式図を挿入)
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
 
 # 例:加法的秘密分散
+
+::left::
 
 まず、最も直感的な例として **加法的秘密分散** を見る。加法的秘密分散では、secret を複数の share に分け、すべての share を足すと secret に戻るようにする。
 
@@ -56,6 +61,8 @@ share_n = x - share_1 - ... - share_{n-1} mod p
 ```text
 x = share_1 + share_2 + ... + share_n mod p
 ```
+
+::right::
 
 例:
 
@@ -162,6 +169,11 @@ secret は q(0)、つまり多項式の切片に置く。
 点が足りなければ、q(0) はまだ決まらない。正確には、同じ k-1 個の点を通りながら、q(0) が別の値になる多項式がまだ作れてしまう。
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
+
+::left::
 
 
 # Shamir の秘密分散法
@@ -191,6 +203,8 @@ P3 receives q(3)
 ...
 Pn receives q(n)
 ```
+
+::right::
 
 次数 k-1 の多項式は、k 個の点があれば決まる。
 ```text

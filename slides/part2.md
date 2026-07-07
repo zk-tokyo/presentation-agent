@@ -63,6 +63,11 @@ MPC は、複数の party がそれぞれ秘密の入力を持つとき、入力
 具体的な実現方法は一旦脇に置いておいて、どのようなことを考えるのか？について話していく。
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
+
+::left::
 
 # 基本設定
 
@@ -80,6 +85,8 @@ Pn has input xn
 ```text
 y = f(x1, x2, ..., xn)
 ```
+
+::right::
 
 MPC の設計では、少なくとも次を決める必要がある。
 

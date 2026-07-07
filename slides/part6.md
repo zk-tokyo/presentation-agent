@@ -37,6 +37,11 @@ type:
 ```
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
+
+::left::
 
 # 応用例1: Threshold signature / MPC wallet
 
@@ -61,7 +66,11 @@ output:
 hidden:
   秘密鍵全体
   各 party の key share
+```
 
+::right::
+
+```text
 output leakage:
   signature は公開される
   誰が署名に参加したか、いつ署名したかが運用上見えることがある
@@ -77,8 +86,13 @@ threshold signature は、汎用の「任意関数を回路として評価する
 署名方式の代数構造を活かした special-purpose MPC として理解するとよい。
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
 
 # 応用例2: Private Set Intersection
+
+::left::
 
 2つ以上の party がそれぞれ集合を持っている。
 
@@ -105,7 +119,11 @@ hidden:
   共通部分以外の要素
   片方だけが持つ要素
   場合によっては集合サイズ
+```
 
+::right::
+
+```text
 output leakage:
   共通部分そのものを出す場合、その要素が両者に存在することは公開される
   サイズだけを出す場合でも、small domain や繰り返しクエリでは推測が増える
@@ -120,8 +138,13 @@ type:
 PSI は、不正検知、広告、顧客照合、医療、接触確認などで説明しやすい。
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
 
 # 応用例3: Privacy-preserving analytics
+
+::left::
 
 複数組織がデータを持っている。
 
@@ -146,7 +169,11 @@ output:
 hidden:
   各組織の個別データ
   個人や顧客ごとの寄与
+```
 
+::right::
+
+```text
 output leakage:
   小さい集団の統計量や繰り返し集計から個別データが推測されることがある
 
@@ -165,8 +192,13 @@ MPC は計算中の入力を守る。
 Differential Privacy は、出力から個人情報が推測されるリスクを抑える。
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
 
 # 応用例4: Matching / auction / voting
+
+::left::
 
 マッチング、オークション、投票では、入力を隠したまま結果だけを出したい。
 
@@ -192,7 +224,11 @@ hidden:
   希望順位
   入札額
   投票内容
+```
 
+::right::
+
+```text
 output leakage:
   結果から入力の一部が推測されることがある
   voting では投票資格や二重投票の防止も別途設計が必要になる

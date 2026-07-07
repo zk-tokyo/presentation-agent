@@ -105,8 +105,13 @@ fairness や guaranteed output delivery が可能かどうかは、party 数、h
 ただし、実用設計では「途中で止まったらどうするか」は必ず考える必要がある。
 
 ---
+layout: two-cols-header
+class: text-sm, px-2
+---
 
 # generic MPC と special-purpose MPC
+
+::left::
 
 MPC には、大きく分けて2つの見方がある。
 
@@ -126,6 +131,8 @@ Yao、GMW、BGW、SPDZ などは、この見方で理解しやすい。
 利点は、原理的には幅広い関数を扱えることである。
 
 一方で、比較・分岐・ソート・複雑なデータ構造を含むとコストが大きくなりやすい。
+
+::right::
 
 ## special-purpose MPC
 
