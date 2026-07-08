@@ -357,18 +357,18 @@ $x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^
 Blind Rotationによってテスト多項式が回転できて以下のような状態になっている。
 $\text{RLWE}_{s'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v)=\text{RLWE}_{s'}(m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots)$
 これの定数項$m$を暗号文の状態で取り出す。
-$\text{RLWE}_{s'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v)=(\mathbf{a}',b')$
+$\text{RLWE}_{s'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v)=(a'(x),b'(x))$
 $\mu = m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
 とすると、
-$b'=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}=\mathbf{a's'}+\mu+e$
-$=\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$
-$\;\;\;+ m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots$
-$\;\;\;+(e_0+e1x+\dots+e_{n-1}x^{n-1})$
+$b'=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}=a'(x)s'(x)+\Delta\mu+e$
+$=(a'_0+a'_1x+\dots+a'_{n-1}x^{n-1})(s'_0+s'_1x+\dots+s'_{n-1}x^{n-1})$
+$\;\;\;+\Delta(m+mx^{m+e_j}+mx^{m+e_{j+1}}+\dots+(m+1)x^{m+1+e_0}+\dots)$
+$\;\;\;+(e_0+e_1x+\dots+e_{n-1}x^{n-1})$
 この定数項$b'_0$から、$m$を平文とするLWE暗号文を構成できる。
-$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は$\mathbf{a'}$と$\mathbf{s'}$の各要素の係数をいい感じに配置しなおしたベクトル$\mathbf{a''}=(a'_{0,0},-a'_{0,n-1},\dots,-a'_{0,1},\dots,a'_{k-1,0},-a'_{k-1,n-1},\dots,-a'_{k-1,1} )$
-$\mathbf{s''}=(s'_{0,0},s'_{0,1},\dots,s'_{0,n-1},\dots,s'_{k-1,0},s'_{k-1,1},\dots,s'_{k-1,n-1} )$
+$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、$(a'_0+a'_1x+\dots+a'_{n-1}x^{n-1})(s'_0+s'_1x+\dots+s'_{n-1}x^{n-1})$の定数項は$a'(x)$と$s'(x)$の係数を配置しなおしたベクトル$\mathbf{a''}=(a'_0,-a'_{n-1},-a'_{n-2},\dots,-a'_1)$
+$\mathbf{s''}=(s'_0,s'_1,\dots,s'_{n-1})$
 を用いて
-$b'_0=\mathbf{a''s''}+m+e_0$
+$b'_0=\mathbf{a''s''}+\Delta m+e_0$
 と表せる。よって、$\mathbf{s''}$によるLWE暗号文$\text{LWE}_{s''}(m)=(\mathbf{a''},b'_0)$が構成できる。
 
 > [!note]
@@ -378,27 +378,27 @@ $b'_0=\mathbf{a''s''}+m+e_0$
 
 **Key Switching**
 
-Sample Extractionで得られた暗号文$(\mathbf{a''},b_0)$は$\mathbf{s''}$による暗号文なので、これを$\mathbf{s}$による暗号文に変換する。
+Sample Extractionで得られた暗号文$(\mathbf{a''},b'_0)$は$\mathbf{s''}$による暗号文なので、これを$\mathbf{s}$による暗号文に変換する。
 わかりやすさのために$\mathbf{a''}$と$\mathbf{s''}$を
-$\mathbf{a''}=(a''_{0},a''_{1},\dots,a''_{kn-1})$
-$\mathbf{s''}=(s''_{0},s''_{1},\dots,s''_{kn-1} )$
+$\mathbf{a''}=(a''_{0},a''_{1},\dots,a''_{n-1})$
+$\mathbf{s''}=(s''_{0},s''_{1},\dots,s''_{n-1} )$
 と書き直しておく。
-$\mathbf{a''}$のGadget Decomposition $G^{-1}(\mathbf{a''})=(g^{-1}(a''_0),\dots,g^{-1}(a''_{kn-1}))$を考え、$g^{-1}(a''_i)=(\bar{a}_{i,0},\dots,\bar{a}_{i,l-1})$
+$\mathbf{a''}$のGadget Decomposition $G^{-1}(\mathbf{a''})=(g^{-1}(a''_0),\dots,g^{-1}(a''_{n-1}))$を考え、$g^{-1}(a''_i)=(\bar{a}_{i,0},\dots,\bar{a}_{i,l-1})$
 とする。さらに、
-$ksk[i,j]=\text{LWE}_\mathbf{s}(s''_iB^{-(j+1)})(0\le i \le kn-1, 0 \le j \le l-1)$ (これをKey switching keyと呼ぶ)を考えると、目的の$\mathbf{s}$による$m$の暗号文$\text{LWE}_\mathbf{s}(m)$は次のように計算できる。
-$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
+$ksk[i,j]=\text{LWE}_\mathbf{s}(s''_iB^{-(j+1)})(0\le i \le n-1, 0 \le j \le l-1)$ (これをKey switching keyと呼ぶ)を考えると、目的の$\mathbf{s}$による$m$の暗号文$\text{LWE}_\mathbf{s}(m)$は次のように計算できる。
+$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
 なぜこれでうまくいくのか?
 以下のように変形する。
-$\text{LWE}_\mathbf{s}(m)= (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
-$=(0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iB^{-(j+1)})$
-$=(0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iB^{-(j+1)})$
-$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}s''_iB^{-(j+1)})$
-$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{kn-1}_{i=0}a''_{i}s''_i)$
+$\text{LWE}_\mathbf{s}(m)= (0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
+$=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iB^{-(j+1)})$
+$=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iB^{-(j+1)})$
+$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}s''_iB^{-(j+1)})$
+$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}a''_{i}s''_i)$
 $=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
 ここで$\text{LWE}_\mathbf{s}(\mathbf{a''s''})=(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$と表すと、
 $(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
-$=(0,\dots,0,\mathbf{a''s''}+m+e_0)-(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$
-$=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + m +e_0 - \tilde{e})$
+$=(0,\dots,0,\mathbf{a''s''}+\Delta m+e_0)-(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$
+$=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + \Delta m +e_0 - \tilde{e})$
 これは秘密鍵$\mathbf{s}$による$m$の暗号文になっている
 
 **Key Switchingのアルゴリズム**

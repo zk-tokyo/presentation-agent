@@ -8,14 +8,14 @@ layout: default
 
 $x^n \;\text{mod}\;x^n+1 = -1$に注意すると、
 
-$\Sigma_{j=0}^{k-1}(a'_{j,0}+a'_{j,1}x+\dots+a'_{j,n-1}x^{n-1})(s'_{j,0}+s'_{j,1}x+\dots+s'_{j,n-1}x^{n-1})$の定数項は
+$(a'_0+a'_1x+\dots+a'_{n-1}x^{n-1})(s'_0+s'_1x+\dots+s'_{n-1}x^{n-1})$の定数項は
 
 
 $b_0'$は2つのベクトル
 
-$\mathbf{a''}=(a'_{0,0},-a'_{0,n-1},\dots,-a'_{0,1},\dots,a'_{k-1,0},-a'_{k-1,n-1},\dots,-a'_{k-1,1} )$
+$\mathbf{a''}=(a'_0,-a'_{n-1},-a'_{n-2},\dots,-a'_1)$
 
-$\mathbf{s''}=(s'_{0,0},s'_{0,1},\dots,s'_{0,n-1},\dots,s'_{k-1,0},s'_{k-1,1},\dots,s'_{k-1,n-1} )$
+$\mathbf{s''}=(s'_0,s'_1,\dots,s'_{n-1})$
 
 の内積を用いて
 
