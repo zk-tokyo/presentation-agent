@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&display=swap');
 
 :root {
   --slidev-theme-primary: #000000 !important;
@@ -22,7 +22,7 @@ li,
 a,
 td,
 th {
-  font-family: 'Noto Sans JP', 'BIZ UDPMincho', sans-serif !important;
+  font-family: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'BIZ UDPMincho', serif !important;
   color: #000000;
 }
 
@@ -58,9 +58,14 @@ th {
 .slidev-layout h4,
 .slidev-layout h5,
 .slidev-layout h6 {
-  font-family: 'Noto Sans JP', sans-serif !important;
+  font-family: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'BIZ UDPMincho', serif !important;
   color: #333333 !important;
   font-weight: 500;
+}
+
+.slidev-layout p {
+  font-size: 0.98rem;
+  line-height: 1.65;
 }
 
 /* ===== Cover/Intro layouts - タイトルは下線なし ===== */
@@ -95,6 +100,62 @@ th {
   background: #fafafa;
 }
 
+/* ===== KaTeX sizing ===== */
+.slidev-layout .katex {
+  font-family: KaTeX_Main, "Times New Roman", serif !important;
+  font-size: 1em;
+}
+
+.slidev-layout .katex-display > .katex {
+  font-size: 1.08em;
+}
+
+.slidev-layout .katex .mathnormal {
+  font-family: KaTeX_Math, KaTeX_Main, "Times New Roman", serif !important;
+  font-style: italic;
+}
+
+.slidev-layout .katex .mathit {
+  font-family: KaTeX_Main, "Times New Roman", serif !important;
+  font-style: italic;
+}
+
+.slidev-layout .katex .mathrm,
+.slidev-layout .katex .mainrm {
+  font-family: KaTeX_Main, "Times New Roman", serif !important;
+  font-style: normal;
+}
+
+.slidev-layout .katex .mathbf {
+  font-family: KaTeX_Main, "Times New Roman", serif !important;
+  font-weight: 700;
+}
+
+.slidev-layout .katex .amsrm,
+.slidev-layout .katex .mathbb {
+  font-family: KaTeX_AMS, KaTeX_Main, "Times New Roman", serif !important;
+}
+
+.slidev-layout .katex .mathcal {
+  font-family: KaTeX_Caligraphic, KaTeX_Main, "Times New Roman", serif !important;
+}
+
+.slidev-layout .katex .mathfrak {
+  font-family: KaTeX_Fraktur, KaTeX_Main, "Times New Roman", serif !important;
+}
+
+.slidev-layout .katex .mathtt {
+  font-family: KaTeX_Typewriter, monospace !important;
+}
+
+.slidev-layout .katex .mathsf {
+  font-family: KaTeX_SansSerif, sans-serif !important;
+}
+
+.slidev-layout .katex .mathscr {
+  font-family: KaTeX_Script, KaTeX_Main, "Times New Roman", serif !important;
+}
+
 /* ===== Code blocks ===== */
 .slidev-layout pre {
   background: #f8f8f8 !important;
@@ -114,7 +175,8 @@ th {
 
 .slidev-layout li {
   margin-bottom: 0.25rem;
-  line-height: 1.6;
+  font-size: 0.98rem;
+  line-height: 1.65;
 }
 
 /* ===== Links ===== */
@@ -134,13 +196,18 @@ th {
   color: #000000;
 }
 
+.slidev-layout .text-highlight {
+  background: #fffbeb;
+  padding: 0 0.2em;
+}
+
 /* ===== Page number styling ===== */
 .slidev-page:not(.slidev-layout-cover) .slidev-page-number {
   position: absolute;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  font-family: 'Noto Sans JP', sans-serif !important;
+  font-family: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'BIZ UDPMincho', serif !important;
   font-size: 12px;
   color: #666666;
 }
@@ -184,4 +251,507 @@ th {
   border: none;
   border-top: 1px solid #e0e0e0;
   margin: 1.5rem 0;
+}
+
+/* ===== Week 5 design prototype ===== */
+.slidev-layout.week5-prototype {
+  padding: 42px 48px 34px;
+  background: #ffffff !important;
+  color: #111827;
+}
+
+.slidev-layout.week5-prototype h1 {
+  display: block;
+  width: 100%;
+  margin: 0 0 28px;
+  padding: 0 0 10px;
+  border-bottom: 3px solid #17324d;
+  color: #101820 !important;
+  font-family: 'BIZ UDPMincho', serif !important;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.slidev-layout.week5-prototype h1 + p {
+  margin-top: 0 !important;
+  margin-bottom: 18px !important;
+  color: #111827 !important;
+  opacity: 1 !important;
+}
+
+.slidev-layout.week5-prototype h2 {
+  margin: 26px 0 10px;
+  color: #17324d !important;
+  font-family: 'BIZ UDPMincho', serif !important;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.slidev-layout.week5-prototype p {
+  margin: 0 0 18px;
+  color: #111827 !important;
+  opacity: 1 !important;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.slidev-layout.week5-prototype p *,
+.slidev-layout.week5-prototype li * {
+  color: inherit !important;
+  opacity: 1 !important;
+}
+
+.slidev-layout.week5-prototype blockquote {
+  margin: 20px 0 24px;
+  padding-left: 1rem;
+  border: 0;
+  border-left: 3px solid #000000;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #444444 !important;
+  font-style: italic;
+}
+
+.slidev-layout.week5-prototype blockquote p {
+  margin: 0;
+  padding: 0;
+  color: #444444 !important;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.slidev-layout.week5-prototype blockquote p:first-child {
+  background: transparent;
+  color: #444444 !important;
+  font-weight: 700;
+}
+
+.slidev-layout.week5-prototype blockquote strong {
+  color: inherit;
+}
+
+.slidev-layout.week5-prototype table {
+  margin: 18px 0 20px;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.98rem;
+}
+
+.slidev-layout.week5-prototype th {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 2px solid #000000;
+  background: #f5f5f5;
+  color: #000000 !important;
+  font-weight: 600;
+  text-align: left;
+}
+
+.slidev-layout.week5-prototype td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+  background: transparent;
+  color: #000000 !important;
+}
+
+.slidev-layout.week5-prototype .katex-display {
+  margin: 1.15rem 0;
+}
+
+.slidev-layout.week5-prototype-formula .katex-display {
+  margin: 0.8rem 0 1rem;
+  padding: 10px 16px;
+  border-left: 3px solid #000000;
+  background: #fafafa;
+  overflow-x: auto;
+  text-align: left;
+}
+
+.slidev-layout.week5-prototype .mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 22px;
+}
+
+.slidev-layout.week5-prototype .mermaid svg .node rect,
+.slidev-layout.week5-prototype .mermaid svg .node polygon,
+.slidev-layout.week5-prototype .mermaid svg .node path {
+  fill: #f7f8fa !important;
+  stroke: #17324d !important;
+  stroke-width: 1.6px !important;
+}
+
+.slidev-layout.week5-prototype .mermaid svg .edgePath path {
+  stroke: #111827 !important;
+}
+
+.slidev-layout.week5-prototype .mermaid svg .arrowheadPath {
+  fill: #111827 !important;
+  stroke: #111827 !important;
+}
+
+.slidev-layout.week5-prototype .mermaid svg .label,
+.slidev-layout.week5-prototype .mermaid svg .nodeLabel,
+.slidev-layout.week5-prototype .mermaid svg .edgeLabel {
+  color: #111827 !important;
+  fill: #111827 !important;
+}
+
+.slidev-layout .week5-note-card {
+  margin: 20px 0 0;
+  padding: 14px 16px;
+  border: 1px solid #fcd34d;
+  border-radius: 4px;
+  background: #fffbeb;
+  color: #000000 !important;
+}
+
+.slidev-layout .week5-note-card p {
+  margin: 0;
+  color: #000000 !important;
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.slidev-layout .week5-note-card strong {
+  color: #000000 !important;
+}
+
+.slidev-layout .week5-note-card li {
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.slidev-layout .week5-note-card.is-amber {
+  border-color: #fcd34d;
+  background: #fffbeb;
+}
+
+.slidev-layout .week5-note-card.is-blue {
+  border-color: #c9d8ea;
+  background: #f2f7fc;
+}
+
+.slidev-layout .week5-note-card.is-gray {
+  border-color: #e5e7eb;
+  background: #f9fafb;
+}
+
+.slidev-layout .week5-note-card.is-white {
+  border-color: #e5e7eb;
+  background: #ffffff;
+}
+
+.slidev-layout.week5-prototype-card-samples h1 {
+  margin-bottom: 20px;
+}
+
+.slidev-layout.week5-prototype .week5-card-sample-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.slidev-layout.week5-prototype .week5-card-sample-row {
+  min-height: 76px;
+}
+
+.slidev-layout.week5-prototype .week5-card-label {
+  margin-bottom: 6px;
+  color: #17324d !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.slidev-layout.week5-prototype .week5-card-sm {
+  width: 45%;
+}
+
+.slidev-layout.week5-prototype .week5-card-md {
+  width: 65%;
+}
+
+.slidev-layout.week5-prototype .week5-card-center {
+  width: 72%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.slidev-layout.week5-prototype .week5-card-sample-row-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.slidev-layout.week5-prototype .week5-card-right {
+  width: 48%;
+}
+
+.slidev-layout.week5-prototype .week5-card-row-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.slidev-layout.week5-prototype .week5-card-row-two .week5-note-card,
+.slidev-layout.week5-prototype .week5-card-row-three .week5-note-card,
+.slidev-layout.week5-prototype .week5-card-with-text .week5-note-card {
+  margin-top: 0;
+}
+
+.slidev-layout.week5-prototype .week5-card-row-three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.slidev-layout.week5-prototype .week5-card-arrow-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr) 28px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.slidev-layout.week5-prototype .week5-card-arrow-flow .week5-note-card {
+  margin-top: 0;
+}
+
+.slidev-layout.week5-prototype .week5-card-arrow {
+  color: #17324d;
+  font-family: 'BIZ UDPMincho', serif !important;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.slidev-layout.week5-prototype .week5-card-arrow-flow-vertical {
+  display: grid;
+  grid-template-rows: auto 22px auto;
+  justify-items: center;
+  gap: 6px;
+}
+
+.slidev-layout.week5-prototype .week5-card-arrow-flow-vertical .week5-note-card {
+  width: 56%;
+  margin-top: 0;
+}
+
+.slidev-layout.week5-prototype .week5-card-arrow-down {
+  font-size: 1.45rem;
+}
+
+.slidev-layout.week5-prototype .week5-card-with-text {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34%;
+  gap: 22px;
+  align-items: start;
+}
+
+.slidev-layout.week5-prototype .week5-card-text-main p {
+  margin-bottom: 0;
+}
+
+.slidev-layout.week5-prototype .week5-card-side {
+  width: 100%;
+}
+
+.slidev-layout.week5-prototype-text-samples h1 {
+  margin-bottom: 14px;
+}
+
+.slidev-layout.week5-prototype .week5-text-sample-block {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.slidev-layout.week5-prototype .week5-text-sample-block:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.slidev-layout.week5-prototype .week5-text-label {
+  margin-bottom: 8px;
+  color: #17324d !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.week5-text-two,
+.week5-text-three,
+.week5-text-main-side {
+  display: grid !important;
+  gap: 18px;
+}
+
+.week5-text-two {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.week5-text-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+.week5-text-main-side {
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 32%) !important;
+  align-items: start;
+}
+
+.week5-text-two > *,
+.week5-text-three > *,
+.week5-text-main-side > * {
+  min-width: 0;
+}
+
+.slidev-layout.week5-prototype .week5-text-side {
+  padding-left: 16px;
+  border-left: 3px solid #17324d;
+}
+
+.slidev-layout.week5-prototype .week5-text-sample-block h2,
+.slidev-layout.week5-prototype .week5-text-side h2 {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.slidev-layout.week5-prototype .week5-text-sample-block p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.slidev-layout.week5-prototype .week5-text-main p + p {
+  margin-top: 10px;
+}
+
+.slidev-layout.week5-prototype .week5-align-samples {
+  display: grid;
+  gap: 5px;
+}
+
+.slidev-layout.week5-prototype .week5-align-samples p {
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.slidev-layout.week5-prototype .week5-align-samples p:last-child {
+  border-bottom: 0;
+}
+
+.slidev-layout.week5-prototype-image-samples h1 {
+  margin-bottom: 12px;
+}
+
+.slidev-layout.week5-prototype .week5-image-sample-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.slidev-layout.week5-prototype .week5-image-hero {
+  position: relative;
+  overflow: hidden;
+  height: 120px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.slidev-layout.week5-prototype .week5-cat-image {
+  background-image: url('/images/myCat.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.slidev-layout.week5-prototype .week5-image-caption {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.88);
+  color: #102033 !important;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.slidev-layout.week5-prototype .week5-image-text-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28%;
+  gap: 18px;
+  align-items: start;
+}
+
+.slidev-layout.week5-prototype .week5-image-side {
+  width: 100%;
+  height: 108px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.slidev-layout.week5-prototype .week5-image-label {
+  margin-bottom: 6px;
+  color: #17324d !important;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.slidev-layout.week5-prototype .week5-image-text-row p {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.slidev-layout.week5-prototype .week5-image-three {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1.2fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.slidev-layout.week5-prototype .week5-image-three figure {
+  margin: 0;
+}
+
+.slidev-layout.week5-prototype .week5-image-thumb {
+  width: 100%;
+  height: 92px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  display: block;
+}
+
+.slidev-layout.week5-prototype .week5-image-three figcaption {
+  margin-top: 5px;
+  color: #444444 !important;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.slidev-layout.week5-prototype-html-math-samples h1 {
+  margin-bottom: 18px;
+}
+
+.slidev-layout.week5-prototype .week5-html-math-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.slidev-layout.week5-prototype .week5-html-math-inline {
+  display: inline-block;
+  vertical-align: -0.08em;
+}
+
+.slidev-layout.week5-prototype .week5-html-math-block {
+  overflow-x: auto;
+}
+
+.slidev-layout.week5-prototype .week5-html-math-block .katex-display {
+  margin: 0;
+}
+
+.slidev-layout.week5-prototype .week5-html-math-panel {
+  padding: 10px 16px;
+  border-left: 3px solid #000000;
+  background: #fafafa;
 }

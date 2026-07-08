@@ -3,11 +3,9 @@ layout: default
 ---
 
 
-**Key Switching**
+# **Key Switching**
 
-$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
-
-なぜこれでうまくいくのか?
+## なぜ$\text{LWE}_\mathbf{s}(m)\gets (0,\dots,0,b'_0)-\Sigma^{kn-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$でうまくいくのか?
 
 以下のように変形する。
 

@@ -13,3 +13,7 @@ actions-runner/
 # a deck on a `presentation/*` branch; contributors preview locally via
 # `bun dev`.
 outputs/
+
+# week5
+references/*
+inputs/week5_slide_design_notes.md

@@ -33,7 +33,14 @@ src: ./slides/SL06.md
 ---
 
 ---
+src: ./slides/SL06 b.md
+---
+
+---
 src: ./slides/SL07.md
+---
+---
+src: ./slides/SL07 b.md
 ---
 
 ---
@@ -60,12 +67,18 @@ src: ./slides/SL12.md
 src: ./slides/SL13.md
 ---
 
----
-src: ./slides/SL14.md
----
 
 ---
 src: ./slides/SL15.md
+---
+
+
+---
+src: ./slides/SL15 b.md
+---
+
+---
+src: ./slides/SL15 c.md
 ---
 
 ---
@@ -77,6 +90,10 @@ src: ./slides/SL17.md
 ---
 
 ---
+src: ./slides/SL17 c.md
+---
+
+---
 src: ./slides/SL18.md
 ---
 
@@ -84,20 +101,21 @@ src: ./slides/SL18.md
 src: ./slides/SL19.md
 ---
 
----
-src: ./slides/SL19 b.md
----
-
----
-src: ./slides/SL20.md
----
 
 ---
 src: ./slides/SL21.md
 ---
 
 ---
+src: ./slides/SL21 b.md
+---
+
+---
 src: ./slides/SL22.md
+---
+
+---
+src: ./slides/SL22 b.md
 ---
 
 ---
