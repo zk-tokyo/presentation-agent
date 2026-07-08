@@ -2,8 +2,9 @@
 layout: default
 ---
 
-# **FHEの主要方式**
+# **FHEの主要方式** a
 
+FHEの主要方式について説明する
 <div class="week5-note-card">
 <p style="font-size: 1.4rem;">GSW</p>
 <ul>

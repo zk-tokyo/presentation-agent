@@ -11,6 +11,12 @@ canvasWidth: 1280
 aspectRatio: 16/9
 src: ./slides/SL01.md
 ---
+---
+src: ./slides/SL01 b summary.md
+---
+---
+src: ./slides/SL01 c index.md
+---
 
 ---
 src: ./slides/SL02.md

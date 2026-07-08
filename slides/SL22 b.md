@@ -2,15 +2,19 @@
 layout: default
 ---
 
-# リスケーリング 
+# リスケーリング b
 暗号文の状態でのテスト多項式の回転
+
+<div class="week5-note-card">
+<p>暗号文の値とテスト多項式 <MathInline expr="v(x)"/> の係数位置と対応させる。</p>
+</div>
 
 $v(x)$の構成で見たように、$q$個の値をそのまま使うと、テスト多項式の係数が多くなりすぎる。そこで、Blind Rotationの前に
 
-$\hat{\mathbf{a}}\gets\lceil \mathbf{a}\frac{2n}{q}\rfloor,\qquad
-\hat{b}\gets \lceil b\frac{2n}{q}\rfloor$
 
-として、$\mathbf{a},b$を$2n$個の値に丸める。
+$\hat{\mathbf{a}}\gets\lceil \mathbf{a}\frac{2n}{q}\rfloor,\qquad\hat{b}\gets \lceil b\frac{2n}{q}\rfloor$
+ 
+として、$\mathbf{a},b$を$\text{mod }2N$の値に変換する。
 
 Blind Rotationのアルゴリズムでは、この$\hat{\mathbf{a}},\hat{b}$を使って
 
@@ -28,6 +32,3 @@ $\hat{b}-\hat{\mathbf{a}}\mathbf{s}\approx
 
 となり、そこで構成した$v(x)$の対応する係数が定数項にくる。
 
-<div class="week5-note-card is-blue">
-<p>リスケーリングは、暗号文の値を小さくするだけでなく、テスト多項式 <MathInline expr="v(x)"/> の係数位置と対応させるための操作である。</p>
-</div>
