@@ -2,9 +2,7 @@
 layout: default
 ---
 
-# **Blind Rotation** a
-
-暗号文の状態でのテスト多項式の回転について説明する
+# **Blind Rotation**
 
 ## 平文の状態での$x^{-b+\mathbf{as}}v\;\text{mod}\;x^n+1$の求め方
 
@@ -12,26 +10,26 @@ layout: default
 <p style="font-size: 1.2rem;">マルチプレクサを利用する</p>
 </div>
 
-<div class="week5-html-diagram" style="right: 64px; top: 138px; width: 330px; height: 310px;">
-  <div class="week5-diagram-label" style="left: 74px; top: 46px;"><MathInline expr="a_0"/></div>
-  <div class="week5-diagram-label" style="left: 74px; top: 90px;"><MathInline expr="a_1"/></div>
-  <div class="week5-mux-gate" style="left: 124px; top: 20px;"><span>MUX</span></div>
-  <div class="week5-diagram-label" style="left: 197px; top: 68px;"><MathInline expr="a_b"/></div>
-  <div class="week5-diagram-label" style="left: 139px; top: 123px;"><MathInline expr="b"/></div>
-  <div class="week5-diagram-line has-arrow" style="left: 101px; top: 58px; width: 22px;"></div>
-  <div class="week5-diagram-line has-arrow" style="left: 101px; top: 101px; width: 22px;"></div>
-  <div class="week5-diagram-line has-arrow" style="left: 169px; top: 77px; width: 26px;"></div>
-  <div class="week5-diagram-line has-arrow" style="left: 146px; top: 124px; width: 16px; transform: rotate(-90deg);"></div>
+<div class="week5-html-diagram is-mux-comparison" style="right: 150px; top: 124px; width: 430px; height: 420px;">
+  <div class="week5-diagram-label" style="left: 84px; top: 50px;"><MathInline expr="a_0"/></div>
+  <div class="week5-diagram-label" style="left: 84px; top: 106px;"><MathInline expr="a_1"/></div>
+  <div class="week5-mux-gate is-large" style="left: 158px; top: 14px;"><span>MUX</span></div>
+  <div class="week5-diagram-label" style="left: 252px; top: 78px;"><MathInline expr="a_b"/></div>
+  <div class="week5-diagram-label" style="left: 179px; top: 158px;"><MathInline expr="b"/></div>
+  <div class="week5-diagram-line has-arrow" style="left: 114px; top: 63px; width: 43px;"></div>
+  <div class="week5-diagram-line has-arrow" style="left: 114px; top: 119px; width: 43px;"></div>
+  <div class="week5-diagram-line has-arrow" style="left: 213px; top: 86px; width: 36px;"></div>
+  <div class="week5-diagram-line has-arrow" style="left: 184px; top: 152px; width: 10px; transform: rotate(-90deg);"></div>
 
-  <div class="week5-diagram-label" style="left: 34px; top: 188px;"><MathInline expr="\mathrm{RLWE}(a_0)"/></div>
-  <div class="week5-diagram-label" style="left: 34px; top: 231px;"><MathInline expr="\mathrm{RLWE}(a_1)"/></div>
-  <div class="week5-mux-gate is-cmux" style="left: 124px; top: 162px;"><span>CMUX</span></div>
-  <div class="week5-diagram-label" style="left: 202px; top: 211px;"><MathInline expr="\mathrm{RLWE}(a_b)"/></div>
-  <div class="week5-diagram-label" style="left: 118px; top: 292px;"><MathInline expr="\mathrm{RGSW}(b)"/></div>
-  <div class="week5-diagram-line has-arrow" style="left: 99px; top: 200px; width: 24px;"></div>
-  <div class="week5-diagram-line has-arrow" style="left: 99px; top: 244px; width: 24px;"></div>
-  <div class="week5-diagram-line has-arrow" style="left: 169px; top: 214px; width: 30px;"></div>
-  <div class="week5-diagram-line has-arrow" style="left: 146px; top: 281px; width: 22px; transform: rotate(-90deg);"></div>
+  <div class="week5-diagram-label" style="left: 16px; top: 254px;"><MathInline expr="\mathrm{RLWE}(a_0)"/></div>
+  <div class="week5-diagram-label" style="left: 16px; top: 310px;"><MathInline expr="\mathrm{RLWE}(a_1)"/></div>
+  <div class="week5-mux-gate is-cmux is-large" style="left: 158px; top: 218px;"><span>CMUX</span></div>
+  <div class="week5-diagram-label" style="left: 256px; top: 275px;"><MathInline expr="\mathrm{RLWE}(a_b)"/></div>
+  <div class="week5-diagram-label" style="left: 144px; top: 392px;"><MathInline expr="\mathrm{RGSW}(b)"/></div>
+  <div class="week5-diagram-line has-arrow" style="left: 112px; top: 267px; width: 45px;"></div>
+  <div class="week5-diagram-line has-arrow" style="left: 112px; top: 323px; width: 45px;"></div>
+  <div class="week5-diagram-line has-arrow" style="left: 213px; top: 288px; width: 40px;"></div>
+  <div class="week5-diagram-line has-arrow" style="left: 184px; top: 378px; width: 36px; transform: rotate(-90deg);"></div>
 </div>
 
 $\mathbf{a}=\left(a_0,a_1,\ldots,a_{k-1}\right),\mathbf{s}=\left(s_0,s_1,\ldots,s_{k-1}\right)$とすると、$\mathbf{as}=\Sigma_{i=0}^{k-1}a_is_i$と表せる。  

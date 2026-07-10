@@ -1,9 +1,9 @@
 ---
 layout: default
 ---
-# **FHEの課題** a
 
-FHEに残されている課題について説明する
+# **FHEの課題**
+
 <div class="week5-note-card">
 <p style="font-size: 1.4rem;">実行コスト</p>
 <ul>
@@ -26,6 +26,3 @@ FHEに残されている課題について説明する
 	<li>多くのFHE方式は基本的にCPA安全性を中心に議論される。CCA安全性が必要な応用では、利用形態や追加の認証・検証レイヤーを別途設計する必要がある</li>
 </ul>
 </div>
-
-
-	

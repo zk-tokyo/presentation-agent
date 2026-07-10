@@ -2,9 +2,9 @@
 layout: default
 ---
 
-# $v(x)$の構成 b
+# $v(x)$の構成
 
-テスト多項式の具体的な構成方法を説明する
+<div></div>
 
 平文$m$に対するLWE暗号文$(\mathbf{a},b)$は$b-\mathbf{as}=\Delta m+e \pmod q$を満たす。
 

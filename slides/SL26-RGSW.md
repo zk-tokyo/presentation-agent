@@ -2,8 +2,7 @@
 layout: default
 ---
 
-
-# **RGSW** b
+# **RGSW**
 
 <div></div>
 Gadget Decompositionを利用してRGSWを構成する。
@@ -14,12 +13,8 @@ Gadget Decompositionを利用してRGSWを構成する。
 ここで以下の行列をGadget Matrixと呼び、
 $\mathcal{Z}\gets \begin{pmatrix}\text{RLWE}_{\mathbf{s}}(0)\\ \text{RLWE}_{\mathbf{s}}(0)\\ \vdots \\ \text{RLWE}_{\mathbf{s}}(0)\end{pmatrix}\in \mathbb{F}_{n,q}[x]^{(k+1)l\times (k+1)}$とする
 
-
-$G^T=\begin{pmatrix}1/B & & &\\ \vdots & & &\\ 1/B^l & & &\\ & 1/B & \\ & \vdots & &\\ & 1/B^l & &\\ & & \ddots &\\ & & & 1/B\\ & & & \vdots \\ & & & 1/B^l\end{pmatrix}$  
-
+$G^T=\begin{pmatrix}1/B & & &\\ \vdots & & &\\ 1/B^l & & &\\ & 1/B & \\ & \vdots & &\\ & 1/B^l & &\\ & & \ddots &\\ & & & 1/B\\ & & & \vdots \\ & & & 1/B^l\end{pmatrix}$
 
 <div class="week5-note-card week5-card-side">
 <p style="font-size: 1.2rem;">RGSWはRLWE暗号文のリストになっている</p>
 </div>
-
-

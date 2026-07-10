@@ -2,12 +2,12 @@
 layout: default
 ---
 
-# Programmable Bootstrappingの基本アイディア a
+# Programmable Bootstrappingの基本アイディア
 
 ## Bootstrappingでやりたいこと=暗号文のノイズを減らす
 
-<div class="week5-note-card is-blue" >
-<p style="font-size: 1.2rem;">古い暗号文の情報を使って、リストの中からノイズの少ない暗号文をとってくる</p>
+<div class="week5-note-card is-blue" style="width: 63%;">
+<p style="font-size: 1.2rem;">古い暗号文の情報を使って、リストの中からノイズの少ない暗号文を索引する</p>
 </div>
 
 ## key observation
@@ -27,6 +27,7 @@ $x^{-i}f(x) \;\text{mod}\;x^n+1=a_i+a_{i+1}x\dots+a_{n-1}x^{n-1-i}-a_0x^{n-i}-a_
 </div>
 
 <div style="position: absolute; right: 44px; top: 118px; width: 430px; padding: 16px 18px 18px; border: 1px solid #c9d8ea; border-radius: 6px; background: #ffffff;">
+  <div style="position: absolute; left: 22px; top: -12px; padding: 2px 10px; border: 1px solid #c9d8ea; border-radius: 4px; background: #ffffff; color: #111827; font-size: 0.74rem; line-height: 1.35;">暗号文空間</div>
   <div style="font-size: 0.78rem; color: #444444; margin-bottom: 8px;">平文の入ったスロットを回転させる</div>
   <div style="display: grid; grid-template-columns: repeat(8, 1fr); border: 1px solid #17324d; border-right: 0; height: 34px;">
     <div style="display: grid; place-items: center; border-right: 1px solid #17324d; font-size: 0.8rem;"><MathInline expr="m_0"/></div>

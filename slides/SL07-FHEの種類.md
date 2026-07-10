@@ -2,9 +2,8 @@
 layout: default
 ---
 
-# **FHEの種類** a
+# **FHEの種類**
 
-FHEの種類、分類について説明する
 <div class="week5-note-card">
 <p style="font-size: 1.4rem;">Somewhat Homomorphic Encryption(SHE)</p>
 <ul>
@@ -29,8 +28,7 @@ FHEの種類、分類について説明する
 </ul>
 </div>
 
-
 <br>
 
->[!note]
->この分け方の他にも世代として分類することもある。
+> [!note]
+> この分け方の他にも世代として分類することもある。

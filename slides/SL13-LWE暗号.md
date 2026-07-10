@@ -2,9 +2,7 @@
 layout: default
 ---
 
-# **LWE暗号** a
-
-LWE暗号のプロトコルについて説明する
+# **LWE暗号**
 
 <div class="week5-note-card" style="position: absolute; top: 92px; right: 180px; width: 450px; margin: 12; padding: 10px 12px;">
 <p style="font-size: 1.2rem; line-height: 1.45;">大ざっぱに捉えると；<br>平文を<MathInline expr="\mathbf{as}"/>によって隠し、<MathInline expr="e"/>を足して式を少しずらすことで<MathInline expr="m"/>や<MathInline expr="\mathbf{s}"/>の復元を困難にする</p>

@@ -2,11 +2,9 @@
 layout: default
 ---
 
-# Programmable Bootstrappingの大まかな構成 a
-
+# Programmable Bootstrappingの大まかな構成
 
 <br>
-
 
 <div class="week5-note-card">
 <p class="text-center" style="font-size: 1.5rem;">Blind Rotation</p>

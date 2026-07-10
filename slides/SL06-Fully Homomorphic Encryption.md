@@ -2,11 +2,10 @@
 layout: default
 ---
 
-# **Fully Homomorphic Encryption** a
-
-完全準同型暗号とは何か、何ができるかについて説明する
+# Fully Homomorphic Encryption
 
 ## 完全準同型暗号=加算と乗算が両方行える準同型暗号
+
 <div class="week5-note-card">
 <p class="text-center">完全準同型暗号(Fully Homomorphic Encryption, 以下FHE)は<strong>暗号文のまま加算と乗算が任意の回数行える</strong></p>
 </div>
@@ -23,6 +22,5 @@ layout: default
 <br>
 <br>
 
-
->[!note]
->FHEの概念自体は1978年にRSA暗号で有名なRivestらにより提唱された
+> [!note]
+> FHEの概念自体は1978年にRSA暗号で有名なRivestらにより提唱された

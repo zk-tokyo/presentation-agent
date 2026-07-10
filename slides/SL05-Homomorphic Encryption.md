@@ -2,11 +2,9 @@
 layout: default
 ---
 
-# Homomorphic Encryption a
+# Homomorphic Encryption
 
-準同型暗号の概要について説明する
-
-## **準同型暗号(Homomorphic Encryption)とは** 
+## **準同型暗号(Homomorphic Encryption)とは**
 
 <div class="week5-note-card">
 	<p class="text-center" style="font-size: 1.2rem;">
@@ -17,18 +15,14 @@ layout: default
 
 <br>
 
-例えば平文に対する加算と暗号文に対する乗算が対応している場合は
-  ```mermaid
-	flowchart LR
-		A[m1,m2] --> |加算| B[m1+m2]
-		C[c1,c2] --> |乗算| D[c1*c2] 
-		A -->|Enc| C
-		D -->|Dec| B
-  ```
-
-<br>
+<div class="flex justify-center mt-2 mb-1">
+	<div style="width: 620px; height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+		<img src="../public/images/img_homomorphism.jpg" alt="平文空間と暗号文空間における準同型性の対応" style="width: 620px; height: auto; display: block;" />
+	</div>
+</div>
 
 > [!note]
->  - 加法だけ、あるいは乗法だけが使える方式を部分準同型暗号(PHE)と呼ぶことがある。  
->  - RSA暗号やElgamal暗号は暗号文同士の乗算が平文同士の乗算になり、Paillier暗号は暗号文同士の乗算が平文同士の加算になる 
->  - 暗号文の状態での演算を準同型演算と呼ぶ。
+>
+> - 加法だけ、あるいは乗法だけが使える方式を部分準同型暗号(PHE)と呼ぶことがある。
+> - RSA暗号やElgamal暗号は暗号文同士の乗算が平文同士の乗算になり、Paillier暗号は暗号文同士の乗算が平文同士の加算になる
+> - 暗号文の状態での演算を準同型演算と呼ぶ。

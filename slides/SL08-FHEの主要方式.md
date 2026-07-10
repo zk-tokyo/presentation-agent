@@ -2,9 +2,8 @@
 layout: default
 ---
 
-# **FHEの主要方式** a
+# **FHEの主要方式**
 
-FHEの主要方式について説明する
 <div class="week5-note-card">
 <p style="font-size: 1.4rem;">Gentry's blueprint</p>
 <ul>
@@ -30,4 +29,3 @@ FHEの主要方式について説明する
 	<li>BFV/BGVと同様に準同型演算が比較的高速で、主にLHEとして運用される</li>
 </ul>
 </div>
-	
