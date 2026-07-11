@@ -1,13 +1,7 @@
-<script setup>
-import { computed } from 'vue'
-
-const isFirstSlide = computed(() => $nav.currentPage === 1)
-</script>
-
 <template>
-  <div class="mj-footer">
+  <div v-if="$nav.currentPage > 1" class="mj-footer">
     <img src="/images/merklejapan_logo.png" alt="Merkle Japan" class="mj-logo" />
-    <span v-if="!isFirstSlide" class="page-number">{{ $nav.currentPage }}</span>
+    <span class="page-number">{{ $nav.currentPage }}</span>
   </div>
 </template>
 

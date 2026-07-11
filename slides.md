@@ -12,9 +12,6 @@ aspectRatio: 16/9
 src: ./slides/SL01-Fully Homomorphic Encryption.md
 ---
 ---
-src: ./slides/SL02-今回の全体像.md
----
----
 src: ./slides/SL03-目次.md
 ---
 ---
@@ -42,6 +39,9 @@ src: ./slides/SL10-FHEの課題.md
 src: ./slides/SL11-ここからFHEの仕組みの話.md
 ---
 ---
+src: ./slides/SL13-近似連立方程式.md
+---
+---
 src: ./slides/SL12-（判定）LWE問題とLWE仮定.md
 ---
 ---
@@ -61,6 +61,9 @@ src: ./slides/SL17-剰余の復習.md
 ---
 ---
 src: ./slides/SL18-Programmable Bootstrappingの基本アイディア.md
+---
+---
+src: ./slides/SL18-Programmable Bootstrappingの基本アイディアb.md
 ---
 ---
 src: ./slides/SL19-$v(x)$の構成.md

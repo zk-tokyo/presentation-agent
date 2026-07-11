@@ -2,6 +2,8 @@
 layout: default
 ---
 
+# なぜ"Programmable Bootstrapping"なのか
+
 <div></div>
 
 テスト多項式を工夫することで、ノイズを削減しながら任意の一変数関数$f$を評価できる。すなわち、

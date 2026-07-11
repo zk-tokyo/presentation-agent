@@ -4,7 +4,7 @@ layout: default
 
 # Homomorphic Encryption
 
-## **準同型暗号(Homomorphic Encryption)とは**
+## 準同型暗号(Homomorphic Encryption)=暗号文のまま計算できる暗号
 
 <div class="week5-note-card">
 	<p class="text-center" style="font-size: 1.2rem;">

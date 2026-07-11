@@ -8,7 +8,7 @@ layout: default
 <p style="font-size: 1.4rem;">GSW</p>
 <ul>
 	<li>近似固有ベクトルの概念を利用して、暗号文を行列として扱えるようにした方式</li>
-	<li>RGSW/TGSWとして、FHEW/TFHE系のexternal productやCMUXの部品になる</li>
+	<li>Bootstrappingを高速化した</li>
 </ul>
 </div>
 

@@ -15,7 +15,7 @@ layout: default
 <div class="week5-note-card">
 <p style="font-size: 1.4rem;">Leveled Homomorphic Encryption(LHE)</p>
 <ul>
-	<li>暗号文のままの加算と乗算をあらかじめパラメーターによって定められた回数だけBootstrappingなしに行うことができる。</li>
+	<li>暗号文のままの加算と乗算をあらかじめパラメーターによって定められた回数だけ（Bootstrappingなしに）行うことができる。</li>
 	<li>BFG/BGV, CKKSなど</li>
 </ul>
 </div>
