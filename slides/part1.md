@@ -1,9 +1,15 @@
 ---
-layout: default
+layout: center
+class: section-slide section-1
 ---
 
 # Part 1: マルチパーティ計算(MPC: Multi-Party Computation) は何をしたい技術か
 
+<ChapterMap :current="1" />
+
+---
+layout: default
+class: framing-slide
 ---
 
 # 目的
@@ -12,19 +18,26 @@ layout: default
 
 最初に伝えるべきことは、MPC が「秘密を魔法のように消す技術」ではないという点である。 -->
 
-MPC は、複数の人(パーティー)が秘密の値を持っているときに、お互いにその値を秘匿したまま共同で計算するための技術である。
+<div class="purpose-grid">
+  <div class="purpose-main">
+    <p>MPC は、複数の人(パーティー)が秘密の値を持っているときに、お互いにその値を秘匿したまま共同で計算するための技術である。</p>
+    <p>例えば、</p>
+    <ul>
+      <li>3人の給与の平均</li>
+      <li>2人が持つ数を明らかにせずに比較する<br><small>（Yao's Millionaires' Problem）</small></li>
+      <li>匿名投票の集計</li>
+    </ul>
+    <p>など、複数の人が秘密の値を持っているときに、その値を明らかにせずに計算する必要がある場面は多い。</p>
+  </div>
+  <div class="purpose-terms">
+    <TermNote term="party" description="計算に参加する人や企業など、1つの参加主体のこと。" />
+    <TermNote term="SMPC" label="ALSO CALLED" description="Secure Multi-Party Computation の略。MPC と呼ばれることも多い。" />
+  </div>
+</div>
 
-例えば、
-
-- 3人の給与の平均
-- 2人がそれぞれ秘密の値を持っているとする。どちらの数が大きいかを、値を明らかにせずに比較する(Yao's Millionaires' Problem)
-- 匿名投票の集計
-
-など、複数の人が秘密の値を持っているときに、その値を明らかにせずに計算する必要がある場面は多い。
-
-*用語: party...計算に参加している人、あるいは企業など、秘密を共有している1つのかたまりのこと*
-*補足: SMPC(Secure Multi-Party Computation)と呼ばれることもある*
-
+---
+layout: default
+class: zk-mpc-position
 ---
 
 # Advanced Cryptography Program における MPC の位置づけ
@@ -44,5 +57,3 @@ MPC:
 ```
 
 この講義では、MPCをプライバシーテックの一角として、概念理解から始め、数学的な実現方法、そして主要なMPCプロトコルや近年の応用例までを網羅的にカバーする。
-
----

@@ -1,9 +1,15 @@
 ---
-layout: default
+layout: center
+class: section-slide section-5
 ---
 
 # Part 5: セキュリティモデルと主要なMPCプロトコル
 
+<ChapterMap :current="5" />
+
+---
+layout: default
+class: protocol-axes
 ---
 # MPC プロトコルを見るための軸
 
@@ -17,6 +23,9 @@ party はどう振る舞うか？
 generic MPC で解くか、専用プロトコルを使うか？
 ```
 
+---
+layout: default
+class: adversary-models
 ---
 
 # party はどう振る舞うか: semi-honest / malicious
@@ -49,6 +58,9 @@ malicious party は、プロトコルから任意に逸脱する。
 malicious security を達成するには、追加の検証・認証・ZK proof・MAC などが必要になる。その分、コストは高くなる。
 
 ---
+layout: default
+class: majority-models
+---
 
 # 何人まで壊れてもよいか: honest majority と dishonest majority
 
@@ -76,6 +88,9 @@ n = 2, t = 1
 
 SPDZ などは、dishonest majority かつ malicious security を狙う代表的な系統として紹介できる。
 
+---
+layout: default
+class: output-guarantees
 ---
 
 # 出力保証
@@ -106,7 +121,7 @@ fairness や guaranteed output delivery が可能かどうかは、party 数、h
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: dense-two-col generic-vs-special
 ---
 
 # generic MPC と special-purpose MPC
@@ -157,6 +172,9 @@ Yao、GMW、BGW、SPDZ などは、この見方で理解しやすい。
 この区別を持っておくと、プロトコル名を単に覚えるのではなく、問題設定に応じて候補を絞れる。
 
 ---
+layout: default
+class: protocol-map
+---
 
 # 主要なMPCプロトコル
 
@@ -172,6 +190,9 @@ Yao、GMW、BGW、SPDZ などは、この見方で理解しやすい。
 
 この表で覚えるべきなのは、名前そのものではなく、party 数、敵対モデル、回路表現、前処理の有無がセットで変わるという点である。
 
+---
+layout: default
+class: yao-slide
 ---
 
 # Yao's Garbled Circuit: 2PC と Boolean circuit
@@ -204,6 +225,9 @@ evaluator:
   circuit size に応じて garbled table が大きくなる
 ```
 
+---
+layout: default
+class: spdz-slide
 ---
 
 # SPDZ: malicious security かつ dishonest majority の代表プロトコル
@@ -252,5 +276,3 @@ malicious party が不正な share を混ぜることを防ぐために、share 
 ```
 
 この問いに答えたあとで、適切なプロトコル候補を選ぶ。 -->
-
----

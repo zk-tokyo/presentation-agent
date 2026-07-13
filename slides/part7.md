@@ -1,13 +1,19 @@
 ---
-layout: default
+layout: center
+class: section-slide section-7
 ---
 
 # Part 7: ZK / FHE / MPC と関連技術の比較・まとめ
+
+<ChapterMap :current="7" />
 
 <!-- ## 目的
 
 MPC を他のプライバシー技術と比較し、いつ使うべきかを判断できるようにする。 -->
 
+---
+layout: default
+class: technology-comparison
 ---
 
 # 関連技術との比較
@@ -22,7 +28,7 @@ MPC を他のプライバシー技術と比較し、いつ使うべきかを判�
 
 ---
 layout: two-cols-header
-class: text-sm
+class: usage-intuition
 ---
 
 # 使い分けの直感
@@ -74,6 +80,9 @@ class: text-sm
 
 DP は MPC の単純な代替というより、MPC の output leakage 対策として併用されることもある。
 
+---
+layout: default
+class: decision-checklist
 ---
 
 # MPC を使う前に確認すること

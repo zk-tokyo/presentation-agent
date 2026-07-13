@@ -1,113 +1,118 @@
 ---
-layout: default
+layout: center
+class: section-slide section-2
 ---
 
 # Part 2: MPC の問題設定
+
+<ChapterMap :current="2" />
 
 <!-- ## 目的
 
 導入例で作った直感を、MPC の標準的な問題設定に落とし込む。 -->
 
 ---
+layout: default
+class: ttp-slide
+---
 
 # Trusted Third Party の理想世界
 
 まず、理想的には次のような信頼できる第三者 T がいれば簡単である。
 
-```text
-1. 各 party は T に自分の入力だけを送る
-2. T は y = f(x1, x2, ..., xn) を計算する
-3. T は決められた出力 y だけを返す
-4. T は入力を漏らさない
-```
+<div class="ttp-model" aria-label="Trusted Third Party に入力を集める理想世界">
+  <div class="ttp-parties">
+    <div><b>P1</b><span>input x1</span></div>
+    <div><b>P2</b><span>input x2</span></div>
+    <div><b>Pn</b><span>input xn</span></div>
+  </div>
+  <div class="model-arrow"><span>入力を送る</span>→</div>
+  <div class="ttp-center"><small>TRUSTED THIRD PARTY</small><b>T</b><span>y = f(x1, ..., xn)</span><em>入力を漏らさない</em></div>
+  <div class="model-arrow"><span>y だけ返す</span>→</div>
+  <div class="model-output"><small>OUTPUT</small><b>y</b><span>決められた相手へ</span></div>
+</div>
 
 この T が本当に信頼できるなら、問題は解決する。
 
-しかし、現実には次の問題がある。
+<div class="ttp-risks">
+  <span>T が入力を盗み見る</span>
+  <span>T がハックされる</span>
+  <span>特定の party と結託する</span>
+  <span>全員が T を信頼できない</span>
+</div>
 
-- T が入力を盗み見るかもしれない
-- T がハックされるかもしれない
-- T が特定の party と結託するかもしれない
-- そもそも全員が T を信頼できないかもしれない
+<p class="model-conclusion">MPC は、この trusted third party を置かずに、party 同士の通信だけで技術的に同じことを実現しようとする。</p>
 
-MPC は、この trusted third party を置かずに、party 同士の通信だけで技術的に同じことを実現しようとする。
-
+---
+layout: default
+class: definition-slide mpc-definition-slide
 ---
 
 # MPC の直感的な定義
 
 MPC は、複数の party がそれぞれ秘密の入力を持つとき、入力を互いに明かさずに、共同で関数の出力だけを得るためのプロトコルである。
 
-```text
-入力:
-  P1 has x1
-  P2 has x2
-  ...
-  Pn has xn
+<div class="mpc-model" aria-label="信頼できる第三者を置かずに共同計算する図">
+  <div class="mpc-party"><b>P1</b><span>input x1</span><small>入力は手元に残す</small></div>
+  <div class="mpc-party"><b>P2</b><span>input x2</span><small>入力は手元に残す</small></div>
+  <div class="mpc-party"><b>…</b><span>messages</span><small>party 間で通信</small></div>
+  <div class="mpc-party"><b>Pn</b><span>input xn</span><small>入力は手元に残す</small></div>
+  <div class="mpc-protocol"><small>NO TRUSTED THIRD PARTY</small><b>MPC protocol</b><span>y = f(x1, x2, ..., xn)</span></div>
+  <div class="mpc-output"><small>OUTPUT</small><b>y だけを得る</b><span>各 xi は隠す</span></div>
+</div>
 
-計算:
-  y = f(x1, x2, ..., xn)
-
-目標:
-  各 xi は隠す
-  y だけを得る
-```
-
-今日の中心になる問いは次である。
-
-```text
-信頼できる第三者に入力を集めずに、
-どうやって共同で y = f(x1, ..., xn) を計算するか？
-```
+<p class="central-question">信頼できる第三者に入力を集めずに、どうやって共同で y = f(x1, ..., xn) を計算するか？</p>
 
 具体的な実現方法は一旦脇に置いておいて、どのようなことを考えるのか？について話していく。
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: dense-two-col basic-setting
 ---
 
 ::left::
 
 # 基本設定
 
-n 人の party がいる。
+n 人の party が、それぞれ秘密の入力を持っている。
 
-```text
-P1 has input x1
-P2 has input x2
-...
-Pn has input xn
-```
+<div class="setting-inputs">
+  <span><b>P1</b> input x1</span>
+  <span><b>P2</b> input x2</span>
+  <span><b>…</b></span>
+  <span><b>Pn</b> input xn</span>
+</div>
 
-全員で関数 f を計算し、出力 y を得る。
-
-```text
-y = f(x1, x2, ..., xn)
-```
+<div class="setting-formula"><small>全員で関数 f を計算する</small><b>y = f(x1, x2, ..., xn)</b></div>
 
 ::right::
 
-MPC の設計では、少なくとも次を決める必要がある。
+<div class="setting-layers">
+  <div class="setting-core">
+    <div class="setting-label">まず押さえる4つ</div>
+    <ul>
+      <li><b>誰が参加するか</b><span>（party）</span></li>
+      <li><b>各 party が何を持つか</b><span>（input）</span></li>
+      <li><b>何を計算するか</b><span>（function）</span></li>
+      <li><b>誰が結果を受け取るか</b><span>（output）</span></li>
+    </ul>
+  </div>
 
-| 問い | 決めるもの |
-|---|---|
-| 誰が参加するか | party set |
-| 各 party は何を入力するか | input |
-| 何を計算するか | function f |
-| 誰が出力を知るか | output policy |
-| 何人まで壊れてよいか | corruption threshold |
-| 壊れた party はどう振る舞うか | adversary model |
-| party が途中で止まる可能性をどう扱うか | availability / abort |
-| 出力から漏れる情報を許容するか | output leakage |
-| どの計算・通信が高コストになるか | cost |
+  <div class="setting-later">
+    <div class="setting-label">このあと扱う設計条件</div>
+    <ul>
+      <li>何人まで不正でもよいか <span>（corruption threshold）</span></li>
+      <li>不正 party をどう想定するか <span>（adversary model）</span></li>
+      <li>途中停止をどう扱うか <span>（abort / availability）</span></li>
+      <li>出力から何が分かるか <span>（output leakage）</span></li>
+      <li>どこにコストがかかるか <span>（通信・計算・前処理）</span></li>
+    </ul>
+  </div>
+</div>
 
-ここでいう cost には、実行時間だけでなく、通信量、ラウンド数、事前計算、実装の複雑さも含まれる。
-
-party が途中で止まる可能性も、MPC の問題設定に含まれる。
-
-詳しくは Part 5 の出力保証で扱う。
-
+---
+layout: default
+class: security-properties
 ---
 
 # MPC が守りたい性質
@@ -134,6 +139,9 @@ protocol output = f(x1, x2, ..., xn)
 
 一部の party が壊れたり、途中で止まったり、不正なメッセージを送ったりしたときに、プロトコルがどう振る舞うか。
 
+---
+layout: default
+class: leakage-slide
 ---
 
 # MPC が保証しないこと
@@ -167,8 +175,11 @@ average = 1000万円
 ```
 
 ---
+layout: default
+class: security-warning
+---
 
-## 入力の正しさは別問題
+# 入力の正しさは別問題
 
 MPC は、入力を隠したまま計算する技術である。
 
@@ -198,5 +209,3 @@ MPC:
 ZK:
   隠した情報が条件を満たすことを証明する
 ```
-
----

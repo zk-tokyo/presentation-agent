@@ -1,6 +1,6 @@
 ---
-layout: center
-class: text-center
+layout: cover
+class: cover-mpc
 ---
 
 # Advanced Cryptography Program Week 2: <br>Multi-Party Computation (MPC)

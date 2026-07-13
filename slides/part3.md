@@ -1,8 +1,11 @@
 ---
-layout: default
+layout: center
+class: section-slide section-3
 ---
 
 # Part 3: 秘密分散
+
+<ChapterMap :current="3" />
 
 <!-- ## 目的
 
@@ -18,6 +21,9 @@ share のまま計算できるものがある
 ``` -->
 
 ---
+layout: default
+class: secret-sharing-intro
+---
 
 # 秘密分散とは？
 
@@ -29,11 +35,22 @@ share のまま計算できるものがある
 
 もう少し形式的には、SharingとReconstructの2つのアルゴリズムからなる。また、この講義では特にn個のshareの内k個以上が集まれば復元でき、k-1個以下では秘密の値が分からない**k-of-n threshold secret sharing**を中心に見る。
 
-(模式図を挿入)
+<div class="share-visual">
+  <div class="share-node">secret<br>x</div>
+  <div class="share-arrow">→</div>
+  <div class="share-stack">
+    <span>[x]₁</span>
+    <span>[x]₂</span>
+    <span>[x]₃</span>
+  </div>
+  <div class="share-arrow">→</div>
+  <div class="share-result">k 個以上で<br>reconstruct</div>
+  <p class="share-caption">各 share 単体では secret は分からない。決められた数が集まったときだけ復元できる。</p>
+</div>
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: dense-two-col additive-example
 ---
 
 # 例:加法的秘密分散
@@ -170,7 +187,7 @@ secret は q(0)、つまり多項式の切片に置く。
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: dense-two-col shamir-formal
 ---
 
 ::left::
@@ -253,6 +270,9 @@ output
 という流れで考える。
 
 ---
+layout: default
+class: representation-slide
+---
 
 # エンジニア視点: 現実の値をどう扱うか
 
@@ -284,5 +304,3 @@ encoded output
 講義本編では詳細な符号化方式には踏み込まない。
 
 ただし、MPC を使うには「計算したい値や関数を、どの表現に落とすか」を設計する必要がある。
-
----

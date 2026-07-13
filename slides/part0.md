@@ -1,45 +1,44 @@
 ---
 layout: default
+class: salary-story
 ---
 
 # 導入: 3人の給与平均はいくら？
 
-3人がそれぞれ給与を持っている。
+<div class="salary-layout">
+  <div class="salary-copy">
+    <p>3人がそれぞれ給与を持っている。知りたいのは平均だけである。</p>
+    <div class="salary-formula">average = (x1 + x2 + x3) / 3</div>
+    <p>普通に計算するなら、誰か1人が全員の給与を集めたり、全員が公開して計算すればよい。</p>
+    <p class="salary-tension">しかし、その場合は計算者が全員の給与を見てしまう。</p>
+  </div>
 
-```text
-Alice: 給与 x1（非公開）
-Bob:   給与 x2（非公開）
-Carol: 給与 x3（非公開）
-```
+  <div class="salary-diagram" aria-label="個別の給与を見せずに平均だけを得る図">
+    <div class="salary-parties">
+      <div class="salary-party"><b>Alice</b><span>給与 x1</span><small>非公開</small></div>
+      <div class="salary-party"><b>Bob</b><span>給与 x2</span><small>非公開</small></div>
+      <div class="salary-party"><b>Carol</b><span>給与 x3</span><small>非公開</small></div>
+    </div>
+    <div class="salary-arrow">→</div>
+    <div class="salary-compute"><small>共同計算</small><b>f(x1, x2, x3)</b><span>入力は見せない</span></div>
+    <div class="salary-arrow">→</div>
+    <div class="salary-output"><small>OUTPUT</small><b>平均だけ</b><span>指定された人が知る</span></div>
+  </div>
+</div>
 
-知りたいのは平均だけである。
-
-```text
-average = (x1 + x2 + x3) / 3
-```
-
-普通に計算するなら、誰か1人が全員の給与を集めたり、全員が公開して計算すればよい。
-
-しかし、その場合は計算者が全員の給与を見てしまう。
-
-ここでやりたいことは、次のような計算である。
-
-```text
-個別の給与は誰にも見せない
-ただし、出力である平均だけは全員または指定された人が知る
-```
+<div class="salary-goal"><b>ここでやりたいこと</b><span>個別の給与は誰にも見せない。ただし、出力である平均だけは全員または指定された人が知る。</span></div>
 
 ---
-
-# 目次
-
-1. マルチパーティ計算(MPC: Multi-Party Computation) は何をしたい技術か(入門パート)
-2. MPC の問題設定(技術？パート)
-3. 秘密分散(数学パート)
-4. MPC での演算(数学パート)
-5. 出力保証と可用性(知識パート)
-6. MPC の応用と技術選択(知識・応用パート)
-7. まとめとホワイトボードセッションへの接続
-8. 参考文献・補足資料
-
+layout: default
+class: agenda-slide
 ---
+
+# 今日の流れ
+
+1. マルチパーティ計算(MPC: Multi-Party Computation) は何をしたい技術か
+2. MPC の問題設定
+3. 秘密分散
+4. MPC での演算
+5. セキュリティモデルと主要なMPCプロトコル
+6. 応用例
+7. ZK / FHE / MPC と関連技術の比較・まとめ

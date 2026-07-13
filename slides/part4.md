@@ -1,8 +1,11 @@
 ---
-layout: default
+layout: center
+class: section-slide section-4
 ---
 
 # Part 4: MPC での演算
+
+<ChapterMap :current="4" />
 
 <!-- ## 目的
 
@@ -14,6 +17,9 @@ secret を share にしたあと、share のままどう計算するかを理解
 > 乗算から難しい。  
 > 比較・ソート・条件分岐はさらに重い。 -->
 
+---
+layout: default
+class: technical-slide linear-ops
 ---
 
 # 線形演算は軽い
@@ -50,6 +56,9 @@ P3 computes [x]_3 + [y]_3
 1つの share にだけ足す、または c を share 化してから加える。
 
 ---
+layout: default
+class: technical-slide multiplication-cost
+---
 
 # 乗算はローカル計算だけでは閉じない
 
@@ -82,6 +91,9 @@ xy = ([x]_1 + [x]_2 + [x]_3)([y]_1 + [y]_2 + [y]_3)
 そのため、乗算には通信または前処理が必要になる。
 
 ---
+layout: default
+class: technical-slide triple-slide
+---
 
 # Beaver triple: MPC での乗算のための使い捨てマスク
 
@@ -103,6 +115,9 @@ c = a * b
 
 重要なのは、この triple を **1回の乗算に対して一度だけ使う**ことである。
 
+---
+layout: default
+class: technical-slide beaver-slide
 ---
 
 # Beaver triple による乗算
@@ -132,8 +147,13 @@ d と e が公開されたあと、次の式を使う。
 
 したがって、party は share のまま [x * y] を作れる。
 
+加法的秘密分散では、公開値 `d*e` は1つの share にだけ加えるなど、sharing の規約に従って出力 share に組み込む。
+
 このように、線形演算と異なり乗算ではopening が発生するため、通信ラウンドが必要になる。
 
+---
+layout: default
+class: circuit-comparison
 ---
 
 # Arithmetic circuit と Boolean circuit
@@ -163,6 +183,9 @@ shareのまま計算できるとはいっても、全ての演算が同じ重さ
 お互いの表現を行き来することもプロトコルによってはできるが、追加の変換コストがかかるなど万能ではない。
 
 ---
+layout: default
+class: control-flow-slide
+---
 
 # MPC における制御フローの考え方
 
@@ -191,6 +214,9 @@ else:
 これは、MPC が「通常のプログラムをそのまま秘密化する」技術ではなく、「何を計算したいかを回路や演算列として設計する」技術であることを示している。
 
 ---
+layout: default
+class: operation-costs
+---
 
 # 重くなりやすい演算
 
@@ -207,6 +233,9 @@ MPC で重くなりやすいのは、次のような処理である。
 
 一方で、有限体上で 0 でない public constant による割り算は、その逆元を掛けるだけで済む場合がある。
 
+---
+layout: default
+class: cost-map
 ---
 
 # MPC のコストはどこで決まるか
@@ -239,4 +268,4 @@ MPC で重くなりやすいのは、次のような処理である。
 
 ここで答えが詰まる場合は、プロトコル名に進む前に Part 1〜4 の直感に戻る。
 
---- -->
+-->

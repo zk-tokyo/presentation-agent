@@ -1,9 +1,15 @@
 ---
-layout: default
+layout: center
+class: section-slide section-6
 ---
 
 # Part 6: 応用例
 
+<ChapterMap :current="6" />
+
+---
+layout: default
+class: application-lens
 ---
 
 # 応用を見るための型
@@ -13,32 +19,25 @@ MPC の応用は、名前ではなく同じ型に分解して見る。
 ```text
 party:
   誰が計算に参加するか
-
 input:
   各 party が何を秘密入力として持つか
-
 function:
   何を共同で計算するか
-
 output:
   誰が何を知るか
-
 hidden:
   何を隠したいか
-
 output leakage:
   出力から何が推測されるか
-
 cost:
   どの演算・通信・運用が重いか
-
 type:
   generic MPC か、special-purpose MPC か
 ```
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: application-slide app-wallet
 ---
 
 ::left::
@@ -87,7 +86,7 @@ threshold signature は、汎用の「任意関数を回路として評価する
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: application-slide app-psi
 ---
 
 # 応用例2: Private Set Intersection
@@ -139,7 +138,7 @@ PSI は、不正検知、広告、顧客照合、医療、接触確認などで�
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: application-slide app-analytics
 ---
 
 # 応用例3: Privacy-preserving analytics
@@ -193,7 +192,7 @@ Differential Privacy は、出力から個人情報が推測されるリスク�
 
 ---
 layout: two-cols-header
-class: text-sm, px-2
+class: application-slide app-matching
 ---
 
 # 応用例4: Matching / auction / voting
@@ -242,5 +241,3 @@ type:
 ```
 
 この領域は直感的には MPC に向いているが、実装と運用の論点が多い。
-
----
