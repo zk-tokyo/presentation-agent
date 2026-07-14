@@ -26,4 +26,8 @@ $c=(0,\dots,0,5)-c_1-c_2$
 | $0$ | $2$ | $3$ | $1$ |
 | $2$ | $2$ | $1$ | $0$ |
 
-となる。したがって、テスト多項式を「入力が$1$付近なら$0$、$3$または$5$付近なら$2$」を返すLookup Tableとして設計すれば、Bootstrapping後にNANDの暗号文が得られる。
+となる。したがって、テスト多項式を$r=1\mapsto0,\ r=3,5\mapsto2$のLookup Tableとして設計する。
+
+<div class="absolute bottom-3 left-6 text-[10px] text-gray-400 leading-tight max-w-3xl">
+Sources: Chillotti, Gama, Georgieva, Izabachène "TFHE: Fast Fully Homomorphic Encryption over the Torus" Journal of Cryptology 2019
+</div>

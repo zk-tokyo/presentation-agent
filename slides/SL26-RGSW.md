@@ -11,9 +11,9 @@ Gadget Decompositionを利用してRGSWを構成する。
 </div>
 
 ここで以下の行列をGadget Matrixと呼び、
-$\mathcal{Z}\gets \begin{pmatrix}\text{RLWE}_{\mathbf{s}}(0)\\ \text{RLWE}_{\mathbf{s}}(0)\\ \vdots \\ \text{RLWE}_{\mathbf{s}}(0)\end{pmatrix}\in \mathbb{F}_{n,q}[x]^{(k+1)l\times (k+1)}$とする
+$\mathcal{Z}\gets \begin{pmatrix}\text{RLWE}_{\mathbf{s}}(0)\\ \text{RLWE}_{\mathbf{s}}(0)\\ \vdots \\ \text{RLWE}_{\mathbf{s}}(0)\end{pmatrix}$（RLWE暗号文の長さ$2l$のリスト）とする
 
-$G^T=\begin{pmatrix}1/B & & &\\ \vdots & & &\\ 1/B^l & & &\\ & 1/B & \\ & \vdots & &\\ & 1/B^l & &\\ & & \ddots &\\ & & & 1/B\\ & & & \vdots \\ & & & 1/B^l\end{pmatrix}$
+$G^T=\begin{pmatrix}q/B & \\ \vdots & \\ q/B^l & \\ & q/B \\ & \vdots \\ & q/B^l \end{pmatrix}$
 
 <div class="week5-note-card week5-card-side">
 <p style="font-size: 1.2rem;">RGSWはRLWE暗号文のリストになっている</p>

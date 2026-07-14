@@ -96,9 +96,6 @@ src: ./slides/SL27-CMUX.md
 src: ./slides/SL28-Blind Rotation.md
 ---
 ---
-src: ./slides/SL29-リスケーリング.md
----
----
 src: ./slides/SL30-Sample Extraction.md
 ---
 ---
@@ -118,6 +115,9 @@ src: ./slides/SL34-なぜ"Programmable" Bootstrappingなのか.md
 ---
 ---
 src: ./slides/SL35-HomNAND.md
+---
+---
+src: ./slides/SL35b-HomNANDのテスト多項式.md
 ---
 ---
 src: ./slides/SL36-ホワイトボードセッション.md

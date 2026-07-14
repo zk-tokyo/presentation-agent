@@ -8,4 +8,4 @@ Week 1 の経緯メモは `inputs/journey_week1.md` を参照。レイアウト�
 
 <!-- 制作を進めるたびにここに追記していく -->
 
-- Week 5 の PBS toy example では、テスト多項式の係数位置の確認と実際の Blind Rotation の丸め誤差の説明を混ぜない。16係数で8平文を見せる場合は、参考例として $\Delta=4$、$i=\lfloor(b-\mathbf{as})2N/q\rfloor$ とし、各平文に2係数を割り当てると説明が破綻しにくい。
+- Week 5 の PBS toy example では、$p=8,q=64$ と置くなら $\Delta=q/p=8$ を維持する。$x^N+1$ の negacyclic な符号反転を避けるため、$\mathbb{Z}_8$ はパディング込みの平文空間とし、実際に使う値を連続した半分 $\{0,1,2,3\}$ に制限する。modulus switch 後の値は $\hat{\Delta}=\Delta 2N/q=4$ として区別する。
