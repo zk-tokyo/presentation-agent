@@ -12,7 +12,7 @@ layout: default
 </ul>
 </div>
 
-<div class="week5-note-card">
+<div class="week5-note-card is-white">
 <p style="font-size: 1.4rem;">FHEW</p>
 <ul>
 	<li>Homomorphic Accumulatorと呼ばれる考え方により、Bootstrappingを1秒未満まで高速化した方式</li>

@@ -23,3 +23,5 @@ layout: default
 - Dec$((a(x),b(x)),s(x))\to \mu(x)$:
   - $b(x)-a(x)s(x)=\Delta\mu(x)+e(x)\text{ mod } x^n+1$を計算する
   - 係数ごとに$\Delta$で割って丸める
+
+平文$\mu(x)$の秘密鍵$s(x)$によるRLWE暗号文を$\text{RLWE}_s(\mu)$と書く

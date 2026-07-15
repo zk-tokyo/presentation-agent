@@ -12,7 +12,7 @@ layout: default
 </ul>
 </div>
 
-<div class="week5-note-card">
+<div class="week5-note-card is-white">
 <p style="font-size: 1.4rem;">BFV/BGV</p>
 <ul>
 	<li>整数値に対する演算に適したFHE</li>

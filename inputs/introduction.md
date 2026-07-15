@@ -298,18 +298,18 @@ $G^T=\begin{pmatrix}1/B & & &\\ \vdots & & &\\ 1/B^l & & &\\ & 1/B & \\ & \vdot
 
 **RGSW暗号**
 
-$\mathcal{Z}\gets \begin{pmatrix}\text{RLWE}_{\mathbf{s}}(0)\\ \text{RLWE}_{\mathbf{s}}(0)\\ \vdots \\ \text{RLWE}_{\mathbf{s}}(0)\end{pmatrix}\in \mathbb{F}_{n,q}[x]^{(k+1)l\times (k+1)}$とすると、平文$m$の秘密鍵$\mathbf{s}$によるRGSW暗号文は
+$\mathcal{Z}\gets \begin{pmatrix}\text{RLWE}_{s}(0)\\ \text{RLWE}_{s}(0)\\ \vdots \\ \text{RLWE}_{s}(0)\end{pmatrix}\in \mathbb{F}_{n,q}[x]^{(k+1)l\times (k+1)}$とすると、平文$m$の秘密鍵$s(x)$によるRGSW暗号文は
 
-$\text{RGSW}_{\mathbf{s}}(m)=\mathcal{Z} + mG^T$
+$\text{RGSW}_{s}(m)=\mathcal{Z} + mG^T$
 大雑把に言うとRLWEのリスト
 
 **RLWEとRGSWによるexternal product**
 多項式のベクトルに対するGadget Decompositionにより、RGSW暗号文とRLWE暗号文の積(External Product)$\boxdot$を定義する
-$\text{RGSW}_\mathbf{s}(m)\boxdot \text{RLWE}_\mathbf{s}(m')=G^{-1}(\text{RLWE}_\mathbf{s}(m')) \text{RGSW}_\mathbf{s}(m)=\text{RLWE}_\mathbf{s}(mm')$
+$\text{RGSW}_{s}(m)\boxdot \text{RLWE}_{s}(m')=G^{-1}(\text{RLWE}_{s}(m')) \text{RGSW}_{s}(m)=\text{RLWE}_{s}(mm')$
 
 **CMUX**
 RLWEとRGSWを使うことで、$a_0,a_1\in\{0,1\}$に対して、ビット$b$によってどちらかを指定するマルチプレクサ$\text{MUX}(b,a_0,a_1)=a_b$を暗号文の状態で行えるCMUXが構成可能
-マルチプレクサは$\text{MUX}(b,a_0,a_1)=(1-b)a_0+ba_1=b(a_1-a_0)+a_0$より計算できるので、それぞれ、$c_0=\text{RLWE}_\mathbf{s}(a_0),c_1=\text{RLWE}_\mathbf{s}(a_1), c_b=\text{RGSW}_\mathbf{s}(b)$とすると、$\text{CMUX}(c_b,c_0,c_1)=c_b\boxdot(c_1-c_0)+c_0=\text{RLWE}_\mathbf{s}(a_b)$
+マルチプレクサは$\text{MUX}(b,a_0,a_1)=(1-b)a_0+ba_1=b(a_1-a_0)+a_0$より計算できるので、それぞれ、$c_0=\text{RLWE}_{s}(a_0),c_1=\text{RLWE}_{s}(a_1), c_b=\text{RGSW}_{s}(b)$とすると、$\text{CMUX}(c_b,c_0,c_1)=c_b\boxdot(c_1-c_0)+c_0=\text{RLWE}_{s}(a_b)$
 
 >[!question]
   CMUXの出力が$a_b$のRLWE暗号文になることを各自確認
@@ -336,7 +336,7 @@ $x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^
 
 
 > [!note]
-> $s_j$をRGSWで暗号化するための鍵を$\mathbf{s}'$とし、$(\text{RGSW}_{\mathbf{s}'}(s_0),\dots,\text{RGSW}_{\mathbf{s}'}(s_{k-1}))$をBootstrapping Keyと呼ぶ。
+> $s_j$をRGSWで暗号化するための鍵を$s'$とし、$(\text{RGSW}_{s'}(s_0),\dots,\text{RGSW}_{s'}(s_{k-1}))$をBootstrapping Keyと呼ぶ。
 
 
 
@@ -345,8 +345,8 @@ $x^{-b+\mathbf{as}}v=x^{-b+\Sigma_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^
 - $\hat{b}\gets \lceil b\frac{2n}{q}\rfloor$
 - $Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(v)$ (RLWE暗号文は多項式をかけることができる。)
 - for $j=0\dots k-1$
-	- $Q_{j+1} \gets \text{CMUX}(\text{RGSW}_{\mathbf{s}'}(s_j), Q_j, x^{\hat{a}_j}Q_j)$
-- return $Q_k(=\text{RLWE}_{\mathbf{s}'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v))$
+	- $Q_{j+1} \gets \text{CMUX}(\text{RGSW}_{s'}(s_j), Q_j, x^{\hat{a}_j}Q_j)$
+- return $Q_k(=\text{RLWE}_{s'}(x^{-\hat{b}+\mathbf{\hat{a}s}}v))$
 
 
 

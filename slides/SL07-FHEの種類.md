@@ -8,11 +8,11 @@ layout: default
 <p style="font-size: 1.4rem;">Somewhat Homomorphic Encryption(SHE)</p>
 <ul>
 	<li>暗号文のまま加算と乗算が有限回行える。</li>
-	<li>BV暗号など</li>
+	<li>BGN暗号など</li>
 </ul>
 </div>
 
-<div class="week5-note-card">
+<div class="week5-note-card is-white">
 <p style="font-size: 1.4rem;">Leveled Homomorphic Encryption(LHE)</p>
 <ul>
 	<li>暗号文のままの加算と乗算をあらかじめパラメーターによって定められた回数だけ（Bootstrappingなしに）行うことができる。</li>

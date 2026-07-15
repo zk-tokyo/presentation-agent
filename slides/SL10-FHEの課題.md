@@ -12,7 +12,7 @@ layout: default
 	<li>研究によりBootstrapping1回あたりの実行速度は改善されているが、依然としてボトルネックになっている。</li>
 </ul>
 </div>
-<div class="week5-note-card">
+<div class="week5-note-card is-white">
 <p style="font-size: 1.4rem;">検証可能性</p>
 <ul>
 	<li>FHEを使って得られた計算結果が正しいものかどうか確認することができない。</li>
