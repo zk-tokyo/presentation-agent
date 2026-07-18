@@ -114,6 +114,9 @@ src: ./slides/SL33b-Bootstrappingの流れのまとめ.md
 src: ./slides/SL34-なぜ"Programmable" Bootstrappingなのか.md
 ---
 ---
+src: ./slides/SL34b-negacyclic性の利用.md
+---
+---
 src: ./slides/SL35-HomNAND.md
 ---
 ---
@@ -125,4 +128,3 @@ src: ./slides/SL36-ホワイトボードセッション.md
 ---
 src: ./slides/SL37-テーマリスト.md
 ---
-

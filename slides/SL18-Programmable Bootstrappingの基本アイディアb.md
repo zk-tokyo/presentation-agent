@@ -59,7 +59,7 @@ layout: default
 
 ## 多項式の係数を平文にする
 
-LWE暗号文$(\mathbf{a},b)$は$b-\mathbf{as}= \Delta m+e$を満たすことを利用し、$x^{-(b-\mathbf{as})}v(x) \;\text{mod}\; x^n+1$の定数項に、
+LWE暗号文$(\mathbf{a},b)$は$b-\mathbf{as}=\Delta m+e$を満たすことを利用し、$x^{-(b-\mathbf{as})}v(x) = x^{-(\Delta m + e)}v(x) \;\text{mod}\; x^n+1$の定数項に、
 
 入力$m$に対応する係数が来るように$v(x)$（テスト多項式）を設計する。
 

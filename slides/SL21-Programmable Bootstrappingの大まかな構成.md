@@ -8,14 +8,14 @@ layout: default
 
 <div class="week5-note-card">
 <p class="text-center" style="font-size: 1.5rem;">Blind Rotation</p>
-<p class="text-center">ノイズの溜まった暗号文を使って暗号化された多項式を回転させる</p>
+<p class="text-center">ノイズの溜まった暗号文<MathInline expr="(\mathbf{a}, b)"/>を使って<MathInline expr="x^{-(b-\mathbf{as})}v(x)"/>を暗号化されたまま計算する</p>
 </div>
 <br>
 <div class="text-center">↓</div>
 <div class="week5-note-card">
 <p class="text-center" style="font-size: 1.5rem;">Sample Extraction</p>
 <p class="text-center">
-回転した多項式から定数項を暗号文の状態で抜き出す
+回転した多項式<MathInline expr="x^{-(b-\mathbf{as})}v(x)"/>の暗号文から定数項を暗号文の状態で抜き出す
 </p>
 </div>
 <br>

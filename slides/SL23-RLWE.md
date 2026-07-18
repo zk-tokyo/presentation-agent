@@ -19,9 +19,11 @@ layout: default
 - Enc$(\mu(x),s(x))\to (a(x),b(x))$:
   - $a(x)$を一様ランダムに取り、ノイズ$e(x)$をサンプルする
   - $b(x)=a(x)s(x)+\Delta\mu(x)+e(x)\text{ mod } x^n+1$として、$(a(x),b(x))$を暗号文として出力する
+  - 平文$\mu(x)$の秘密鍵$s(x)$によるRLWE暗号文を$\text{RLWE}_s(\mu)$と書く
 
 - Dec$((a(x),b(x)),s(x))\to \mu(x)$:
   - $b(x)-a(x)s(x)=\Delta\mu(x)+e(x)\text{ mod } x^n+1$を計算する
   - 係数ごとに$\Delta$で割って丸める
 
-平文$\mu(x)$の秘密鍵$s(x)$によるRLWE暗号文を$\text{RLWE}_s(\mu)$と書く
+> [!note]
+> RLWE暗号文はLWE暗号文と同様に暗号文と平文の加算、乗算、暗号文同士の加算が行える

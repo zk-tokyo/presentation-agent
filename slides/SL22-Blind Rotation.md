@@ -6,8 +6,9 @@ layout: default
 
 ## 平文の状態での$x^{-b+\mathbf{as}}v\;\text{mod}\;x^n+1$の求め方
 
-<div class="week5-note-card" style="width: 30%;">
-<p style="font-size: 1.2rem;">マルチプレクサを利用する</p>
+<div class="week5-note-card" style="width: 50%;">
+<p style="font-size: 1.2rem;"><MathInline expr="\mathbf{as}"/>の計算には秘密鍵の情報が必要になってしまう<br>
+→マルチプレクサを利用する</p>
 </div>
 
 <div class="week5-html-diagram is-mux-comparison" style="right: 150px; top: 124px; width: 430px; height: 420px;">
@@ -46,4 +47,4 @@ $Q_{j+1}=x^{a_js_j}Q_j=\left\{\begin{matrix}Q_j\;\;\;\;\text{ if }\ s_j=0\\x^{a_
   - $Q_{j+1} \gets \text{MUX}(s_j, Q_j, x^{a_j}Q_j)$
 - return $Q_k\;(=x^{-b+\mathbf{as}}v)$
 
-これを準同型演算で記述する。
+これを$v, s_j, Q_j, x^{a_j}Q_j$を暗号文にして準同型演算で記述する。

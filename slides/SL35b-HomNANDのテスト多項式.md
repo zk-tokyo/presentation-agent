@@ -1,40 +1,43 @@
 ---
 layout: default
+class: text-[0.82rem]
 ---
 
-# HomNANDのテスト多項式
+# HomNANDの具体例
 
 <div></div>
-前ページの線形前処理後の平文値を
 
 $$
-r = 5 - m_1 - m_2 \pmod 8
+p=8,\quad q=32,\quad N=16,\quad
+q=2N,\quad \Delta=\frac{q}{p}=4, \quad e\in\{0,1\}
 $$
 
-とおく。NANDでは、$r=1$なら出力$0$、$r=3,5$なら出力$2$になればよい。
-
-今回はスケーリングを省略し、多項式のモジュラスを$x^8+1$とする。ノイズは正方向にだけずれるとして、$e\in\{0,1\}$と仮定する。
-
 $$
-v(x)=0+0x+0x^2+2x^3+2x^4+2x^5+2x^6+0x^7
+\text{bitに対応する平文は} 0\mapsto p-1=7, \; 1\mapsto 1
 $$
 
-をテスト多項式にする。Blind Rotationでは$x^{-(r+e)}v(x)$を作り、その定数項を取り出す。
+2つの入力$m_1,m_2$の暗号文$c_1,c_2$のノイズの和を$d\in\{0,1,2\}$とすると、$r=1-m_1-m_2\mod p$より<br>
+$c=\text{LWE}_\mathbf{s}(1)-c_1-c_2$による$v(x)$の回転量は$\Delta r-d$。
 
-| 入力bit       | $r$ | 回転後の多項式                                                                     | 定数項 |
-| ------------- | --- | ---------------------------------------------------------------------------------- | ------ |
-| $(0,0)$       | $5$ | $e=0:\ x^{-5}v(x)=2+\cdots$<br>$e=1:\ x^{-6}v(x)=2+\cdots$                         | $2$    |
-| $(1,0),(0,1)$ | $3$ | $e=0:\ x^{-3}v(x)=2+2x+2x^2+2x^3$<br>$e=1:\ x^{-4}v(x)=2+\cdots$                   | $2$    |
-| $(1,1)$       | $1$ | $e=0:\ x^{-1}v(x)=0+2x^2+2x^3+2x^4+2x^5$<br>$e=1:\ x^{-2}v(x)=0+2x+2x^2+2x^3+2x^4$ | $0$    |
+※ $q=2N$なので、Blind Rotation時のリスケーリングは不要になっている。
 
-例えば$r=3,e=1$なら、$x^{-4}v(x)$の中の$2x^4$が定数項の$2$になる。$r=1$では、$x^1,x^2$の係数を$0$にしているため、ノイズがあっても定数項は$0$になる。
+HomNANDのときのテスト多項式の係数はすべて$1$になるので、
 
-<div class="week5-note-card is-gray" style="position: absolute; left: 64px; right: 64px; bottom: 10px; padding: 10px 14px;">
-<p style="font-size: 0.82rem; line-height: 1.45; margin: 0;">
-係数8個のテスト多項式で、NANDが1になる位置の近くを<MathInline expr="2"/>で埋めている。ここでは正方向の小さなノイズだけを見ている。
+$$
+\begin{aligned}
+v(x)={}&1+1x+1x^2+1x^3+1x^4+1x^5+1x^6+1x^7\\
+&+1x^8+1x^9+1x^{10}+1x^{11}+1x^{12}+1x^{13}+1x^{14}+1x^{15}
+\end{aligned}
+$$
+
+| 入力bit       | $r$ | 回転の番号$i=\Delta r-d\pmod q$ | 定数項     | 定数項に対応するbit |
+| ------------- | --: | ------------------------------- | ---------- | ------------------- |
+| $(0,0)$       | $3$ | $10,11,12$                      | 1          | 1                   |
+| $(1,0),(0,1)$ | $1$ | $2,3,4$                         | 1          | 1                   |
+| $(1,1)$       | $7$ | $26,27,28$                      | $-1=p-1=7$ | 0                   |
+
+<div class="week5-note-card">
+<p class="text-center" style="font-size: 1.5 rem;">
+定数項に入力bitのNAND出力に対応する平文がきている
 </p>
-</div>
-
-<div class="absolute bottom-3 left-6 text-[10px] text-gray-400 leading-tight max-w-3xl">
-Sources: Chillotti, Gama, Georgieva, Izabachène "TFHE: Fast Fully Homomorphic Encryption over the Torus" Journal of Cryptology 2019
 </div>
