@@ -23,7 +23,7 @@ layout: default
 
   <div class="week5-flow-node is-input">
     <div class="week5-flow-kicker">入力</div>
-    <div class="week5-flow-main"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(m)"/></div>
+    <div class="week5-flow-main"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(\Delta m)"/></div>
     <div class="week5-flow-sub">係数 <MathInline expr="(\mathbf{a},b)"/> の中に<br><MathInline expr="\Delta m"/> と古いノイズ <MathInline expr="e"/> が混ざっている</div>
   </div>
 
@@ -77,7 +77,7 @@ layout: default
 
   <div class="week5-flow-node is-output">
     <div class="week5-flow-kicker">出力</div>
-    <div class="week5-flow-main"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(m)"/></div>
+    <div class="week5-flow-main"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(\Delta m)"/></div>
     <div class="week5-flow-sub">同じ平文 <MathInline expr="m"/> を持つが、<br>新しい暗号文として<br>作り直されている</div>
   </div>
 

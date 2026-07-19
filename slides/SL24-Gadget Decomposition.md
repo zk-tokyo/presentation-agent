@@ -15,7 +15,7 @@ layout: default
 
 ベクトル$\mathbf{r}=(r_0,\dots,r_k)$に対しては$G^{-1}(\mathbf{r})=(g^{-1}(r_0),\dots,g^{-1}(r_k))$とする。
 
-> 例：$B=4,l=3$とすると，$\mathbb{F}_{64}$上の値47のGadget Decompositionは， $47=1\frac{64}{4}+0\frac{64}{16}+15\frac{64}{64}$より、$g^{-1}(47)=(1,0,15)$
+> 例：$B=4,l=3$とすると，$\mathbb{Z}_{64}$上の値47のGadget Decompositionは， $47=2\frac{64}{4}+3\frac{64}{16}+3\frac{64}{64}$より、$g^{-1}(47)=(2,3,3)$
 
 <br>
 

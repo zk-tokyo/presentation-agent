@@ -22,10 +22,10 @@ layout: default
   <div class="week5-diagram-line has-arrow" style="left: 213px; top: 86px; width: 36px;"></div>
   <div class="week5-diagram-line has-arrow" style="left: 184px; top: 152px; width: 10px; transform: rotate(-90deg);"></div>
 
-  <div class="week5-diagram-label" style="left: 16px; top: 254px;"><MathInline expr="\mathrm{RLWE}(a_0)"/></div>
-  <div class="week5-diagram-label" style="left: 16px; top: 310px;"><MathInline expr="\mathrm{RLWE}(a_1)"/></div>
+  <div class="week5-diagram-label" style="left: 16px; top: 254px;"><MathInline expr="\mathrm{RLWE}(\Delta a_0)"/></div>
+  <div class="week5-diagram-label" style="left: 16px; top: 310px;"><MathInline expr="\mathrm{RLWE}(\Delta a_1)"/></div>
   <div class="week5-mux-gate is-cmux is-large" style="left: 158px; top: 218px;"><span>CMUX</span></div>
-  <div class="week5-diagram-label" style="left: 256px; top: 275px;"><MathInline expr="\mathrm{RLWE}(a_b)"/></div>
+  <div class="week5-diagram-label" style="left: 256px; top: 275px;"><MathInline expr="\mathrm{RLWE}(\Delta a_b)"/></div>
   <div class="week5-diagram-label" style="left: 144px; top: 392px;"><MathInline expr="\mathrm{RGSW}(b)"/></div>
   <div class="week5-diagram-line has-arrow" style="left: 112px; top: 267px; width: 45px;"></div>
   <div class="week5-diagram-line has-arrow" style="left: 112px; top: 323px; width: 45px;"></div>

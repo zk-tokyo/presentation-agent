@@ -16,9 +16,10 @@ layout: default
 
 $\mathcal{Z}\gets \begin{pmatrix}\text{RLWE}_{s}(0)\\ \text{RLWE}_{s}(0)\\ \vdots \\ \text{RLWE}_{s}(0)\end{pmatrix}$（RLWE暗号文の長さ$2l$のリスト）
 
-$G^T=\begin{pmatrix}q/B & \\ \vdots & \\ q/B^l & \\ & q/B \\ & \vdots \\ & q/B^l \end{pmatrix}$（Gadget Matrixと呼び、$B^l=q$のとき$G^{-1}(m)G^T=m$）
+$G^T=\begin{pmatrix}q/B & \\ \vdots & \\ q/B^l & \\ & q/B \\ & \vdots \\ & q/B^l \end{pmatrix}$
+（Gadget Matrixと呼び、$B^l=q$のとき$G^{-1}((x_1, x_2))G^T=(x_1,x_2)$）
 
 ## **RLWEとRGSWによるexternal product**
 
 多項式のベクトルに対するGadget Decompositionにより、RGSW暗号文とRLWE暗号文の積(External Product)$\boxdot$を定義する  
-$\text{RGSW}_{s}(m)\boxdot \text{RLWE}_{s}(m')=G^{-1}(\text{RLWE}_{s}(m')) \text{RGSW}_{s}(m)=\text{RLWE}_{s}(mm')$
+$\text{RGSW}_{s}(m)\boxdot \text{RLWE}_{s}(\Delta m')=G^{-1}(\text{RLWE}_{s}(\Delta m')) \text{RGSW}_{s}(m)=\text{RLWE}_{s}(\Delta mm')$

@@ -12,7 +12,7 @@ layout: default
 
 $v_q(x)=\ m_0x^{\Delta m_0+e_0}+m_0x^{\Delta m_0+e_1}+\dots+m_1x^{\Delta m_1+e_0}+m_1x^{\Delta m_1+e_1}+\dots \text{ mod }x^q+1$
 
-とすれば、$x^{-(b-\mathbf{as})}v_q(x)=x^{\Delta m + e}v(x)$の定数項に$m$がくる。
+とすれば、$x^{-(b-\mathbf{as})}v_q(x)=x^{-(\Delta m + e)}v_q(x)$の定数項に$m$がくる。
 
 <br>
 
@@ -25,7 +25,10 @@ $v_q(x)=\ m_0x^{\Delta m_0+e_0}+m_0x^{\Delta m_0+e_1}+\dots+m_1x^{\Delta m_1+e_0
 $v(x)=\ m_0x^{\lfloor (\Delta m_0+e_0) \frac{2n}{q}\rceil}+m_0x^{\lfloor (\Delta m_0+e_1) \frac{2n}{q}\rceil}+\dots+m_1x^{\lfloor (\Delta m_1+e_0) \frac{2n}{q}\rceil}+m_1x^{\lfloor (\Delta m_1+e_1) \frac{2n}{q}\rceil}+\dots \text{ mod }x^n+1$
 
 テスト多項式を回転させる場合、
-$\hat{b}=\lfloor b\frac{2n}{q}\rceil, \hat{\mathbf{a}}=\lfloor \mathbf{a}\frac{2n}{q}\rceil$と変換して（リスケーリング）、$x^{-(\hat{b}-\hat{\mathbf{a}})}v(x) \text{ mod }x^n+1$を計算する
+$\hat{b}=\lfloor b\frac{2n}{q}\rceil, \hat{\mathbf{a}}=\lfloor \mathbf{a}\frac{2n}{q}\rceil$と変換する。係数ごとの丸めにより
+$\hat b-\hat{\mathbf a}\mathbf s\approx(b-\mathbf a\mathbf s)\frac{2n}{q}$であり、$x^{-(\hat{b}-\hat{\mathbf{a}}\mathbf s)}v(x) \text{ mod }x^n+1$を計算する
+
+また、丸め後に同じ指数となる項は1つにまとめ、異なる値を同じ係数位置に置かないよう注意する。
 
 <div style="position: absolute; right: 44px; top: 100px; width: 430px; padding: 16px 18px 18px; border: 1px solid #c9d8ea; border-radius: 6px; background: #ffffff;">
   <div style="position: absolute; left: 22px; top: -12px; padding: 2px 10px; border: 1px solid #c9d8ea; border-radius: 4px; background: #ffffff; color: #111827; font-size: 0.74rem; line-height: 1.35;">暗号文空間</div>

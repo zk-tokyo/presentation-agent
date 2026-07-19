@@ -128,3 +128,12 @@ src: ./slides/SL36-ホワイトボードセッション.md
 ---
 src: ./slides/SL37-テーマリスト.md
 ---
+---
+src: ./slides/SL99-参考文献.md
+---
+---
+src: ./slides/SL99b-参考文献.md
+---
+---
+src: ./slides/SL99c-参考文献.md
+---

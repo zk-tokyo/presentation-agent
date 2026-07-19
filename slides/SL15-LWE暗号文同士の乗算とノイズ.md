@@ -18,7 +18,7 @@ layout: default
 
 ### GSW
 
-- 暗号文の形を工夫して行列の形で表すことで、暗号文同士の積をビット分解と行列の同士の掛け算で実現しつつBootstrappingを高速化
+- 暗号文の形を工夫して行列の形で表すことで、暗号文同士の積をビット分解と行列同士の掛け算で実現しつつBootstrappingを高速化
 - ノイズの増大を抑えるためにGadget Decompositionを導入
 
 ### FHEW, TFHE

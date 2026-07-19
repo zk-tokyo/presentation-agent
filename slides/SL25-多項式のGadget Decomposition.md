@@ -10,9 +10,9 @@ layout: default
 
 （すなわち$f=\Sigma_{i=0}^{l-1}f_i\frac{q}{B^{i+1}}$）、$g^{-1}(f)=(f_0,\dots,f_{l-1})$とする。
 
-多項式のベクトル$\mathbf{f}=(f_0,f_1,\dots,f_{k-1})$に対しては$G^{-1}=(g^{-1}(f_0),g^{-1}(f_1),\dots,g^{-1}(f_{k-1}))$
+多項式のベクトル$\mathbf{f}=(f_0,f_1,\dots,f_{k-1})$に対しては$G^{-1}(\mathbf{f})=(g^{-1}(f_0),g^{-1}(f_1),\dots,g^{-1}(f_{k-1}))$
 
-> 例：$\mathbb{F}_{16}$上のモジュラス$x^3+1$の多項式に対して$B=2, l = 4$として，$f=15x^2+4x+7 \text{ mod }x^3+1$をGadget Decompositionをする。
+> 例：$\mathbb{Z}_{16}$上のモジュラス$x^3+1$の多項式に対して$B=2, l = 4$として，$f=15x^2+4x+7 \text{ mod }x^3+1$をGadget Decompositionをする。
 >
 > まずそれぞれの係数に対してGadget Decompositionすると  
 > $g^{-1}(15)=1\frac{16}{2}+1\frac{16}{4}+1\frac{16}{8}+1\frac{16}{16}$  

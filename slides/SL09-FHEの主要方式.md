@@ -23,7 +23,7 @@ layout: default
 <p style="font-size: 1.4rem;">TFHE</p>
 <ul>
 	<li>FHEWの方式をTorusと呼ばれる数学的な構造に拡張した方式</li>
-	<li>数ミリ秒でのBootstrappingが可能</li>
+	<li>論文発表時点で13msのBootstrappingを報告</li>
 	<li>詳細は後述</li>
 </ul>
 </div>

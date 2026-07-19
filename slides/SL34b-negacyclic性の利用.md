@@ -8,11 +8,11 @@ layout: default
 
 <div class="week5-note-card">
 <p class="text-center" style="font-size: 1.5rem;">
-<MathInline expr="a\ge n"/>のとき、<MathInline expr="x^a = -x^{n-a} \mod x^n+1"/>となり、符号が反転する（negacyclic性）
+<MathInline expr="a\ge n"/>のとき、<MathInline expr="x^a = -x^{a-n} \mod x^n+1"/>となり、符号が反転する（negacyclic性）
 </p>
 </div>
 
-<p class="text-center" style="font-size: 1.5 rem;">↓</p>
+<p class="text-center" style="font-size: 1.5rem;">↓</p>
 
 <div class="week5-note-card is-white">
 <p class="text-center" style="font-size: 1.5rem;">
@@ -20,7 +20,7 @@ layout: default
 </p>
 </div>
 
-<p class="text-center" style="font-size: 1.5 rem;">↓</p>
+<p class="text-center" style="font-size: 1.5rem;">↓</p>
 
 <div class="week5-note-card">
 <p class="text-center" style="font-size: 1.5rem;">
