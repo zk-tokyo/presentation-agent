@@ -24,5 +24,5 @@ layout: default
   - $b(x)-a(x)s(x)=\Delta\mu(x)+e(x)\text{ mod } x^n+1$を計算する
   - 係数ごとに$\Delta$で割って丸める
 
-> [!note]
+> note:
 > RLWE暗号文はLWE暗号文と同様に暗号文と平文の加算、乗算、暗号文同士の加算が行える

@@ -17,8 +17,8 @@ layout: default
 また、LWE問題を解くのが計算量的に困難であるという仮定をLWE仮定と呼ぶ。
 <br>
 
-> [!note]
+> note:
 > LWEはLearning With Errorの略で、上の式のeはノイズ(error)と呼ばれる。
 
-> [!note]
+> note:
 > このLWE問題を判定LWE(Decision-LWE)と呼び，$b=\Sigma_{i=0}^{k-1} a_is_i+e \text{ mod } q$が成立している時に$(\mathbf{a},b)$から$\mathbf{s}$を求める場合を探索LWE(Search-LWE)と呼びわけることがある。

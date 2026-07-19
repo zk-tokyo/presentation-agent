@@ -19,5 +19,5 @@ layout: default
 
 <br>
 
-> [!note]
+> note:
 > $r_i$の範囲はノイズ管理の面で$-\lfloor B/2 \rfloor \le r_i < \lceil B/2 \rceil$とすることがある。($\lfloor a\rfloor$は切り下げ、$\lceil a\rceil$は切り上げ)

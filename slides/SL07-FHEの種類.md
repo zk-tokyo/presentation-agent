@@ -30,5 +30,5 @@ layout: default
 
 <br>
 
-> [!note]
+> note:
 > この分け方の他にも世代として分類することもある。

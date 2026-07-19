@@ -22,5 +22,5 @@ layout: default
 <br>
 <br>
 
-> [!note]
+> note:
 > FHEの概念自体は1978年にRSA暗号で有名なRivestらにより提唱されたが、初めて実際にFHEが実現されたのは31年後だった。

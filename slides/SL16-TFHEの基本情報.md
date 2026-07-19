@@ -13,8 +13,8 @@ layout: default
   - トーラスの話をするとややこしくなるので、レクチャーの中ではトーラスを使わない方法を扱う
   - 鍵生成、暗号化、復号は、今回はLWE暗号と同じになる
 
-> [!note]
+> note:
 > トーラスを考えるとどんないいことがあるのか気になる人は[Chi20+],[Joy22]を読むことをお勧めする
 
-> [!note]
+> note:
 > TFHEのbootstrappingは文献により色々な呼び方があるが、[Chi20+]ではGate BootstrappingとCircuit Bootstrappingの２種類がある

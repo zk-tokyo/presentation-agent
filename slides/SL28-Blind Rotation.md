@@ -32,10 +32,10 @@ return <MathInline expr="Q_k(=x^{-\hat{b}+\mathbf{\hat{a}s}}v)"/> <br>
 
 </div>
 
-> [!note]
+> note:
 > 正確に言うと任意のテスト多項式$v(x)$は、$a(x)=0$とすることにより、ノイズのない自明なRLWE暗号文$\text{RLWE}_{s'}(\Delta v)=(0,\Delta v)$とみなせる
 
-> [!note]
+> note:
 > $s_j$をRGSWで暗号化するための鍵を$s'$とし、$(\text{RGSW}_{s'}(s_0),\dots,\text{RGSW}_{s'}(s_{k-1}))$をBootstrapping Keyと呼ぶ。
 
 > Q. $x^i \text{ mod } x^n+1$には後述するnegacyclicと呼ばれる性質があり、$i \ge n$のとき、$x^i \text{ mod }x^n+1 = -x^{i-n}$となり、係数の符号が反転してしまう。仮にBlind Rotationでこれが起こるとなぜ問題なのか、そしてどのようすればこれを回避できるだろうか。
