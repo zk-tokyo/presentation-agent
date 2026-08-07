@@ -84,60 +84,76 @@ function makeGeneratedBlock(slidePaths) {
     : `${generatedStart}\n${generatedEnd}`;
 }
 
-const [allSlidePaths, exclusionMarkdown, currentIndex] = await Promise.all([
-  collectMarkdownFiles(slidesDirectory),
-  readFile(exclusionListPath, "utf8"),
-  readFile(slidesIndexPath, "utf8"),
-]);
+export async function generateSlidesIndex() {
+  const [allSlidePaths, exclusionMarkdown, currentIndex] = await Promise.all([
+    collectMarkdownFiles(slidesDirectory),
+    readFile(exclusionListPath, "utf8"),
+    readFile(slidesIndexPath, "utf8"),
+  ]);
 
-allSlidePaths.sort((left, right) => naturalOrder.compare(left, right));
+  allSlidePaths.sort((left, right) => naturalOrder.compare(left, right));
 
-const exclusions = parseExclusions(exclusionMarkdown);
-const availableSlides = new Set(allSlidePaths);
-for (const excludedPath of exclusions) {
-  if (!availableSlides.has(excludedPath)) {
-    console.warn(`Excluded slide does not exist: ${excludedPath}`);
+  const exclusions = parseExclusions(exclusionMarkdown);
+  const availableSlides = new Set(allSlidePaths);
+  for (const excludedPath of exclusions) {
+    if (!availableSlides.has(excludedPath)) {
+      console.warn(`Excluded slide does not exist: ${excludedPath}`);
+    }
   }
-}
 
-const visibleSlides = allSlidePaths.filter(
-  (slidePath) => !exclusions.has(slidePath),
-);
-if (visibleSlides.length === 0) {
-  throw new Error("No visible Markdown slides were found in slides/.");
-}
-
-const frontmatterMatch = currentIndex.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
-if (!frontmatterMatch) {
-  throw new Error("slides.md must begin with YAML frontmatter.");
-}
-if (!currentIndex.includes(generatedStart) || !currentIndex.includes(generatedEnd)) {
-  throw new Error(
-    `slides.md must contain ${generatedStart} and ${generatedEnd}.`,
+  const visibleSlides = allSlidePaths.filter(
+    (slidePath) => !exclusions.has(slidePath),
   );
+  if (visibleSlides.length === 0) {
+    throw new Error("No visible Markdown slides were found in slides/.");
+  }
+
+  const frontmatterMatch = currentIndex.match(
+    /^---\r?\n([\s\S]*?)\r?\n---\r?\n/,
+  );
+  if (!frontmatterMatch) {
+    throw new Error("slides.md must begin with YAML frontmatter.");
+  }
+  if (!currentIndex.includes(generatedStart) || !currentIndex.includes(generatedEnd)) {
+    throw new Error(
+      `slides.md must contain ${generatedStart} and ${generatedEnd}.`,
+    );
+  }
+
+  const updatedFrontmatter = updateFirstSlide(
+    frontmatterMatch[1],
+    visibleSlides[0],
+  );
+  let nextIndex = currentIndex.replace(
+    frontmatterMatch[0],
+    `---\n${updatedFrontmatter}\n---\n`,
+  );
+
+  const generatedBlock = makeGeneratedBlock(visibleSlides.slice(1));
+  const generatedBlockPattern = new RegExp(
+    `${generatedStart.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[\\s\\S]*?${generatedEnd.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`,
+  );
+  nextIndex = nextIndex.replace(generatedBlockPattern, generatedBlock);
+
+  if (!nextIndex.endsWith("\n")) nextIndex += "\n";
+
+  const changed = nextIndex !== currentIndex;
+  if (changed) {
+    await writeFile(slidesIndexPath, nextIndex, "utf8");
+  }
+
+  const included = visibleSlides.length;
+  const excluded = allSlidePaths.length - visibleSlides.length;
+  console.log(
+    `Generated slides.md: ${included} included, ${excluded} excluded${changed ? " (updated)" : ""}.`,
+  );
+
+  return { changed, included, excluded };
 }
 
-const updatedFrontmatter = updateFirstSlide(
-  frontmatterMatch[1],
-  visibleSlides[0],
-);
-let nextIndex = currentIndex.replace(
-  frontmatterMatch[0],
-  `---\n${updatedFrontmatter}\n---\n`,
-);
+const isDirectRun =
+  process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
-const generatedBlock = makeGeneratedBlock(visibleSlides.slice(1));
-const generatedBlockPattern = new RegExp(
-  `${generatedStart.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[\\s\\S]*?${generatedEnd.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`,
-);
-nextIndex = nextIndex.replace(generatedBlockPattern, generatedBlock);
-
-if (!nextIndex.endsWith("\n")) nextIndex += "\n";
-
-if (nextIndex !== currentIndex) {
-  await writeFile(slidesIndexPath, nextIndex, "utf8");
+if (isDirectRun) {
+  await generateSlidesIndex();
 }
-
-console.log(
-  `Generated slides.md: ${visibleSlides.length} included, ${allSlidePaths.length - visibleSlides.length} excluded.`,
-);
