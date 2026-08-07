@@ -11,6 +11,7 @@ canvasWidth: 1280
 aspectRatio: 16/9
 src: ./slides/SL01-Fully Homomorphic Encryption.md
 ---
+<!-- slides:auto:start -->
 ---
 src: ./slides/SL03-目次.md
 ---
@@ -137,3 +138,4 @@ src: ./slides/SL99b-参考文献.md
 ---
 src: ./slides/SL99c-参考文献.md
 ---
+<!-- slides:auto:end -->

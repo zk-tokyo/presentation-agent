@@ -3,9 +3,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "slidev build && rm -f dist/_redirects",
-    "dev": "slidev --open",
-    "export": "slidev export"
+    "slides:generate": "node scripts/generate-slides.mjs",
+    "build": "bun run slides:generate && slidev build && rm -f dist/_redirects",
+    "dev": "bun run slides:generate && slidev --open",
+    "export": "bun run slides:generate && slidev export"
   },
   "dependencies": {
     "@slidev/cli": "^52.11.1",

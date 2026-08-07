@@ -43,7 +43,8 @@ dist/                  ビルド出力
 
 - `slides.md` では `canvasWidth: 1280` と `aspectRatio: 16/9` を維持する。
 - 個別スライドは `layout: default` などの YAML frontmatter から始める。
-- 個別スライドは `slides.md` から `--- src: ./slides/SLNN.md ---` で include する。
+- `slides.md` の include 一覧は `bun run slides:generate` で、`slides/` 内の Markdown をファイル名の自然順に並べて自動生成する。include 一覧を手で編集しない。
+- 表示しないスライドは `slides.exclude.md` に指定する。
 - 基本は Markdown とローカル HTML を組み合わせて書く。
 - Markdown の `$...$` は KaTeX でレンダリングされる。
 - HTML タグ内に raw な `$...$` 数式を置かない。HTML 内では次を使う。
