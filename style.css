@@ -4,7 +4,7 @@
   --slidev-theme-primary: #000000 !important;
   --slidev-theme-default: #000000;
   --slidev-theme-accent: #000000;
-  --week5-body-font-size: 1.1rem;
+  --week5-body-font-size: 1.25rem;
   --week5-body-line-height: 1.6;
 }
 
@@ -247,7 +247,11 @@ th {
   font-style: italic;
   color: #444444;
 }
-
+.slidev-layout blockquote p,
+.slidev-layout blockquote li {
+  font-size: 1rem;
+  line-height: 1.5;
+}
 /* ===== Horizontal rule ===== */
 .slidev-layout hr {
   border: none;

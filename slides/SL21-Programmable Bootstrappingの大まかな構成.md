@@ -8,7 +8,7 @@ layout: default
 
 <div class="week5-note-card">
 <p class="text-center" style="font-size: 1.5rem;">Blind Rotation</p>
-<p class="text-center">ノイズの溜まった暗号文<MathInline expr="(\mathbf{a}, b)"/>を使って<MathInline expr="x^{-(b-\mathbf{as})}v(x)"/>を暗号化されたまま計算する</p>
+<p class="text-center">ノイズの溜まった暗号文<MathInline expr="(\mathbf{a}, b)"/>と暗号化された<MathInline expr="v(x)"/>を使って<MathInline expr="x^{-(b-\mathbf{as})}v(x)"/>を計算する</p>
 </div>
 <br>
 <div class="text-center">↓</div>

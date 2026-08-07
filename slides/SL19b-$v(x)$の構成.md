@@ -6,21 +6,24 @@ layout: default
 
 <div></div>
 
-<div style="position: absolute; left: 56px; top: 104px; width: 700px; color: #111827; font-size: 1rem; line-height: 1.42;">
-  <p>入力平文<MathInline expr="m_i"/>に対するLWE暗号文<MathInline expr="(\mathbf{a},b)"/>は<MathInline expr="b-\mathbf{as}=\Delta m_i+e \pmod q"/>を満たす。</p>
-  <p style="margin-top: 12px;"><MathInline expr="q"/>個の係数を使えるなら、ノイズの候補<MathInline expr="e_0,\ldots,e_r"/>を直接並べて</p>
-  <div style="font-size: 1.3rem;">
-    <MathBlock expr="\begin{aligned}
-v_q(x)={}&m_0x^{\Delta m_0+e_0}+\cdots+m_0x^{\Delta m_0+e_r}\\
-&+\cdots+m_ix^{\Delta m_i+e_0}+\cdots+m_ix^{\Delta m_i+e_r}\\
-&+\cdots+m_{p-1}x^{\Delta m_{p-1}+e_0}+\cdots+m_{p-1}x^{\Delta m_{p-1}+e_r}
-\pmod{x^q+1}
+### 実用上の注意
+
+実用的なパラメータでは$q$が大きすぎるため、多項式の次数は$q$より小さい$n$にし、
+
+$\mathbf a$と$b$も$n$に合わせて変換する（リスケーリング）。
+
+<div style="font-size: 1.3rem;">
+  <MathBlock expr="\begin{aligned}
+v(x)={}&m_0x^{\left\lfloor(\Delta m_0+e_0)\frac{2n}{q}\right\rceil}+\cdots+m_0x^{\left\lfloor(\Delta m_0+e_r)\frac{2n}{q}\right\rceil}\\
+&+\cdots+m_ix^{\left\lfloor(\Delta m_i+e_0)\frac{2n}{q}\right\rceil}+\cdots+m_ix^{\left\lfloor(\Delta m_i+e_r)\frac{2n}{q}\right\rceil}\\
+&+\cdots+m_{p-1}x^{\left\lfloor(\Delta m_{p-1}+e_0)\frac{2n}{q}\right\rceil}+\cdots+m_{p-1}x^{\left\lfloor(\Delta m_{p-1}+e_r)\frac{2n}{q}\right\rceil}
+\pmod{x^n+1}
 \end{aligned}"/>
-  </div>
-  <p>とする。すると</p>
-  <div style="font-size: 1rem;"><MathBlock expr="x^{-(b-\mathbf{as})}v_q(x)=x^{-(\Delta m_i+e)}v_q(x)"/></div>
-  <p>の定数項に<MathInline expr="m_i"/>がくる。</p>
 </div>
+
+$\hat b=\left\lfloor b\frac{2n}{q}\right\rceil$、$\hat{\mathbf a}=\left\lfloor\mathbf a\frac{2n}{q}\right\rceil$へ変換し、$x^{-(\hat b-\hat{\mathbf a}\mathbf s)}v(x) \pmod{x^n+1}$を計算する。
+
+丸め後に同じ指数となる項は1つにまとめ、異なる値を同じ係数位置に置かない。
 
 <div style="position: absolute; right: 44px; top: 100px; width: 430px; padding: 16px 18px 18px; border: 1px solid #c9d8ea; border-radius: 6px; background: #ffffff;">
   <div style="position: absolute; left: 22px; top: -12px; padding: 2px 10px; border: 1px solid #c9d8ea; border-radius: 4px; background: #ffffff; color: #111827; font-size: 0.74rem; line-height: 1.35;">暗号文空間</div>

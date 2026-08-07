@@ -6,9 +6,7 @@ layout: default
 
 <div></div>
 
-$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、
-
-<div class="week5-html-diagram is-sample-extraction" style="right: 24px; top: 142px; width: 740px; height: 280px;">
+<div class="week5-html-diagram is-sample-extraction" style="right: 250px; top: 100px; width: 740px; height: 280px;">
   <div class="week5-diagram-label" style="left: 222px; top: 0; font-size: 1.05rem;"><MathInline expr="a'_0s'_0"/></div>
   <div class="week5-diagram-line has-arrow" style="left: 116px; top: 74px; width: 128px; transform: rotate(-24deg);"></div>
   <div class="week5-diagram-line has-arrow" style="left: 436px; top: 74px; width: 194px; transform: rotate(-164deg);"></div>
@@ -45,20 +43,26 @@ $x^n \;\text{mod}\;x^n+1 = -1$に注意すると、
   </div>
 </div>
 
-$(a'_0+a'_1x+\dots+a'_{n-1}x^{n-1})(s'_0+s'_1x+\dots+s'_{n-1}x^{n-1})$の定数項は
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-$a'_0s'_0-a'_1s'_{n-1}-a'_2s'_{n-2}-\cdots-a'_{n-1}s'_1$となっているので
+$x^n \;\text{mod}\;x^n+1 = -1$に注意すると、
 
-$b_0'$は2つのベクトル
+$(a'_0+a'_1x+\dots+a'_{n-1}x^{n-1})(s'_0+s'_1x+\dots+s'_{n-1}x^{n-1})$の定数項は$a'_0s'_0-a'_1s'_{n-1}-a'_2s'_{n-2}-\cdots-a'_{n-1}s'_1$となっているので
 
-$\mathbf{a''}=(a'_0,-a'_{n-1},-a'_{n-2},\dots,-a'_1)$
-
-$\mathbf{s''}=(s'_0,s'_1,\dots,s'_{n-1})$
-
+$b_0'$は2つのベクトル$\mathbf{a''}=(a'_0,-a'_{n-1},-a'_{n-2},\dots,-a'_1)$、$\mathbf{s''}=(s'_0,s'_1,\dots,s'_{n-1})$
 の内積を用いて
 
 $b'_0=\mathbf{a''s''}+\Delta m+e_0$
 
-と表せる。
+と表せる。よって、秘密鍵$\mathbf{s''}$による平文$m$のLWE暗号文$\text{LWE}_{s''}(\Delta m)=(\mathbf{a''},b'_0)$が構成できる。
+<br>
+<br>
 
-よって、秘密鍵$\mathbf{s''}$による平文$m$のLWE暗号文$\text{LWE}_{s''}(\Delta m)=(\mathbf{a''},b'_0)$が構成できる。
+> Q. $\mathbf{s''}$で$(\mathbf{a''},b'_0)$が復号できることを各自確認

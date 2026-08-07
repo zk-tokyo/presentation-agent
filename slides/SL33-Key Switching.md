@@ -6,26 +6,45 @@ layout: default
 
 ## なぜ$\text{LWE}_\mathbf{s}(\Delta m)\gets (0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$でうまくいくのか?
 
-以下のように変形する。
+<div class="key-switch-proof-columns">
+  <div>
+    <p>以下のように変形する。</p>
+    <div class="key-switch-proof-equation"><MathInline expr="\text{LWE}_\mathbf{s}(\Delta m)= (0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]" /></div>
+    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iq/B^{j+1})" /></div>
+    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iq/B^{j+1})" /></div>
+    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}s''_iq/B^{j+1})" /></div>
+    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}a''_{i}s''_i)" /></div>
+    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})" /></div>
+  </div>
 
-$\text{LWE}_\mathbf{s}(\Delta m)= (0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]$
+  <div>
+    <p>ここで<MathInline expr="\text{LWE}_\mathbf{s}(\mathbf{a''s''})=(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})" />と表すと、</p>
+    <div class="key-switch-proof-equation"><MathInline expr="(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})" /></div>
+    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,\mathbf{a''s''}+\Delta m+e_0)-(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})" /></div>
+    <div class="key-switch-proof-equation"><MathInline expr="=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + \Delta m +e_0 - \tilde{e})" /></div>
+    <p>これは秘密鍵<MathInline expr="\mathbf{s}" />による<MathInline expr="m" />の暗号文になっている</p>
+  </div>
+</div>
 
-$=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iq/B^{j+1})$
+<style>
+.key-switch-proof-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 32px;
+  align-items: start;
+  margin-top: 10px;
+}
 
-$=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iq/B^{j+1})$
+.key-switch-proof-columns p {
+  margin: 0 0 14px;
+  font-size: 18px;
+  line-height: 1.45;
+}
 
-$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}s''_iq/B^{j+1})$
-
-$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}a''_{i}s''_i)$
-
-$=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
-
-ここで$\text{LWE}_\mathbf{s}(\mathbf{a''s''})=(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$と表すと、
-
-$(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})$
-
-$=(0,\dots,0,\mathbf{a''s''}+\Delta m+e_0)-(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})$
-
-$=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + \Delta m +e_0 - \tilde{e})$
-
-これは秘密鍵$\mathbf{s}$による$m$の暗号文になっている
+.key-switch-proof-equation {
+  margin-bottom: 13px;
+  font-size: 17px;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+</style>
