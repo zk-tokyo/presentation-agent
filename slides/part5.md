@@ -189,12 +189,103 @@ class: protocol-map
 
 | プロトコル | パーティ数、セキュリティモデル | 回路の表現 | 特徴 |
 |---|---|---|---|
-| Yao / Garbled Circuit | 主に 2-party | Boolean circuit | garbling と 紛失通信(OT)。2PC の古典 |
+| Yao / Garbled Circuit | 主に 2-party | Boolean circuit | garbling と OT。2PC の古典 |
 | GMW / OT-based | 2-party / multi-party | Boolean circuit | OT / OT extension を使って回路を評価 |
 | BGW | n-party, honest majority | Shamir / arithmetic | 情報理論的安全性。honest majority と相性がよい |
 | SPDZ | n-party, dishonest majority, malicious | arithmetic | Beaver triple、MAC、offline / online 分離 |
 
 この表で覚えるべきなのは、名前そのものではなく、party 数、敵対モデル、回路表現、前処理の有無がセットで変わるという点である。
+
+---
+layout: two-cols-header
+class: ot-slide
+---
+
+# 紛失通信(Oblivious Transfer): 選んだ方だけを受け取る
+
+::left::
+
+## 1-out-of-2 OT
+
+sender は2つのメッセージを持ち、receiver は選択 bit を持つ。
+
+```text
+sender:
+  m0, m1
+
+receiver:
+  choice bit b ∈ {0, 1}
+
+receiver's output:
+  m_b
+```
+
+::right::
+
+## 何を隠すか
+
+- receiver は選ばなかった $m_{1-b}$ を知らない
+- sender は receiver の選択 $b$ を知らない
+
+## Yao での役割
+
+garbler は、入力 wire の `0/1` に対応する2つの label を持つ。
+
+evaluator は OT を使い、自分の入力 bit を garbler に見せずに、対応する label だけを受け取る。
+
+> OT は単独で任意の関数を計算するものではなく、Yao や GMW を組み立てる基本部品である。
+
+---
+layout: two-cols-header
+class: ot-construction-slide
+---
+
+# 紛失通信(OT)プロトコルの実現
+
+sender は値 $m_0,m_1$、receiver は選択 bit $b$ を持つ。$H$ は hash とする。
+
+senderの2つの値に対して、receiver が選んだ方だけを復号できるようにする。
+
+::left::
+
+## 1. sender が基準点を送る
+
+sender は乱数 $a$ を選び、$A=g^a$ を送る。
+
+## 2. receiver が選択を埋め込む
+
+receiver は乱数 $r$ を選び、次の $B$ を送る。
+
+$$
+B=\begin{cases}
+g^r & (b=0)\\
+A g^r & (b=1)
+\end{cases}
+$$
+
+どちらの場合も $B$ はランダムに見えるため、sender は $b$ を区別できない。
+
+::right::
+
+## 3. sender が2つを暗号化する
+
+$$
+k_0=H(B^a),\qquad k_1=H((B/A)^a)
+$$
+
+$$
+C_0=m_0\oplus k_0,\qquad C_1=m_1\oplus k_1
+$$
+
+## 4. receiver が片方だけ復号する
+
+receiver が計算できる鍵は
+
+$$
+k=H(A^r)=H(g^{ar})=k_b
+$$
+
+だけなので、$m_b=C_b\oplus k$ のみを復号できる。
 
 ---
 layout: default
@@ -221,7 +312,7 @@ evaluator:
 
 最後に output label だけが通常の出力として decode される。
 
-入力 label の受け渡しには Oblivious Transfer (OT) が使われることが多い。
+evaluator 自身の入力 label は、1-out-of-2 OT によって、入力 bit を garbler に見せずに受け取れる。
 
 ```text
 向いている:
