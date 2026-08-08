@@ -20,7 +20,7 @@ class: framing-slide
 
 <div class="purpose-grid">
   <div class="purpose-main">
-    <p>MPC は、複数の人(パーティー)が秘密の値を持っているときに、お互いにその値を秘匿したまま共同で計算するための技術である。</p>
+    <p>MPC は、複数の人(パーティ)が秘密の値を持っているときに、お互いにその値を秘匿したまま共同で計算するための秘密計算技術である。</p>
     <p>例えば、</p>
     <ul>
       <li>3人の給与の平均</li>
@@ -30,8 +30,8 @@ class: framing-slide
     <p>など、複数の人が秘密の値を持っているときに、その値を明らかにせずに計算する必要がある場面は多い。</p>
   </div>
   <div class="purpose-terms">
-    <TermNote term="party" description="計算に参加する人や企業など、1つの参加主体のこと。" />
-    <TermNote term="SMPC" label="ALSO CALLED" description="Secure Multi-Party Computation の略。MPC と呼ばれることも多い。" />
+    <TermNote term="パーティ(party)" description="計算に参加する人や企業など、1つの参加主体のこと。" />
+    <TermNote term="SMPC" description="Secure Multi-Party Computation の略。MPC と呼ばれることも多い。" />
   </div>
 </div>
 
@@ -42,9 +42,9 @@ class: zk-mpc-position
 
 # Advanced Cryptography Program における MPC の位置づけ
 
-Advanced Cryptography Program では、ゼロ知識証明を中心に、プライバシーを守りながら計算・検証・データ活用を行う技術を扱う。
+Advanced Cryptography Program では、ゼロ知識証明(ZK)をはじめとする、プライバシーを守りながら計算・検証・データ活用を行う技術を扱う。
 
-この Week 2 では、その中でも MPC を扱う。
+Week 2 では、その中でも MPC を扱う。
 
 ZK と MPC はどちらも「秘密を扱う」技術だが、中心となる問いが違う。
 
@@ -56,4 +56,4 @@ MPC:
   主に、秘密入力を持つ複数の人が、入力を一か所に集めずに共同で計算する
 ```
 
-この講義では、MPCをプライバシーテックの一角として、概念理解から始め、数学的な実現方法、そして主要なMPCプロトコルや近年の応用例までを網羅的にカバーする。
+この講義では MPCの概念理解から始め、数学的な実現方法、そして主要なMPCプロトコルや近年の応用例までを網羅的にカバーする。

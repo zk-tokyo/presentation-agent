@@ -15,7 +15,7 @@ event:
 
 担当: 中江  
 位置づけ: Week 2 の講義で、MPC部分を担当  
-構成: 120分講義 + 30分休憩 + 3時間ホワイトボードセッション  
+構成: 120分講義 + 30分休憩 + 2時間ホワイトボードセッション
 形式: オンサイト、20-25名想定
 
 ---
@@ -257,16 +257,16 @@ MPC:
 4. T は入力を漏らさない
 ```
 
-この T が本当に信頼できるなら、問題は解決する。
+この T が約束どおりに振る舞うなら、各 party は互いに入力を明かさず、決められた出力 y だけを得られる。
 
-しかし、現実には次の問題がある。
+しかし、T には全員の入力が集まる。現実には T を完全に信用できず、次のように振る舞うかもしれない。
 
-- T が入力を盗み見るかもしれない
-- T がハックされるかもしれない
-- T が特定の party と結託するかもしれない
-- そもそも全員が T を信頼できないかもしれない
+- 入力を外部に漏らす
+- 入力を目的外利用する
+- 特定の party と結託する
+- 結果を改ざんする・返さない
 
-MPC は、この trusted third party を置かずに、party 同士の通信だけで技術的に同じことを実現しようとする。
+MPC は、T に全入力を預けず、T が行うはずだった計算を party 間のプロトコルで実現しようとする。
 
 ---
 
@@ -1221,174 +1221,180 @@ type:
 
 ---
 
-## 応用例1: Threshold signature / MPC wallet
+## 実運用例1: Fireblocks の MPC wallet
 
-秘密鍵を1台に置かず、複数 party の share で署名を作る。
+一般形は Threshold signature / MPC wallet。
+
+Fireblocks は、デジタル資産ウォレットの署名に MPC を利用している。
+Embedded Wallets では、ユーザー端末と Fireblocks 側サーバーによる 2-of-2 MPC signature を採用している。
 
 ```text
 party:
-  複数の signer / key share holder
+  ユーザー端末
+  Fireblocks の SGX-enabled server
 
 input:
   各 party の key share
-
-public input:
-  署名対象の message / transaction
+  署名対象の transaction
 
 function:
-  秘密鍵全体を復元せずに署名を作る
+  完全な秘密鍵を1箇所に集めず署名を作る
 
 output:
-  signature
+  blockchain で検証できる signature
 
 hidden:
-  秘密鍵全体
-  各 party の key share
-
-output leakage:
-  signature は公開される
-  誰が署名に参加したか、いつ署名したかが運用上見えることがある
-
-cost:
-  threshold 設定、share 紛失、offline party、malicious party への対応
-
-type:
-  special-purpose MPC
+  完全な秘密鍵と各 key share
 ```
 
-threshold signature は、汎用の「任意関数を回路として評価する MPC」とは少し違う。
-署名方式の代数構造を活かした special-purpose MPC として理解するとよい。
+MPC を使う理由:
+
+- 単一の端末・サーバーに秘密鍵全体を置かない
+- blockchain 側には通常の署名として提出できる
+- key share の配置を署名ポリシーに接続できる
+
+MPC だけでは解決しないこと:
+
+- 端末紛失時の復旧と key share の更新
+- 誰がどの transaction を承認できるか
+- 署名 party やネットワークが停止した場合の可用性
+- endpoint・TEE・運用権限を含む信頼境界
+
+これは任意の関数を評価する generic MPC ではなく、署名方式の構造を使う special-purpose MPC である。
+
+出典: [Fireblocks Developer Docs — Direct Custody Wallets: Overview](https://developers.fireblocks.com/docs/overview)
 
 ---
 
-## 応用例2: Private Set Intersection
+## 実運用例2: Meta の Private Data Lookup
 
-2つ以上の party がそれぞれ集合を持っている。
+一般形は Private Set Intersection / private membership test。
 
-知りたいのは共通部分、または共通部分のサイズだけである。
+Meta は Enterprise Center のパスワード作成・リセット時に、入力されたパスワードが漏洩済みリストに含まれるかを、Private Data Lookup (PDL) で確認している。
 
 ```text
 party:
-  Company A
-  Company B
+  ユーザーの client
+  Meta Enterprise Center の service
 
 input:
-  Company A has set X
-  Company B has set Y
+  client: 入力された password
+  service: 漏洩済み password の集合
 
 function:
-  intersection or intersection size
+  password が漏洩済み集合に含まれるか確認
 
 output:
-  X ∩ Y
-  or
-  |X ∩ Y|
+  一致したかをユーザーだけが知る
 
 hidden:
-  共通部分以外の要素
-  片方だけが持つ要素
-  場合によっては集合サイズ
-
-output leakage:
-  共通部分そのものを出す場合、その要素が両者に存在することは公開される
-  サイズだけを出す場合でも、small domain や繰り返しクエリでは推測が増える
-
-cost:
-  集合サイズ、malicious input、small domain、繰り返しクエリへの対応
-
-type:
-  special-purpose PSI protocol がよく使われる
+  Meta からユーザーの試行 password を隠す
+  ユーザーから漏洩済み集合全体を隠す
 ```
 
-PSI は、不正検知、広告、顧客照合、医療、接触確認などで説明しやすい。
+実際の処理:
+
+- client が password hash をリクエストごとの鍵で blind する
+- service も秘密鍵を使って処理する
+- 最終的な照合は client 側で行い、Meta は結果を得ない
+
+実装上のトレードオフ:
+
+- 巨大な漏洩済み password 集合の前処理
+- client が受け取るデータ量と latency
+- sharding index が増やす leakage と性能のバランス
+- 繰り返し query や small domain への対策
+
+これは「集合の共通部分を全部返す」のではなく、片側だけが membership の結果を得る special-purpose PSI として見られる。
+
+出典: [Engineering at Meta — Private Data Lookup](https://engineering.fb.com/2023/08/08/security/how-meta-is-improving-password-security-and-preserving-privacy/)
 
 ---
 
-## 応用例3: Privacy-preserving analytics
+## 実運用例3: Boston の賃金格差分析
 
-複数組織がデータを持っている。
+Boston Women’s Workforce Council と Boston University は、MPC-backed system を使って賃金格差を分析している。
 
-個別データを出さずに、全体の統計量だけを知りたい。
+Greater Boston の複数企業が、個社や従業員の給与データを公開せず、地域全体の gender / racial wage gap を共同で測定する事例である。
 
 ```text
-party:
-  複数の組織
+data owner:
+  参加企業
+
+computation:
+  BWWC と Boston University の MPC-backed system
 
 input:
-  各組織のデータ
+  給与、gender、race、job category、tenure など
 
 function:
-  集計・統計量・モデル指標の計算
+  属性別の給与統計を集計
 
 output:
-  合計
-  平均
-  分布
-  モデル指標
+  Greater Boston 全体の wage gap statistics
 
 hidden:
-  各組織の個別データ
-  個人や顧客ごとの寄与
-
-output leakage:
-  小さい集団の統計量や繰り返し集計から個別データが推測されることがある
-
-cost:
-  合計・平均・分散・一部の線形モデルは相性がよい
-  複雑なフィルタ、比較、ソート、欠損値処理は重くなりやすい
-
-type:
-  generic MPC または secure aggregation 系
+  個々の従業員データと企業ごとの生データ
 ```
 
-analytics では、MPC だけでなく Differential Privacy を組み合わせることもある。
+MPC が担う部分:
 
-MPC は計算中の入力を守る。
+- 参加企業は MPC-backed software 経由でデータを提出する
+- BWWC は個社データではなく集計結果を分析する
+- 組織間で raw payroll data を共有せずに統計を得る
 
-Differential Privacy は、出力から個人情報が推測されるリスクを抑える。
+MPC だけでは解決しないこと:
+
+- 入力データの正しさと分類基準の統一
+- 小さい集団や細かい属性別 output からの推測
+- 欠損値、外れ値、繰り返し分析の扱い
+- 統計を誰にどの粒度で公開するか
+
+MPC は計算中の raw data を守る。
+公開統計からの推測には、集計粒度や Differential Privacy など別の設計が必要になる。
+
+出典: [Boston Women’s Workforce Council — Data Privacy](https://bwwc.squarespace.com/mpc)
 
 ---
 
-## 応用例4: Matching / auction / voting
+## 実運用例4: デンマークの秘密入札
 
-マッチング、オークション、投票では、入力を隠したまま結果だけを出したい。
+2008年1月、デンマークの砂糖大根生産契約を売買する double auction で、農家の秘密入札を公開せずに市場を清算した。
+大規模・実用的な MPC の初期事例として知られている。
 
 ```text
-party:
-  参加者
-  場合によっては運営者 / 集計者
+data owner:
+  契約を売買する農家
 
 input:
-  希望順位
-  入札額
-  投票内容
+  非公開の売買価格と数量
 
 function:
-  ルールに従って結果を計算する
+  supply / demand を集計し double auction を清算
 
 output:
-  マッチング結果
-  勝者
-  集計結果
+  clearing result と成立した契約移転
 
 hidden:
-  希望順位
-  入札額
-  投票内容
-
-output leakage:
-  結果から入力の一部が推測されることがある
-  voting では投票資格や二重投票の防止も別途設計が必要になる
-
-cost:
-  比較、ソート、条件分岐、最適化問題が重くなりやすい
-  入力の正当性確認が別途必要になることがある
-
-type:
-  ルール次第で generic MPC または special-purpose protocol
+  output から必要となる以上の個別 bid
 ```
 
-この領域は直感的には MPC に向いているが、実装と運用の論点が多い。
+なぜ MPC が必要だったか:
+
+- 売り手・買い手は互いに個別 bid を見せたくない
+- 単一の auctioneer に全 bid を預けずに計算したい
+- 必要な clearing result だけを共同で得たい
+
+MPC だけでは解決しないこと:
+
+- 虚偽 bid や契約資格など input validity
+- 比較・集計・clearing rule の計算コスト
+- output から推測できる価格・需給情報
+- 約定後の契約執行と紛争処理
+
+Private DEX 課題も同じ型で、秘密注文、matching rule、output leakage、約定後の執行を分けて考えられる。
+
+出典: [Bogetoft et al., “Secure Multiparty Computation Goes Live,” FC 2009](https://doi.org/10.1007/978-3-642-03549-4_20)
 
 ---
 
@@ -1552,6 +1558,40 @@ MPC である必要があるか？
 
 ---
 
+# ホワイトボードセッション課題: Private DEX を設計する
+
+複数のトレーダーが指値注文（Limit Order）を提出する Private DEX を設計する。
+
+## 与えられる前提
+
+- すべての未約定注文は MPC ノードに秘密分散される。
+- 未約定注文は、他のトレーダー、単一の MPC ノード、一般ユーザー（公開情報）から秘匿される。
+- MPC は、売値と買値の条件が交差する注文を発見する。
+- 約定時には、対象となった注文とトレーダーの署名をコントラクトへ提出する。
+- コントラクトは注文条件を再検証し、アトミックに資産を交換する。
+- このシステムでは ZK Proof を使用しない。そのため、約定した注文内容はオンチェーンで公開される。
+
+## グループで設計すること
+
+1. party / input / function / output を定義する。
+2. 価格、数量、価格優先・時間優先、部分約定を含むマッチングルールを決める。
+3. MPC ノードの結託数と adversary model を決める。
+4. 注文への署名、nonce、期限、取消、replay 防止を設計する。
+5. 約定結果や繰り返し観測から何が漏れるかを整理する。
+6. ノード停止、トレーダーの資産不足、約定直前の取消、abort をどう扱うか決める。
+7. MPC 内で重くなる比較・ソート・通信と、コントラクト側で再検証する処理を分ける。
+8. この設計が保証することと、保証しないことを明示する。
+
+## 成果物と進行
+
+- 成果物: MPC 設計シート 1 枚と3分間の発表
+- グループ作業: 75分
+- 発表: 15分
+- フィードバック: 15分
+- バッファ・全体まとめ: 15分
+
+---
+
 ## 講義終了時の確認質問
 
 最後に、受講者に次の問いを投げる。
@@ -1615,10 +1655,10 @@ Part 6 の応用例はすべて同じ型で見る。各応用を深掘りする�
 | 34 | Part 5 | Yao's Garbled Circuit: 2PC と Boolean circuit |
 | 35 | Part 5 | SPDZ: malicious security と dishonest majority |
 | 36 | Part 6 | 応用を見るための型 |
-| 37 | Part 6 | Threshold signature / MPC wallet |
-| 38 | Part 6 | Private Set Intersection |
-| 39 | Part 6 | Privacy-preserving analytics |
-| 40 | Part 6 | Matching / auction / voting |
+| 37 | Part 6 | Fireblocks の MPC wallet |
+| 38 | Part 6 | Meta の Private Data Lookup |
+| 39 | Part 6 | Boston の賃金格差分析 |
+| 40 | Part 6 | デンマークの秘密入札 |
 | 41 | Part 7 | 関連技術との比較: ZK / FHE / MPC / TEE / DP |
 | 42 | Part 7 | 使い分けの直感 |
 | 43 | Part 7 | MPC を使う前に確認すること |

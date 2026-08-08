@@ -22,9 +22,9 @@ class: ttp-slide
 
 <div class="ttp-model" aria-label="Trusted Third Party に入力を集める理想世界">
   <div class="ttp-parties">
-    <div><b>P1</b><span>input x1</span></div>
-    <div><b>P2</b><span>input x2</span></div>
-    <div><b>Pn</b><span>input xn</span></div>
+    <div><b>P1</b><span>入力 x1</span></div>
+    <div><b>P2</b><span>入力 x2</span></div>
+    <div><b>Pn</b><span>入力 xn</span></div>
   </div>
   <div class="model-arrow"><span>入力を送る</span>→</div>
   <div class="ttp-center"><small>TRUSTED THIRD PARTY</small><b>T</b><span>y = f(x1, ..., xn)</span><em>入力を漏らさない</em></div>
@@ -32,16 +32,18 @@ class: ttp-slide
   <div class="model-output"><small>OUTPUT</small><b>y</b><span>決められた相手へ</span></div>
 </div>
 
-この T が本当に信頼できるなら、問題は解決する。
+この T が約束どおりに振る舞うなら、各 パーティ は互いに入力を明かさず、決められた出力 y だけを得られる。
+
+しかし、T には全員の入力が集まる。現実には T を完全に信用できず、次のように振る舞うかもしれない。
 
 <div class="ttp-risks">
-  <span>T が入力を盗み見る</span>
-  <span>T がハックされる</span>
-  <span>特定の party と結託する</span>
-  <span>全員が T を信頼できない</span>
+  <span>入力を外部に漏らす</span>
+  <span>入力を目的外利用する</span>
+  <span>特定の パーティ と結託する</span>
+  <span>結果を改ざんする・返さない</span>
 </div>
 
-<p class="model-conclusion">MPC は、この trusted third party を置かずに、party 同士の通信だけで技術的に同じことを実現しようとする。</p>
+<p class="model-conclusion">MPC は、T に全ての入力を預けず、T が行うはずだった計算を パーティ 間のプロトコルで実現しようとする。</p>
 
 ---
 layout: default
@@ -50,7 +52,7 @@ class: definition-slide mpc-definition-slide
 
 # MPC の直感的な定義
 
-MPC は、複数の party がそれぞれ秘密の入力を持つとき、入力を互いに明かさずに、共同で関数の出力だけを得るためのプロトコルである。
+MPC は、複数の パーティ がそれぞれ秘密の入力を持つとき、入力を互いに明かさずに、共同で関数の出力だけを得るためのプロトコルである。
 
 <div class="mpc-model" aria-label="信頼できる第三者を置かずに共同計算する図">
   <div class="mpc-party"><b>P1</b><span>input x1</span><small>入力は手元に残す</small></div>
@@ -63,7 +65,7 @@ MPC は、複数の party がそれぞれ秘密の入力を持つとき、入力
 
 <p class="central-question">信頼できる第三者に入力を集めずに、どうやって共同で y = f(x1, ..., xn) を計算するか？</p>
 
-具体的な実現方法は一旦脇に置いておいて、どのようなことを考えるのか？について話していく。
+具体的な実現方法は一旦脇に置いておいて、MPCを構成、規定していく上でどのようなことを考えるのか？について話していく。
 
 ---
 layout: two-cols-header

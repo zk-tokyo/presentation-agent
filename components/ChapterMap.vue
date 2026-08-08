@@ -4,17 +4,17 @@ defineProps({
     type: Number,
     required: true,
   },
-})
+});
 
 const chapters = [
-  { number: 1, label: '目的と直感' },
-  { number: 2, label: '問題設定' },
-  { number: 3, label: '秘密分散' },
-  { number: 4, label: '秘密のまま演算' },
-  { number: 5, label: 'モデルとプロトコル' },
-  { number: 6, label: '応用例' },
-  { number: 7, label: '比較とまとめ' },
-]
+  { number: 1, label: "MPCは何をしたい技術か" },
+  { number: 2, label: "問題設定" },
+  { number: 3, label: "秘密分散" },
+  { number: 4, label: "MPCでの演算" },
+  { number: 5, label: "モデルとプロトコル" },
+  { number: 6, label: "応用例" },
+  { number: 7, label: "比較とまとめ" },
+];
 </script>
 
 <template>
@@ -25,7 +25,9 @@ const chapters = [
       class="chapter-map-item"
       :class="{ active: chapter.number === current }"
     >
-      <span class="chapter-map-number">{{ String(chapter.number).padStart(2, '0') }}</span>
+      <span class="chapter-map-number">{{
+        String(chapter.number).padStart(2, "0")
+      }}</span>
       <span class="chapter-map-label">{{ chapter.label }}</span>
     </div>
   </nav>

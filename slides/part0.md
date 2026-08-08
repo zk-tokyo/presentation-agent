@@ -20,9 +20,9 @@ class: salary-story
       <div class="salary-party"><b>Carol</b><span>給与 x3</span><small>非公開</small></div>
     </div>
     <div class="salary-arrow">→</div>
-    <div class="salary-compute"><small>共同計算</small><b>f(x1, x2, x3)</b><span>入力は見せない</span></div>
+    <div class="salary-compute"><small>共同計算</small><b>f(x1, x2, x3)</b><span>入力や途中過程は見せない</span></div>
     <div class="salary-arrow">→</div>
-    <div class="salary-output"><small>OUTPUT</small><b>平均だけ</b><span>指定された人が知る</span></div>
+    <div class="salary-output"><small>OUTPUT</small><b>平均</b><span>指定された人が知る</span></div>
   </div>
 </div>
 

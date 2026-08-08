@@ -168,8 +168,13 @@ k-of-n:
 この復元条件を自然に実現する代表例が、Shamir 秘密分散である。
 
 ---
+layout: two-cols-header
+class: shamir-intuition-slide
+---
 
 # Shamir の直感: 点が足りないと多項式が定まらない
+
+::left::
 
 Shamir 秘密分散の直感は、多項式を点から復元することである。
 
@@ -181,9 +186,18 @@ Shamir 秘密分散の直感は、多項式を点から復元することであ�
 3点あれば、2次多項式が決まる
 ```
 
+一般に、**k 個の点があれば、次数 k - 1 の多項式が一意に定まる**。
+
 secret は q(0)、つまり多項式の切片に置く。
 十分な数の点が集まれば、多項式が決まり、q(0) が分かる。
 点が足りなければ、q(0) はまだ決まらない。正確には、同じ k-1 個の点を通りながら、q(0) が別の値になる多項式がまだ作れてしまう。
+
+::right::
+
+<figure class="shamir-interpolation-figure">
+  <img src="./lagrange_interpolation_top.jpg" alt="4点を通る一意な3次多項式" />
+  <figcaption>4点が与えられると、3次多項式 p(x) が一意に定まる</figcaption>
+</figure>
 
 ---
 layout: two-cols-header
@@ -269,6 +283,9 @@ output
 
 という流れで考える。
 
+
+<TermNote term="opening" description="秘密分散において、share を集めて secret を復元すること。" />
+
 ---
 layout: default
 class: representation-slide
@@ -278,12 +295,12 @@ class: representation-slide
 
 給与、年齢、金額、確率、小数などの現実の値を、MPC の中でそのまま扱えるわけではない。
 
-多くの MPC では、計算対象を有限体や ring 上の値として表現する。
+多くの MPC では、計算対象を有限体や環(例えば64bit整数など)上の値として表現する。
 
 ```text
-現実の値
+入力、現実の値
   ↓ encode
-有限体 / ring / 固定小数点表現
+有限体 / 環 / 固定小数点表現
   ↓ sharing
 share
   ↓ MPC protocol
@@ -303,4 +320,4 @@ encoded output
 
 講義本編では詳細な符号化方式には踏み込まない。
 
-ただし、MPC を使うには「計算したい値や関数を、どの表現に落とすか」を設計する必要がある。
+ただし、MPC を使うには「計算したい値や関数をどの表現にするか」を設計する必要がある。

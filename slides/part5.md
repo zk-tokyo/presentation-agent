@@ -64,21 +64,27 @@ class: majority-models
 
 # 何人まで壊れてもよいか: honest majority と dishonest majority
 
-MPC では、何人まで壊れてよいかが重要である。
+MPC では、何人まで壊れてよいかが重要である。まず、次のようにおく。
+
+```text
+t = 不正を行う最大 party 数
+```
 
 ## honest majority
 
-過半数の party が正直であると仮定する。
+過半数の party が正直であると仮定する。すなわち t < n/2である。例えば、5人中2人が壊れてもよい場合は、
 
 ```text
 n = 5, t = 2
 ```
 
+であり、2<5/2 であるため、honest majority である。
+
 このような場合、Shamir ベースのプロトコルなどが使いやすい。
 
 ## dishonest majority
 
-半数以上が壊れてもよい、または 2-party で片方が壊れる可能性を考える。
+半数以上が壊れてもよい、または 2-party で片方が壊れる可能性を考える。すなわち t >= n/2 である。
 
 ```text
 n = 2, t = 1
@@ -86,7 +92,7 @@ n = 2, t = 1
 
 この設定では、より強い暗号技術や前処理が必要になりやすい。
 
-SPDZ などは、dishonest majority かつ malicious security を狙う代表的な系統として紹介できる。
+SPDZ などは、dishonest majority かつ malicious security を狙う代表的なプロトコルとされる。
 
 ---
 layout: default
@@ -181,9 +187,9 @@ class: protocol-map
 代表的なプロトコルを、分類軸とセットで紹介する。
 
 
-| プロトコル | 主な設定 | 表現 | 見るべき特徴 |
+| プロトコル | パーティ数、セキュリティモデル | 回路の表現 | 特徴 |
 |---|---|---|---|
-| Yao / Garbled Circuit | 主に 2-party | Boolean circuit | garbling と OT。2PC の古典 |
+| Yao / Garbled Circuit | 主に 2-party | Boolean circuit | garbling と 紛失通信(OT)。2PC の古典 |
 | GMW / OT-based | 2-party / multi-party | Boolean circuit | OT / OT extension を使って回路を評価 |
 | BGW | n-party, honest majority | Shamir / arithmetic | 情報理論的安全性。honest majority と相性がよい |
 | SPDZ | n-party, dishonest majority, malicious | arithmetic | Beaver triple、MAC、offline / online 分離 |
