@@ -11,11 +11,9 @@ const patterns: Pattern[] = [
   { index: '①', app: 'Longfellow',         recipe: 'ZK ∘ ECDSA(mDOC)',         desc: '既存 ID 標準 (mDOC / JWT) を ZK 化',     hue: 'amber'  },
   { index: '②', app: 'Verifiable FHE',     recipe: 'ZK + FHE',                  desc: 'FHE の計算正しさを ZK で保証',            hue: 'purple' },
   { index: '③', app: 'threshold FHE',      recipe: 'MPC + FHE',                 desc: 'FHE の鍵を MPC で分散管理',              hue: 'cyan'   },
-  { index: '④', app: 'zkML',               recipe: 'ZK + ML',                   desc: 'ML 推論の正しさを暗号的に証明',           hue: 'pink'   },
-  { index: '⑤', app: 'mpcML',              recipe: 'MPC + ML',                  desc: '各人の学習データを秘匿しつつ共同学習',     hue: 'cyan'   },
-  { index: '⑥', app: 'Multisig op proof',  recipe: 'ZK + Multisig',             desc: 'Multisig 操作を秘匿しつつ正しさ証明',     hue: 'blue'   },
-  { index: '⑦', app: 'ZK Light Client',    recipe: 'ZK + Bridge',               desc: 'cross-chain state を ZK proof で受け渡し', hue: 'green'  },
-  { index: '⑧', app: 'co-SNARK',           recipe: 'ZK + MPC',                  desc: '入力を秘匿したまま協調証明 (World ID)',   hue: 'amber'  },
+  { index: '④', app: 'mpcML',              recipe: 'MPC + ML',                  desc: '各人の学習データを秘匿しつつ共同学習',     hue: 'cyan'   },
+  { index: '⑤', app: 'Multisig op proof',  recipe: 'ZK + Multisig',             desc: 'Multisig 操作を秘匿しつつ正しさ証明',     hue: 'blue'   },
+  { index: '⑥', app: 'co-SNARK',           recipe: 'ZK + MPC',                  desc: '入力を秘匿したまま協調証明 (World ID)',   hue: 'amber'  },
 ]
 </script>
 
@@ -23,7 +21,7 @@ const patterns: Pattern[] = [
   <div class="cp-root">
     <!-- Top caption -->
     <div class="cp-cap">
-      <div class="cp-cap-title">8 つの代表的合成パターン</div>
+      <div class="cp-cap-title">6 つの代表的合成パターン</div>
       <div class="cp-cap-sub">各 app は crypto primitive どうし、または既存 system との合成として現れる</div>
     </div>
 
@@ -78,7 +76,7 @@ const patterns: Pattern[] = [
 /* Grid */
 .cp-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 12px;
 }
