@@ -85,7 +85,7 @@ src: ./slides/SL19-$v(x)$の構成.md
 src: ./slides/SL19b-$v(x)$の構成.md
 ---
 ---
-src: ./slides/SL20-参考:多項式を使ってうまくいくことの確認.md
+src: ./slides/SL20-多項式を使ってうまくいくことの確認.md
 ---
 ---
 src: ./slides/SL21-Programmable Bootstrappingの大まかな構成.md
