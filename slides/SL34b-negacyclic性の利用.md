@@ -21,7 +21,7 @@ x^{2n-i} & (n\le i<2n)
 
 <div class="week5-note-card is-white">
 <p class="text-center" style="font-size: 1.4rem;">
-<MathInline expr="x^{-i}"/>をv(x)にかけたときの定数項は1と-1の2つの値を表現できる
+<MathInline expr="x^{-i}"/>をv(x)にかけたときの定数項は正と負の2つの値を表現できる
 </p>
 </div>
 
