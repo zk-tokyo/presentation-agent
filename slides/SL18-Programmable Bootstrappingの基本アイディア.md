@@ -41,7 +41,7 @@ layout: default
 
   <div style="position: absolute; left: 300px; top: 198px; width: 180px; height: 98px; border: 2px solid #f3e7a6; border-radius: 14px; background: #fffdf4;">
     <div style="position: absolute; left: -188px; top: -16px; padding: 3px 12px; border: 2px solid #f3e7a6; background: #ffffff; font-size: 1rem; line-height: 1.3; white-space: nowrap;">ノイズの少ない暗号文</div>
-    <div style="position: absolute; left: 50px; top: 22px; width: 76px; height: 56px; display: grid; place-items: center; border: 1.5px solid #17324d; background: #ffffff; font-size: 1rem;">
+    <div style="position: absolute; left: 50px; top: 22px; width: 76px; height: 56px; display: grid; place-items: center; border: 1.5px solid #17324d; background: #f2f7fc;  font-size: 1rem;">
       <MathInline expr="m_i"/>
     </div>
   </div>

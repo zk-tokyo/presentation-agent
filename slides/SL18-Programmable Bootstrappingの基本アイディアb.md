@@ -48,7 +48,7 @@ $=a_i+a_{i+1}x+\dots+a_{n-1}x^{n-1-i}-a_0x^{n-i}-a_1x^{n-i+1}-\dots-a_{i-1}x^{n-
 <br>
 
 <div class="week5-note-card week5-card-side">
-  <p style="font-size: 1.4rem;"><MathInline expr="v(x)"/>の係数を平文にすれば、LWE暗号文<MathInline expr="(\mathbf{a},b)"/>は<MathInline expr="b-\mathbf{as}=\Delta m_i+e"/>を満たすことを利用して、<br>
+  <p style="font-size: 1.4rem;"><MathInline expr="v(x)"/>の係数を平文にすれば、LWE暗号文<MathInline expr="(\mathbf{a},b=\mathbf{as}+\Delta m_i+e)"/>は<MathInline expr="b-\mathbf{as}=\Delta m_i+e"/>を満たすことを利用して、<br>
   <MathInline expr="x^{-(b-\mathbf{as})}v(x) = x^{-(\Delta m_i + e)}v(x) \;\text{mod}\; x^n+1"/>の定数項に<MathInline expr="m_i"/>を持って来れる</p>
 </div>
 

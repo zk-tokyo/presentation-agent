@@ -8,21 +8,21 @@ layout: default
 
 <div class="key-switch-proof-columns">
   <div>
-    <p>以下のように変形する。</p>
-    <div class="key-switch-proof-equation"><MathInline expr="\text{LWE}_\mathbf{s}(\Delta m)= (0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]" /></div>
-    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iq/B^{j+1})" /></div>
-    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iq/B^{j+1})" /></div>
-    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}s''_iq/B^{j+1})" /></div>
-    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}a''_{i}s''_i)" /></div>
-    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})" /></div>
+    <p style="font-size: 1.3rem;">以下のように変形する。</p>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="\text{LWE}_\mathbf{s}(\Delta m)= (0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}ksk[i,j]" /></div>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}\text{LWE}_\mathbf{s}(s''_iq/B^{j+1})" /></div>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="=(0,\dots,0,b'_0)-\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\text{LWE}_\mathbf{s}(\bar{a}_{i,j}s''_iq/B^{j+1})" /></div>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}\Sigma^{l-1}_{j=0}\bar{a}_{i,j}s''_iq/B^{j+1})" /></div>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\Sigma^{n-1}_{i=0}a''_{i}s''_i)" /></div>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="=(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})" /></div>
   </div>
 
   <div>
-    <p>ここで<MathInline expr="\text{LWE}_\mathbf{s}(\mathbf{a''s''})=(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})" />と表すと、</p>
-    <div class="key-switch-proof-equation"><MathInline expr="(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})" /></div>
-    <div class="key-switch-proof-equation"><MathInline expr="=(0,\dots,0,\mathbf{a''s''}+\Delta m+e_0)-(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})" /></div>
-    <div class="key-switch-proof-equation"><MathInline expr="=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + \Delta m +e_0 - \tilde{e})" /></div>
-    <p>これは秘密鍵<MathInline expr="\mathbf{s}" />による<MathInline expr="m" />の暗号文になっている</p>
+    <p style="font-size: 1.3rem;">ここで<MathInline expr="\text{LWE}_\mathbf{s}(\mathbf{a''s''})=(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})" />と表すと、</p>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="(0,\dots,0,b'_0)-\text{LWE}_\mathbf{s}(\mathbf{a''s''})" /></div>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="=(0,\dots,0,\mathbf{a''s''}+\Delta m+e_0)-(\tilde{\mathbf{a}},\tilde{\mathbf{a}}\mathbf{s} + \mathbf{a''s''} + \tilde{e})" /></div>
+    <div class="key-switch-proof-equation" style="font-size: 1.3rem;"><MathInline expr="=(-\tilde{\mathbf{a}},-\tilde{\mathbf{a}}\mathbf{s} + \Delta m +e_0 - \tilde{e})" /></div>
+    <p style="font-size: 1.3rem;">これは秘密鍵<MathInline expr="\mathbf{s}" />による<MathInline expr="m" />の暗号文になっている</p>
   </div>
 </div>
 

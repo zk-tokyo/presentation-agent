@@ -9,25 +9,25 @@ layout: default
 <div class="week5-text-two">
 
 <div>
-<h2>暗号文での計算</h2>
-<p>
-<MathInline expr="\hat{\mathbf{a}}\gets\left\lfloor \mathbf{a}\frac{2n}{q}\right\rceil"/> （リスケーリング） <br>
+<h2>平文での計算</h2>
+<MathInline expr="\hat{\mathbf{a}}\gets\left\lfloor \mathbf{a}\frac{2n}{q}\right\rceil"/>（リスケーリング）<br>
 <MathInline expr="\hat{b}\gets \left\lfloor b\frac{2n}{q}\right\rceil"/> （リスケーリング）<br>
-<MathInline expr="Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(\Delta v)"/> (RLWE暗号文は多項式をかけることができる。) <br>
+<MathInline expr="Q_0 \gets x^{-\hat{b}}v(x)"/>  <br>
 for <MathInline expr="j=0\dots k-1"/> <br>
-<MathInline expr ="\quad Q_{j+1} \gets \text{CMUX}(\text{RGSW}_{s'}(s_j), Q_j, x^{\hat{a}_j}Q_j)"/> <br>
-return <MathInline expr="Q_k(=\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\mathbf{\hat{a}s}}v))"/> <br>
-</p>
+<MathInline expr ="\quad Q_{j+1} \gets \text{MUX}(s_j, Q_j, x^{\hat{a}_j}Q_j)"/> <br>
+return <MathInline expr="Q_k(=x^{-\hat{b}+\mathbf{\hat{a}s}}v(x))"/> <br>
 </div>
 
 <div>
-<h2>平文での計算</h2>
-<MathInline expr="\hat{\mathbf{a}}\gets\left\lfloor \mathbf{a}\frac{2n}{q}\right\rceil"/><br>
+<h2>暗号文での計算</h2>
+<p>
+<MathInline expr="\hat{\mathbf{a}}\gets\left\lfloor \mathbf{a}\frac{2n}{q}\right\rceil"/>  <br>
 <MathInline expr="\hat{b}\gets \left\lfloor b\frac{2n}{q}\right\rceil"/> <br>
-<MathInline expr="Q_0 \gets x^{-\hat{b}}(v)"/>  <br>
+<MathInline expr="Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(\Delta v(x))"/> (RLWE暗号文は多項式をかけることができる。) <br>
 for <MathInline expr="j=0\dots k-1"/> <br>
-<MathInline expr ="\quad Q_{j+1} \gets \text{MUX}(s_j, Q_j, x^{\hat{a}_j}Q_j)"/> <br>
-return <MathInline expr="Q_k(=x^{-\hat{b}+\mathbf{\hat{a}s}}v)"/> <br>
+<MathInline expr ="\quad Q_{j+1} \gets \text{CMUX}(\text{RGSW}_{s'}(s_j), Q_j, x^{\hat{a}_j}Q_j)"/> <br>
+return <MathInline expr="Q_k(=\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\mathbf{\hat{a}s}}v(x)))"/> <br>
+</p>
 </div>
 
 </div>

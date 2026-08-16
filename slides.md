@@ -73,9 +73,6 @@ src: ./slides/SL16-TFHEの基本情報.md
 src: ./slides/SL17-剰余の復習.md
 ---
 ---
-src: ./slides/SL17b-剰余の復習.md
----
----
 src: ./slides/SL18-Programmable Bootstrappingの基本アイディア.md
 ---
 ---
@@ -151,7 +148,10 @@ src: ./slides/SL35b-HomNANDのテスト多項式.md
 src: ./slides/SL36-ホワイトボードセッション.md
 ---
 ---
-src: ./slides/SL37-テーマリスト.md
+src: ./slides/SL37-テーマ1.md
+---
+---
+src: ./slides/SL38-テーマ2.md
 ---
 ---
 src: ./slides/SL99-参考文献.md

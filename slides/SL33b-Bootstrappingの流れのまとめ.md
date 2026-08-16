@@ -66,13 +66,12 @@ layout: default
     <div class="week5-flow-step">3</div>
     <div class="week5-flow-title">Key Switching</div>
     <div class="week5-flow-key-copy">
-      <div><MathInline expr="\mathbf{a}'\mathbf{s}'+\Delta m+e_0"/></div>
+      <div style="font-size: 1rem;"><MathInline expr="\mathbf{a}'\mathbf{s}'+\Delta m+e_0"/></div>
       <div class="week5-flow-key-copy-muted">から</div>
-      <div><MathInline expr="\mathbf{a}\mathbf{s}+\mathbf{a}'\mathbf{s}'+e"/></div>
+      <div style="font-size: 1rem;"><MathInline expr="\mathbf{a}\mathbf{s}+\mathbf{a}'\mathbf{s}'+e"/></div>
       <div class="week5-flow-key-copy-muted">を減算する</div>
       <div class="week5-flow-key-copy-em">共通する <MathInline expr="\mathbf{a}'\mathbf{s}'"/> を消す</div>
     </div>
-    <div class="week5-flow-sub">残った形を、もとの秘密鍵 <MathInline expr="\mathbf{s}"/> の<br>LWE 暗号文として読む</div>
   </div>
 
   <div class="week5-flow-node is-output">

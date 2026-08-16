@@ -18,7 +18,7 @@ v_q(x)={}&m_0x^{\Delta m_0+e_0}+\cdots+m_0x^{\Delta m_0+e_r}\\
 \end{aligned}"/>
   </div>
   <p>とする。すると</p>
-  <div style="font-size: 1rem;"><MathBlock expr="x^{-(b-\mathbf{as})}v_q(x)=x^{-(\Delta m_i+e)}v_q(x)"/></div>
+  <div style="font-size: 1.3rem;"><MathBlock expr="x^{-(b-\mathbf{as})}v_q(x)=x^{-(\Delta m_i+e)}v_q(x)"/></div>
   <p>の定数項に<MathInline expr="m_i"/>がくる。</p>
 </div>
 

@@ -6,11 +6,13 @@ layout: default
 
 ## CMUX
 
-$a_0,a_1\in\{0,1\}$に対して、ビット$b$によってどちらかを指定するマルチプレクサ$\text{MUX}(b,a_0,a_1)=a_b$を暗号文の状態で行うCMUXが構成可能
+$a_0,a_1\in\{0,1\}$のどちらかをビット$b$によって指定する
+
+マルチプレクサ$\text{MUX}(b,a_0,a_1)=a_b$を暗号文の状態で行うCMUXが構成可能
 
 <div class="week5-note-card week5-card-side is-white">
 <p class="text-center" style="font-size: 1.2rem;">
-<MathInline expr="\text{MUX}(b,a_0,a_1)=(1-b)a_0+ba_1=b(a_1-a_0)+a_0"/>
+<MathInline expr="\text{MUX}(b,a_0,a_1)=(1-b)a_0+ba_1=b(a_1-a_0)+a_0=a_b"/>
 </p>
 </div>
 
@@ -22,7 +24,7 @@ $a_0,a_1\in\{0,1\}$に対して、ビット$b$によってどちらかを指定�
 </p>
 </div>
 
-<div class="cmux-reference-diagram" style="left: 340px; top: 444px; width: 600px; height: 178px;">
+<div class="cmux-reference-diagram" style="left: 340px; top: 460px; width: 600px; height: 178px;">
   <div class="cmux-reference-gate" aria-hidden="true"><div></div></div>
   <div class="cmux-reference-title">CMUX</div>
 

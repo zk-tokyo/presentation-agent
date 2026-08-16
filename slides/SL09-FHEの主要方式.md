@@ -2,6 +2,10 @@
 layout: default
 ---
 
+<!--
+REVIEW: 「GSWがBootstrappingを高速化した」は歴史的に粗い。GSWは近似固有ベクトル法で乗算を単純化してRelinearizationを不要にし、後にFHEWがGSW系の構成をBootstrappingの高速化へ用いた、と整理する。
+-->
+
 # **FHEの主要方式**
 
 <div class="week5-note-card">

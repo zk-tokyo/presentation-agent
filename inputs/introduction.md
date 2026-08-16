@@ -493,17 +493,20 @@ $v(x)=1+x+x^2+\dots+x^{15}$
 
 **背景**
 
-security notionは、攻撃者が暗号化・復号の機能をどの範囲まで利用できるかを定め、その条件でも平文を見分けられないことを表す。IND-CPAでは攻撃者が選んだ平文を暗号化できる。IND-CCA1では、判定対象の暗号文を受け取る前に限り、選んだ暗号文を復号させることもできる。IND-CCA2では、判定対象そのものを除き、受け取った後も復号させることができる。
+暗号方式の安全性概念にはIND-CPA、IND-CCA1、IND-CCA2がある。また、暗号文の変形に関する概念としてNon-malleability（頑強性）がある。FHEは通常の意味でのNon-malleabilityを満たせず、その結果、通常のIND-CCA2安全性も満たせない[LMSV11]。これらの定義や関係は前提として説明せず、課題1の調査対象とする。
 
-FHEでは、秘密鍵を持たない計算者が入力暗号文へ決められた計算を施し、計算結果の暗号文を作れる必要がある。この性質を使えば、判定対象の暗号文を別の暗号文へ変形して復号を問い合わせられるため、通常のIND-CCA2とは両立しない[LMSV11]。一方、IND-CPAが扱うのは暗号文から平文を見分けられるかという機密性であり、不正な暗号文への応答、計算結果の正しさ、復号結果からの漏えいまでは保証しない。そこでIND-CCA1のほか、許可した変形だけを認める安全性や、計算が正しいことを検証する構成が研究されている[BSW12, MN24]。
+一方、IND-CPAが扱うのは暗号文から平文を見分けられるかという機密性であり、不正な暗号文への応答や、復号結果からの漏えいまでは保証しない。TFHE/FHEWに対しては、悪意のあるサーバーが暗号文へ摂動を加え、利用者が復号エラーへ示す反応を利用して秘密鍵を復元する攻撃が報告されている[CCCM22]。この攻撃は関連研究として紹介し、細かな手順を追わせるのではなく、暗号文の変形と利用者の反応が鍵回復へつながる全体像を調査させる。
 
-**調査項目**
+**調査・議論すること**
 
-- IND-CPA、IND-CCA1、IND-CCA2では、攻撃者がいつ、どの機能を利用できるか。3つの安全性ゲームを同じ形式の図または表で比較する。
-- FHEの計算機能を使って判定対象の暗号文を別の暗号文へ変形すると、なぜ通常のIND-CCA2を満たせないのか。具体的な攻撃手順を示す。
-- IND-CPAでは防げない攻撃や漏えいには何があるか。それらに対し、IND-CCA1、暗号文の正当性確認、targeted malleability、検証付きFHEなどは、どの操作を許し、何を防ごうとしているか。
-- これらの概念は、単純な1本の強弱関係として並べられるか。比較する攻撃者の能力と、意図して許す暗号文変形を明示して整理する。
-- （発展）外部計算のユースケースを複数挙げ、入力、出力、途中結果、評価する関数のうち何を誰から隠す必要があるか。FHE単体で不足する場合は、circuit privacy、計算結果の検証、アクセス制御など何を追加すべきか。
+- IND-CPA、IND-CCA1、IND-CCA2とは何か。IND、CPA、CCA、オラクル、挑戦暗号文を含めて、攻撃者に許される操作と安全と判定される条件を比較する。
+- Non-malleability（頑強性）とは何か。FHEはなぜこの性質を満たせないのか。
+- FHEがNon-malleabilityを満たせないことを利用すると、攻撃者はどのようにIND-CCA2の安全性ゲームに勝てるか。具体的な攻撃の流れを示す。
+- Chaturvediらの論文[CCCM22]では、暗号文の変形と利用者の反応をどのように秘密鍵の復元へつなげているか。数式の導出、摂動量、問い合わせ回数、実装上の最適化には踏み込まず、攻撃の全体像を説明する。
+
+**発表**
+
+- 3つのIND安全性の比較、FHEがNon-malleabilityを満たせない理由、それがIND-CCA2への攻撃につながる流れを説明する。鍵回復攻撃については、論文が想定する状況と鍵回復までの大まかな流れを図1枚で示す。
 
 #### BFVの仕組み
 
@@ -667,6 +670,12 @@ FHEでは、秘密鍵を持つ利用者が入力を暗号化し、計算者は�
 
 [MN24] Mark Manulis and Jérôme Nguyen. "Fully Homomorphic Encryption Beyond IND-CCA1 Security: Integrity Through Verifiability." _EUROCRYPT 2024_ (2024): 63–93. online: https://doi.org/10.1007/978-3-031-58723-8_3
 
+[BDPR98] Mihir Bellare, Anand Desai, David Pointcheval, and Phillip Rogaway. "Relations Among Notions of Security for Public-Key Encryption Schemes." _CRYPTO 1998_ (1998): 26–45. online: https://doi.org/10.1007/BFb0055718
+
+[CCCM22] Bhuvnesh Chaturvedi, Anirban Chakraborty, Ayantika Chatterjee, and Debdeep Mukhopadhyay. "A Practical Full Key Recovery Attack on TFHE and FHEW by Inducing Decryption Errors." _Cryptology ePrint Archive_ 2022/1563 (2022). online: https://eprint.iacr.org/2022/1563
+
+[CCP24] Marina Checri, Renaud Sirdey, Aymen Boudguiga, and Jean-Paul Bultel. "On the Practical CPAD Security of Exact and Threshold FHE Schemes and Libraries." _CRYPTO 2024_ (2024). online: https://eprint.iacr.org/2024/116
+
 **LWE/RLWE系以外のFHE**
 [DGHV10] Marten van Dijk, Craig Gentry, Shai Halevi, and Vinod Vaikuntanathan. "Fully Homomorphic Encryption over the Integers." _EUROCRYPT 2010_ (2010): 24–43. online: https://doi.org/10.1007/978-3-642-13190-5_2
 
@@ -723,4 +732,4 @@ FHEでは、秘密鍵を持つ利用者が入力を暗号化し、計算者は�
 ### めも
 
 LWEのメカニズムのスライドの情報量ちょっと多すぎる気がするけど、どうやって削減なり分割なりするか
-Programmable Bootstrappingの基本アイデアのスライドとv(x)の構成のスライドにあるスロットの回転のイメージってHTMLだからアニメーションで回転させてもいいでない？Bootstrappingの流れのまとめのスライドに出てくるやつも同様
+RGSWの2つのスライドをどう説明するか。なぜ、CMUXはRLWE同士の乗算をしてRelinearizationをするのではなく、RGSWを使うのか。

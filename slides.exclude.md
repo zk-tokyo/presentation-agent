@@ -11,3 +11,4 @@
 - `slides/preview-lwe-decryption-formula.md`
 - `slides/preview-pbs-reference-value-formula.md`
 - `slides/preview-text-layout-samples.md`
+- `slides/SL38c-テーマ2-頑強性.md`

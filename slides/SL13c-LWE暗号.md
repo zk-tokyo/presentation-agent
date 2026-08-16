@@ -21,10 +21,10 @@ layout: default
 - $\mathbf{a}=(a_0,a_1,\dots,a_{k-1})\in \mathbb{Z}_q^k$は一様ランダムに取り、ノイズ$e$は分布$χ$に基づいて$\mathbb{Z}_q$からサンプルする
 - $\Delta$は$\Delta:=q/p$であり、スケーリングファクターと呼ばれる
 
-<p style="font-size: 1.4rem; line-height: 1.45;"><MathInline expr="\text{Dec}(c,\mathbf{s})\to m =\left\lfloor \frac{b-\mathbf{as} \text{ mod }q}{\Delta}\right\rceil \text{ mod } p \in \mathbb{Z}_p"/>:</p>
+<p style="font-size: 1.4rem; line-height: 1.45;"><MathInline expr="\text{Dec}(c,\mathbf{s})\to m =\left\lfloor \frac{b-\mathbf{as} \mod q}{\Delta}\right\rceil \text{ mod } p \in \mathbb{Z}_p"/>:</p>
 
 - $\lfloor a \rceil$は$a$をもっとも近い整数値にする操作。要は四捨五入
-- $-\frac{\Delta}{2}\le e < \frac{\Delta}{2}$であれば正常に復号可能
+- $\left\lfloor \frac{b-\mathbf{as} \mod q}{\Delta}\right\rceil = \left\lfloor m + \frac{e}{\Delta}\right\rceil$より、$-\frac{\Delta}{2}\le e < \frac{\Delta}{2}$であれば正常に復号可能
 
 以降、平文$m$の秘密鍵$\mathbf{s}$によるLWE暗号文を$\text{LWE}_{\mathbf{s}}(\Delta m)$と書く
 
