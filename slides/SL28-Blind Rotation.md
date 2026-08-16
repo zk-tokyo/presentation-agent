@@ -23,7 +23,7 @@ return <MathInline expr="Q_k(=x^{-\hat{b}+\mathbf{\hat{a}s}}v(x))"/> <br>
 <p>
 <MathInline expr="\hat{\mathbf{a}}\gets\left\lfloor \mathbf{a}\frac{2n}{q}\right\rceil"/>  <br>
 <MathInline expr="\hat{b}\gets \left\lfloor b\frac{2n}{q}\right\rceil"/> <br>
-<MathInline expr="Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(\Delta v(x))"/> (RLWE暗号文は多項式をかけることができる。) <br>
+<MathInline expr="Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(\Delta v(x))"/> <br>
 for <MathInline expr="j=0\dots k-1"/> <br>
 <MathInline expr ="\quad Q_{j+1} \gets \text{CMUX}(\text{RGSW}_{s'}(s_j), Q_j, x^{\hat{a}_j}Q_j)"/> <br>
 return <MathInline expr="Q_k(=\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\mathbf{\hat{a}s}}v(x)))"/> <br>
