@@ -34,29 +34,27 @@ v_q(x)={}&f(m_0)x^{\Delta m_0+e_0}+\cdots+f(m_0)x^{\Delta m_0+e_r}
 \end{aligned}"/>
   </div>
 </div>
-
 <br>
 
-<div style="margin-top: 8px; display: grid; grid-template-columns: 1fr 44px 1.45fr 44px 1fr; align-items: center; text-align: center;">
-  <div>
-    <div style="font-size: 0.76rem; color: #444444;">入力</div>
-    <div style="font-size: 1.05rem;"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(\Delta m_i)"/></div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1.45fr) 44px minmax(0, 1fr); align-items: stretch; margin-top: 18px; text-align: center;">
+  <div class="week5-note-card is-white" style="min-height: 76px; margin-top: 0; padding: 8px 12px; display: grid; align-content: center; justify-items: center;">
+    <div style="color: #444444; font-size: 0.76rem; font-weight: 700; line-height: 1.1;">入力</div>
+    <div style="margin-top: 6px; font-size: 1.05rem; line-height: 1.15;"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(\Delta m_i)"/></div>
   </div>
-  <div style="font-size: 1.6rem; color: #17324d;">→</div>
-  <div>
-    <div style="font-size: 0.76rem; color: #444444;">同じBlind Rotationを行う</div>
-    <div><MathInline expr="x^{-(b-\mathbf{as})}v_q(x)"/>の定数項が<MathInline expr="f(m_i)"/>になる</div>
+  <div style="display: grid; place-items: center; color: #17324d; font-size: 1.4rem; font-weight: 700;">→</div>
+  <div class="week5-note-card is-blue" style="min-height: 76px; margin-top: 0; padding: 8px 12px; display: grid; align-content: center; justify-items: center;">
+    <div style="color: #444444; font-size: 0.76rem; font-weight: 700; line-height: 1.1;">Blind Rotation</div>
+    <div style="margin-top: 4px; color: #444444; font-size: 0.7rem; line-height: 1.1;">同じ処理を行う</div>
+    <div style="margin-top: 5px; font-size: 0.82rem; line-height: 1.25;"><MathInline expr="x^{-(b-\mathbf{as})}v_q(x)"/>の定数項が<MathInline expr="f(m_i)"/>になる</div>
   </div>
-  <div style="font-size: 1.6rem; color: #17324d;">→</div>
-  <div>
-    <div style="font-size: 0.76rem; color: #444444;">出力</div>
-    <div style="font-size: 1.05rem;"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(\Delta f(m_i))"/></div>
+  <div style="display: grid; place-items: center; color: #17324d; font-size: 1.4rem; font-weight: 700;">→</div>
+  <div class="week5-note-card is-white" style="min-height: 76px; margin-top: 0; padding: 8px 12px; border-color: #17324d; display: grid; align-content: center; justify-items: center;">
+    <div style="color: #444444; font-size: 0.76rem; font-weight: 700; line-height: 1.1;">出力</div>
+    <div style="margin-top: 6px; font-size: 1.05rem; line-height: 1.15;"><MathInline expr="\mathrm{LWE}_{\mathbf{s}}(\Delta f(m_i))"/></div>
   </div>
 </div>
 
-<br>
-
-<div class="week5-note-card is-white" style="margin-top: 14px; padding: 10px 16px; margin-right: 128px;">
+<div class="week5-note-card is-white" style="margin-top: 12px; padding: 10px 16px; margin-right: 128px;">
   <div style="font-weight: 700; margin-bottom: 3px;">係数を並べるとき</div>
   <div style="font-size: 0.9rem; line-height: 1.5;">
     実際にはリスケーリングの丸めもある。回転先が少しずれても同じ値を取り出せるよう、同じ<MathInline expr="m_j"/>に対応する複数の位置へ<MathInline expr="f(m_j)"/>を繰り返し置く。<br>

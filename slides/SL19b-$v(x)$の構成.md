@@ -10,7 +10,7 @@ layout: default
 
 実用的なパラメータでは$q$が大きすぎるため、多項式の次数は$q$より小さい$n$にし、
 
-$\mathbf a$と$b$も$n$に合わせて変換する（リスケーリング）。
+$\mathbf a$と$b$も$n$に合わせて変換する（Rescaling や Modulus Switching と呼ぶ）。
 
 <div style="font-size: 1.3rem;">
   <MathBlock expr="\begin{aligned}

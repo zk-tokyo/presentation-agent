@@ -12,6 +12,7 @@ layout: default
 </div>
 
 <div class="week5-html-diagram is-mux-comparison" style="right: 42px; top: 122px; width: 600px; height: 188px;">
+  <div class="week5-diagram-label" style="left: 20px; top:-30px;"><MathInline expr="\text{MUX}(b,a_0,a_1)=b(a_1-a_0)+a_0"/></div>
   <div class="week5-diagram-label" style="left: 2px; top: 24px;"><MathInline expr="a_0"/></div>
   <div class="week5-diagram-label" style="left: 2px; top: 80px;"><MathInline expr="a_1"/></div>
   <div class="week5-mux-gate is-large" style="left: 88px; top: 14px;"><span>MUX</span></div>
@@ -24,6 +25,7 @@ layout: default
 
   <div class="blind-gate-divider" aria-hidden="true"></div>
 
+  <div class="week5-diagram-label" style="left: 320px; top: -30px;"><MathInline expr="\text{CMUX}(c_b,c_0,c_1)=c_b\boxdot(c_1-c_0)+c_0"/></div>
   <div class="week5-diagram-label" style="left: 300px; top: 24px;"><MathInline expr="\mathrm{RLWE}(\Delta a_0)"/></div>
   <div class="week5-diagram-label" style="left: 300px; top: 80px;"><MathInline expr="\mathrm{RLWE}(\Delta a_1)"/></div>
   <div class="week5-mux-gate is-cmux is-large" style="left: 444px; top: 14px;"><span>CMUX</span></div>
