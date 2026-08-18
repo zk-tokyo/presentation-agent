@@ -14,11 +14,11 @@ layout: default
 
 Blind Rotationによって得られた暗号文を$\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\mathbf{\hat{a}s}}v(x))=(a'(x),b'(x))$とおき、
 
-$a'(x)=a'_0+a'_1x+\dots+a'_{n-1}x^{n-1}$
-
-$s'(x)=s'_0+s'_1x+\dots+s'_{n-1}x^{n-1}$
-
-$b'(x)=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}$
+$$
+a'(x)=a'_0+a'_1x+\dots+a'_{n-1}x^{n-1}
+, \quad s'(x)=s'_0+s'_1x+\dots+s'_{n-1}x^{n-1}
+, \quad b'(x)=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}
+$$
 
 とおくと、
 
@@ -36,3 +36,5 @@ b'(x)&=b_0'+b_1'x +\dots+b_{n-1}'x^{n-1}\\
 </p>
 
 定数項$b'_0$に$\Delta m + e_0$が含まれている！
+
+$(a'_0+a'_1x+\dots+a'_{n-1}x^{n-1})(s'_0+s'_1x+\dots+s'_{n-1}x^{n-1})$の定数項がどうなるか確認する

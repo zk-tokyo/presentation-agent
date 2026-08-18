@@ -6,35 +6,44 @@ layout: default
 
 <div></div>
 
-<div class="week5-note-card">
-<p class="text-center" style="font-size: 1.4rem;">
-<MathInline expr="x^{-i}\equiv
+<!--
+ <div class="week5-note-card">
+<p class="text-center" style="font-size: 1.25rem;">
+<MathInline expr="x^{a}\equiv
 \begin{cases}
--x^{n-i} & (0\le i<n),\\
-x^{2n-i} & (n\le i<2n)
+x^{a} & (0\le a<n),\\
+-x^{a-n} & (n\le a<2n)
 \end{cases}
-\pmod{x^n+1}"/>となり、<MathInline expr="i"/>が<MathInline expr="n"/>をまたぐと符号が反転する（negacyclic性）
+\pmod{x^n+1}"/>となり、<MathInline expr="a"/>が<MathInline expr="n"/>をまたぐと符号が反転する（negacyclic性）
 </p>
 </div>
 
-<p class="text-center" style="font-size: 1.4rem;">↓</p>
-
-<div class="week5-note-card is-white">
-<p class="text-center" style="font-size: 1.4rem;">
-<MathInline expr="x^{-i}"/>をv(x)にかけたときの定数項は正と負の2つの値を表現できる
-</p>
-</div>
-
-<p class="text-center" style="font-size: 1.4rem;">↓</p>
+<p class="text-center" style="font-size: 1.25rem;">↓</p>
+-->
 
 <div class="week5-note-card">
-<p class="text-center" style="font-size: 1.4rem;">
-この性質をビット演算に使う
+<p class="text-center" style="font-size: 1.25rem;">
+<MathInline expr="x^{-i}"/>をv(x)にかけたときの定数項は正と負の2つの値を表現できる<br>
+→この性質をbit演算に利用する
 </p>
 </div>
 
-$v(x)=1+x+\cdots+x^{n-1} \mod x^n+1$のとき
+$v(x)=1+x+\cdots+x^{n-1} \mod x^n+1$に対し、
 
-$0\le i \le n-1$なら$\;\;x^{-i}v(x) \;\text{mod}\;x^n+1=1+x+\dots+x^{n-1-i}-x^{n-i}-x^{n-i+1}-\dots-x^{n-1} \mod x^n+1$
+### $0\le i \le n-1$のとき
 
-$n\le i \le 2n-1$なら$x^{-i}v(x) \;\text{mod}\;x^n+1=-1-x-\dots-x^{2n-1-i}+x^{2n-i}+x^{2n-i+1}+\dots+x^{n-1} \mod x^n+1$
+$x^{-i}v(x) \;\text{mod}\;x^n+1=1+x+\dots+x^{n-1-i}-x^{n-i}-x^{n-i+1}-\dots-x^{n-1} \mod x^n+1$
+
+<br>
+
+### $n\le i \le 2n-1$のとき
+
+$i = n + i'\quad(0\le i' < n)$とすると$x^{-n}=-1 \mod x^n+1$より
+
+$x^{-i}v(x) \mod x^n+1$
+
+$=x^{-n-i'}v(x) \mod x^n+1$
+
+$=-x^{-i'}(1+x+\cdots+x^{n-1}) \mod x^n+1$
+
+$=-1-x-\dots-x^{n-1-i'}+x^{n-i'}+x^{n-i'+1}+\dots+x^{n-1} \mod x^n+1$

@@ -1104,11 +1104,6 @@ th {
   font-weight: 700;
 }
 
-.slidev-layout .week5-plain-list.is-after span {
-  border-color: #17324d;
-  background: #f2f7fc;
-}
-
 .slidev-layout .week5-vertical-arrow {
   color: #17324d !important;
   font-size: 0.9rem;
