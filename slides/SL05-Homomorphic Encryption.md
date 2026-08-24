@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<!--足し算や掛け算を使った具体例を入れる-->
+
 # Homomorphic Encryption
 
 ## 準同型暗号(Homomorphic Encryption)=暗号文のまま計算できる暗号

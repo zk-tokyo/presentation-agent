@@ -45,7 +45,7 @@ layout: default
     </div>
     <p><MathInline expr="\mathbf{as}=\sum_{i=0}^{k-1}a_is_i" /> と表せるので、</p>
     <div class="blind-equation">
-      <MathBlock expr="x^{-b+\mathbf{as}}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\sum_{i=0}^{k-2}a_is_i}v\right)" />
+      <MathBlock expr="x^{-b+\mathbf{as}}v=x^{-b+\sum_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\sum_{i=0}^{k-2}a_is_i}v\right)" />
     </div>
     <p><MathInline expr="Q_k:=x^{-b+\sum_{i=0}^{k-1}a_is_i}v" />、<MathInline expr="Q_0=x^{-b}v" /> とおく。</p>
     <div class="blind-equation is-recurrence">

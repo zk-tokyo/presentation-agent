@@ -4,7 +4,7 @@ layout: default
 
 # Programmable Bootstrappingの基本アイディア
 
-## Bootstrappingでやりたいこと=暗号文のノイズをリセットする
+## Bootstrappingでやりたいこと=平文を保ったまま暗号文のノイズをリセットする
 
 <div class="week5-note-card">
 <p style="font-size: 1.2rem;">すべての平文を含むリストに対するノイズの少ない暗号文から、入力平文<MathInline expr="m_i"/>の部分だけ切り出す</p>

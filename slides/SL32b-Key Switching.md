@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<!--なんでこんな面倒くさいことをするんだっけ-->
+
 # **Key Switching**
 
 <div></div>

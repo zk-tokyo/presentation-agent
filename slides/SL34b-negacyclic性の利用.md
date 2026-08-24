@@ -34,16 +34,18 @@ $v(x)=1+x+\cdots+x^{n-1} \mod x^n+1$に対し、
 
 $x^{-i}v(x) \;\text{mod}\;x^n+1=1+x+\dots+x^{n-1-i}-x^{n-i}-x^{n-i+1}-\dots-x^{n-1} \mod x^n+1$
 
-<br>
 
 ### $n\le i \le 2n-1$のとき
 
-$i = n + i'\quad(0\le i' < n)$とすると$x^{-n}=-1 \mod x^n+1$より
+$i = n + i'\quad(0\le i' < n)$とすると、$x^{-n}=-1 \mod x^n+1$より
 
 $x^{-i}v(x) \mod x^n+1$
 
 $=x^{-n-i'}v(x) \mod x^n+1$
 
 $=-x^{-i'}(1+x+\cdots+x^{n-1}) \mod x^n+1$
+
+
+$=x^{-i'}(-1-x-\cdots-x^{n-1}) \mod x^n+1$
 
 $=-1-x-\dots-x^{n-1-i'}+x^{n-i'}+x^{n-i'+1}+\dots+x^{n-1} \mod x^n+1$

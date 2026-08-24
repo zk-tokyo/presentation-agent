@@ -6,7 +6,9 @@ layout: default
 
 <div></div>
 
-多項式$f=a_0+a_1x+\dots+a_{n-1}x^{n-1}$のそれぞれの項$a_ix^i$について$g^{-1}(a_i)$を計算して、$\frac{q}{B^{i+1}}$について項をまとめ直し,
+多項式$f=a_0+a_1x+\dots+a_{n-1}x^{n-1}$のそれぞれの項$a_ix^i$について$a_i = \sum_{i=0}^{k-1} a'_i \frac{q}{B^{i+1}}\quad (0\le a'_i < B)$を計算して、
+
+$f$全体を$\frac{q}{B^{i+1}}$について項をまとめ直し,
 
 （すなわち$f=\Sigma_{i=0}^{l-1}f_i\frac{q}{B^{i+1}}$）、$g^{-1}(f)=(f_0,\dots,f_{l-1})$とする。
 
