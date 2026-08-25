@@ -31,4 +31,5 @@ REVIEW: 表示した等式によるGadget Decompositionが厳密に成り立つ�
 <br>
 
 > note:
-> $r_i$の範囲はノイズ管理の面で$-\lfloor B/2 \rfloor \le r_i < \lceil B/2 \rceil$とすることがある。($\lfloor a\rfloor$は切り下げ、$\lceil a\rceil$は切り上げ)
+> - $r_i$の範囲はノイズ管理の面で$-\lfloor B/2 \rfloor \le r_i < \lceil B/2 \rceil$とすることがある。($\lfloor a\rfloor$は切り下げ、$\lceil a\rceil$は切り上げ)
+> - 今回示している式が成り立つには、実際には$B^l = q$が必要。そうでない場合は各項を丸めて$r \approx \sum_{i=0}^l r_i \lfloor \frac{q}{B^{i+1}} \rceilとなる$

@@ -6,7 +6,9 @@ layout: default
 
 <div></div>
 
-<div style="position: absolute; left: 56px; top: 104px; width: 700px; color: #111827; font-size: 1rem; line-height: 1.42;">
+## ポイントは幅を持たせること
+
+<div style="position: absolute; left: 56px; top: 150px; width: 700px; color: #111827; font-size: 1rem; line-height: 1.42;">
   <p>入力平文<MathInline expr="m_i"/>に対するLWE暗号文<MathInline expr="(\mathbf{a},b)"/>は<MathInline expr="b-\mathbf{as}=\Delta m_i+e \pmod q"/>を満たす。</p>
   <p style="margin-top: 12px;"><MathInline expr="q"/>個の係数を使えるなら、ノイズの候補<MathInline expr="e_0,\ldots,e_r"/>を直接並べて</p>
   <div style="font-size: 1.3rem;">

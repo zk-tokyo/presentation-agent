@@ -17,3 +17,11 @@ layout: default
 <div class="week5-note-card is-blue">
 <p class="text-center" style="font-size: 1.3em;">なぜ暗号文のまま加算と乗算ができたら嬉しいのか？</p>
 </div>
+
+<br>
+<br>
+<br>
+<br>
+
+> note:
+> - 加法だけ、あるいは乗法だけが使える方式を部分準同型暗号(PHE)と呼ぶことがある。

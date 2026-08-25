@@ -15,7 +15,7 @@ layout: default
 	</p> 
 </div>
 
-<br>
+> 例：RSA暗号の暗号文同士を掛け算して復号すると平文同士の掛け算になる。
 
 <div class="flex justify-center mt-2 mb-1">
 	<div style="width: 620px; height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
@@ -25,6 +25,5 @@ layout: default
 
 > note:
 >
-> - 加法だけ、あるいは乗法だけが使える方式を部分準同型暗号(PHE)と呼ぶことがある。
 > - RSA暗号やElgamal暗号は暗号文同士の乗算が平文同士の乗算になり、Paillier暗号は暗号文同士の乗算が平文同士の加算になる
 > - 暗号文の状態での演算を準同型演算と呼ぶ。

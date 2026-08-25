@@ -2,7 +2,6 @@
 layout: default
 ---
 
-<!--skを暗号化してBSK作る時の秘密鍵ってPBSの入力のLWE暗号文に対する秘密鍵とは違うんだっけ-->
 
 # **Blind Rotation**
 

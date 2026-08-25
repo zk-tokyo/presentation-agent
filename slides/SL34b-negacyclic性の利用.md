@@ -23,7 +23,7 @@ x^{a} & (0\le a<n),\\
 
 <div class="week5-note-card">
 <p class="text-center" style="font-size: 1.25rem;">
-<MathInline expr="x^{-i}"/>をv(x)にかけたときの定数項は正と負の2つの値を表現できる<br>
+    <MathInline expr="x^{-i}"/>をv(x)にかけたときの定数項は、<MathInline expr="i"/>の大きさによって正と負の2つの値を表現できる<br>
 →この性質をbit演算に利用する
 </p>
 </div>

@@ -28,4 +28,5 @@ layout: default
 
 $-\mathbf{\tilde{a}s}+\Delta m + e_0-e"$は秘密鍵$\mathbf{s}$による$m$のLWE暗号文になっている！
 
+しかし、毎回$\mathbf{a''}$を委託元に送って$\text{LWE}_\mathbf{s}(\mathbf{a''s''})$を送り返してもらうのは避けたい。
 <!-- しかし、$\mathbf{s}''$を公開できると$\text{RGSW}_{s'}(s)$の$s'$を計算して$\mathbf{s}$を復号できてしまうので、$\mathbf{s}''$を公開して$\mathbf{a''s''}$を直接計算することはできない... -->
