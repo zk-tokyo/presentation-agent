@@ -23,7 +23,6 @@ v(x)={}&m_0x^{\left\lfloor(\Delta m_0+e_0)\frac{2n}{q}\right\rceil}+\cdots+m_0x^
 
 $\hat b=\left\lfloor b\frac{2n}{q}\right\rceil$、$\hat{\mathbf a}=\left\lfloor\mathbf a\frac{2n}{q}\right\rceil$へ変換し、$x^{-(\hat b-\hat{\mathbf a}\mathbf s)}v(x) \pmod{x^n+1}$を計算する。
 
-丸め後に同じ指数となる項は1つにまとめ、異なる値を同じ係数位置に置かない。
 
 <div style="position: absolute; right: 44px; top: 100px; width: 430px; padding: 16px 18px 18px; border: 1px solid #c9d8ea; border-radius: 6px; background: #ffffff;">
   <div style="position: absolute; left: 22px; top: -12px; padding: 2px 10px; border: 1px solid #c9d8ea; border-radius: 4px; background: #ffffff; color: #111827; font-size: 0.74rem; line-height: 1.35;">暗号文空間</div>

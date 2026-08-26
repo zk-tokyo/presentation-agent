@@ -3,7 +3,7 @@ layout: default
 ---
 
 <!--
-REVIEW: 判定LWEは、単一の組が式を満たすかではなく、同じ秘密鍵 s を共有する複数のLWE標本の分布と一様分布を識別する問題として説明する。
+sのサンプリング元？
 -->
 
 # **（判定）LWE問題とLWE仮定**
@@ -22,7 +22,7 @@ REVIEW: 判定LWEは、単一の組が式を満たすかではなく、同じ秘
 <br>
 
 > note:
-> LWEはLearning With Errorの略で、上の式のeはノイズ(error)と呼ばれる。
-
-> note:
-> このLWE問題を判定LWE(Decision-LWE)と呼び，$b=\Sigma_{i=0}^{k-1} a_is_i+e \text{ mod } q$が成立している時に$(\mathbf{a},b)$から$\mathbf{s}$を求める場合を探索LWE(Search-LWE)と呼びわけることがある。
+> - LWEはLearning With Errorの略で、上の式のeはノイズ(error)と呼ばれる。
+> - このLWE問題を判定LWE(Decision-LWE)と呼び，$b=\Sigma_{i=0}^{k-1} a_is_i+e \text{ mod } q$が成立している時に$(\mathbf{a},b)$から$\mathbf{s}$を求める場合を探索LWE(Search-LWE)と呼びわけることがある。
+> - $e$は実際にはガウス分布からサンプルされることが多い
+> - 正確には$s$は一様分布からサンプリングされる

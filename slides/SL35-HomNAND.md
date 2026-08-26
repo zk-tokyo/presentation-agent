@@ -29,6 +29,7 @@ $c$の平文は$r=1-m_1-m_2\pmod p$となる。
 
 <div class="week5-note-card is-white" style="margin-right: 128px;">
 <p class="text-center" style="font-size: 1.2rem; margin: 0;">
-rが1,3の時は定数項が反転せずに1に、p-1の時は定数項が反転してp-1になるようにパラメーターを設定する
+<MathInline expr="3< n < p-1"/>であれば、<MathInline expr="r"/>が1,3の時は定数項が反転せずに1に、<br>
+<MathInline expr="p-1"/>の時は定数項が反転して<MathInline expr="p-1"/>になりNANDの出力が得られる！
 </p>
 </div>
