@@ -21,7 +21,7 @@ v(x)={}&m_0x^{\left\lfloor(\Delta m_0+e_0)\frac{2n}{q}\right\rceil}+\cdots+m_0x^
 \end{aligned}"/>
 </div>
 
-$\hat b=\left\lfloor b\frac{2n}{q}\right\rceil$、$\hat{\mathbf a}=\left\lfloor\mathbf a\frac{2n}{q}\right\rceil$へ変換し、$x^{-(\hat b-\hat{\mathbf a}\mathbf s)}v(x) \pmod{x^n+1}$を計算する。
+$\hat b=\left\lfloor b\frac{2n}{q}\right\rceil$、$\hat{\mathbf a}=\left\lfloor\mathbf a\frac{2n}{q}\right\rceil$へ変換し、$x^{-(\hat b-\langle\hat{\mathbf a},\mathbf s\rangle)}v(x) \pmod{x^n+1}$を計算する。
 
 
 <div style="position: absolute; right: 44px; top: 100px; width: 430px; padding: 16px 18px 18px; border: 1px solid #c9d8ea; border-radius: 6px; background: #ffffff;">
@@ -45,7 +45,7 @@ $\hat b=\left\lfloor b\frac{2n}{q}\right\rceil$、$\hat{\mathbf a}=\left\lfloor\
     <div style="font-size: 2rem; line-height: 1; color: #17324d;">↓</div>
     <div style="font-size: 0.74rem; line-height: 1.45; color: #111827;">
       暗号文 <MathInline expr="(a,b)"/> に対し、<br>
-      <MathInline expr="b-\mathbf{as}=\Delta m_i+e"/> の分だけ回す
+      <MathInline expr="b-\langle\mathbf a,\mathbf s\rangle=\Delta m_i+e"/> の分だけ回す
     </div>
   </div>
 

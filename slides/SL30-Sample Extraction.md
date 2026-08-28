@@ -7,12 +7,12 @@ layout: default
 <div></div>
 
 <div class="week5-note-card week5-card-side">
-<p class="text-center" style="font-size: 1.3rem;"><MathInline expr="\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\mathbf{\hat{a}s}}v(x))=\text{RLWE}_{s'}(\Delta(m+\mu_1x+\mu_2x^2+\dots+\mu_{n-1}x^{n-1}))"/></p>
+<p class="text-center" style="font-size: 1.3rem;"><MathInline expr="\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\langle\hat{\mathbf a},\mathbf s\rangle}v(x))=\text{RLWE}_{s'}(\Delta(m+\mu_1x+\mu_2x^2+\dots+\mu_{n-1}x^{n-1}))"/></p>
 
 <p class="text-center" style="font-size: 1.3rem;">この多項式の定数項<MathInline expr="m"/>を暗号文のまま取り出す</p>
 </div>
 
-Blind Rotationによって得られた暗号文を$\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\mathbf{\hat{a}s}}v(x))=(a'(x),b'(x))$とおき、
+Blind Rotationによって得られた暗号文を$\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\langle\hat{\mathbf a},\mathbf s\rangle}v(x))=(a'(x),b'(x))$とおき、
 
 $$
 a'(x)=a'_0+a'_1x+\dots+a'_{n-1}x^{n-1}

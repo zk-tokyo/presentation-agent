@@ -59,7 +59,7 @@ $(a'_0+a'_1x+\dots+a'_{n-1}x^{n-1})(s'_0+s'_1x+\dots+s'_{n-1}x^{n-1})$の定数�
 $b_0'$は2つのベクトル$\mathbf{a''}=(a'_0,-a'_{n-1},-a'_{n-2},\dots,-a'_1)$、$\mathbf{s''}=(s'_0,s'_1,\dots,s'_{n-1})$
 の内積を用いて
 
-$b'_0=\mathbf{a''s''}+\Delta m+e_0$
+$b'_0=\langle\mathbf{a''},\mathbf{s''}\rangle+\Delta m+e_0$
 
 と表せる。よって、秘密鍵$\mathbf{s''}$による平文$m$のLWE暗号文$\text{LWE}_{s''}(\Delta m)=(\mathbf{a''},b'_0)$が構成できる。
 <br>

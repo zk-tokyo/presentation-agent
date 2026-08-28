@@ -25,7 +25,7 @@ $=a_i+a_{i+1}x+\dots+a_{n-1}x^{n-1-i}-a_0x^{n-i}-a_1x^{n-i+1}-\dots-a_{i-1}x^{n-
     <div style="font-size: 2rem; line-height: 1; color: #17324d;">↓</div>
     <div style="font-size: 0.74rem; line-height: 1.45; color: #111827;">
       暗号文 <MathInline expr="(a,b)"/> に対し、<br>
-      <MathInline expr="b-\mathbf{as}=\Delta m_i+e"/> の分だけ回す
+      <MathInline expr="b-\langle\mathbf a,\mathbf s\rangle=\Delta m_i+e"/> の分だけ回す
     </div>
   </div>
 
@@ -48,8 +48,8 @@ $=a_i+a_{i+1}x+\dots+a_{n-1}x^{n-1-i}-a_0x^{n-i}-a_1x^{n-i+1}-\dots-a_{i-1}x^{n-
 <br>
 
 <div class="week5-note-card week5-card-side">
-  <p style="font-size: 1.4rem;">LWE暗号文<MathInline expr="(\mathbf{a},b=\mathbf{as}+\Delta m_i+e)"/>は<MathInline expr="b-\mathbf{as}=\Delta m_i+e"/>を満たすことを利用して、<br>
-  <MathInline expr="x^{-(b-\mathbf{as})}v(x) = x^{-(\Delta m_i + e)}v(x) \;\text{mod}\; x^n+1"/>の定数項に<MathInline expr="m_i"/>がくるように<MathInline expr="v(x)"/>の係数を構成する</p>
+  <p style="font-size: 1.4rem;">LWE暗号文<MathInline expr="(\mathbf{a},b=\langle\mathbf a,\mathbf s\rangle+\Delta m_i+e)"/>は<MathInline expr="b-\langle\mathbf a,\mathbf s\rangle=\Delta m_i+e"/>を満たすことを利用して、<br>
+  <MathInline expr="x^{-(b-\langle\mathbf a,\mathbf s\rangle)}v(x) = x^{-(\Delta m_i + e)}v(x) \;\text{mod}\; x^n+1"/>の定数項に<MathInline expr="m_i"/>がくるように<MathInline expr="v(x)"/>の係数を構成する</p>
 </div>
 
 <!--

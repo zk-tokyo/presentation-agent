@@ -35,7 +35,7 @@ layout: default
   </div>
 
   <div style="position: absolute; left: 462px; top: 118px; width: 385px; font-size: 1rem; line-height: 1.55; color: #111827;">
-    暗号文<MathInline expr="(\mathbf{a},b=\mathbf{as}+\Delta m_i+e)"/><br>
+    暗号文<MathInline expr="(\mathbf{a},b=\langle\mathbf a,\mathbf s\rangle+\Delta m_i+e)"/><br>
     と同じ平文<MathInline expr="m_i"/>を持つ部分だけ切り出す
   </div>
 

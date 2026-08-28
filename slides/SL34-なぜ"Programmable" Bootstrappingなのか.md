@@ -45,7 +45,7 @@ v_q(x)={}&f(m_0)x^{\Delta m_0+e_0}+\cdots+f(m_0)x^{\Delta m_0+e_r}
   <div class="week5-note-card is-blue" style="min-height: 76px; margin-top: 0; padding: 8px 12px; display: grid; align-content: center; justify-items: center;">
     <div style="color: #444444; font-size: 0.76rem; font-weight: 700; line-height: 1.1;">Blind Rotation</div>
     <div style="margin-top: 4px; color: #444444; font-size: 0.7rem; line-height: 1.1;">同じ処理を行う</div>
-    <div style="margin-top: 5px; font-size: 0.82rem; line-height: 1.25;"><MathInline expr="x^{-(b-\mathbf{as})}v_q(x)"/>の定数項が<MathInline expr="f(m_i)"/>になる</div>
+    <div style="margin-top: 5px; font-size: 0.82rem; line-height: 1.25;"><MathInline expr="x^{-(b-\langle\mathbf a,\mathbf s\rangle)}v_q(x)"/>の定数項が<MathInline expr="f(m_i)"/>になる</div>
   </div>
   <div style="display: grid; place-items: center; color: #17324d; font-size: 1.4rem; font-weight: 700;">→</div>
   <div class="week5-note-card is-white" style="min-height: 76px; margin-top: 0; padding: 8px 12px; border-color: #17324d; display: grid; align-content: center; justify-items: center;">

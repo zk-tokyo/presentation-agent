@@ -4,10 +4,10 @@ layout: default
 
 # **Blind Rotation**
 
-## 平文の状態での$x^{-b+\mathbf{as}}v\;\text{mod}\;x^n+1$の求め方
+## 平文の状態での$x^{-b+\langle\mathbf a,\mathbf s\rangle}v\;\text{mod}\;x^n+1$の求め方
 
 <div class="week5-note-card" style="width: 47%;">
-<p style="font-size: 1.2rem;"><MathInline expr="\mathbf{as}"/>の計算には秘密鍵の情報が必要になってしまう<br>
+<p style="font-size: 1.2rem;"><MathInline expr="\langle\mathbf a,\mathbf s\rangle"/>の計算には秘密鍵の情報が必要になってしまう<br>
 →マルチプレクサを利用する</p>
 </div>
 
@@ -43,9 +43,9 @@ layout: default
     <div class="blind-vector-definition">
       <MathInline expr="\mathbf a=(a_0,\ldots,a_{k-1}),\quad \mathbf s=(s_0,\ldots,s_{k-1})" />
     </div>
-    <p><MathInline expr="\mathbf{as}=\sum_{i=0}^{k-1}a_is_i" /> と表せるので、</p>
+    <p><MathInline expr="\langle\mathbf a,\mathbf s\rangle=\sum_{i=0}^{k-1}a_is_i" /> と表せるので、</p>
     <div class="blind-equation">
-      <MathBlock expr="x^{-b+\mathbf{as}}v=x^{-b+\sum_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\sum_{i=0}^{k-2}a_is_i}v\right)" />
+      <MathBlock expr="x^{-b+\langle\mathbf a,\mathbf s\rangle}v=x^{-b+\sum_{i=0}^{k-1}a_is_i}v=x^{a_{k-1}s_{k-1}}\left(x^{-b+\sum_{i=0}^{k-2}a_is_i}v\right)" />
     </div>
     <p><MathInline expr="Q_k:=x^{-b+\sum_{i=0}^{k-1}a_is_i}v" />、<MathInline expr="Q_0=x^{-b}v" /> とおく。</p>
     <div class="blind-equation is-recurrence">
@@ -57,14 +57,14 @@ layout: default
 
   <section class="blind-rotation-block is-result">
     <div class="blind-block-kicker">2　MUXで反復する</div>
-    <p>よって <MathInline expr="x^{-b+\mathbf{as}}v\bmod(x^n+1)" /> は、MUXを利用して次のように計算できる。</p>
+    <p>よって <MathInline expr="x^{-b+\langle\mathbf a,\mathbf s\rangle}v\bmod(x^n+1)" /> は、MUXを利用して次のように計算できる。</p>
     <ul class="blind-algorithm">
       <li><MathInline expr="Q_0\gets x^{-b}v" /></li>
       <li>
         <span>for <MathInline expr="j=0,\ldots,k-1" /></span>
         <div><MathInline expr="Q_{j+1}\gets\mathrm{MUX}(s_j,Q_j,x^{a_j}Q_j)" /></div>
       </li>
-      <li>return <MathInline expr="Q_k\;(=x^{-b+\mathbf{as}}v)" /></li>
+      <li>return <MathInline expr="Q_k\;(=x^{-b+\langle\mathbf a,\mathbf s\rangle}v)" /></li>
     </ul>
     <p class="blind-result-note"><MathInline expr="v,s_j,Q_j,x^{a_j}Q_j" /> を暗号文にし、準同型演算で記述する。</p>
   </section>

@@ -17,7 +17,7 @@ layout: default
 <MathInline expr="Q_0 \gets x^{-\hat{b}}v(x)"/>  <br>
 for <MathInline expr="j=0\dots k-1"/> <br>
 <MathInline expr ="\quad Q_{j+1} \gets \text{MUX}(s_j, Q_j, x^{\hat{a}_j}Q_j)"/> <br>
-return <MathInline expr="Q_k(=x^{-\hat{b}+\mathbf{\hat{a}s}}v(x))"/> <br>
+return <MathInline expr="Q_k(=x^{-\hat{b}+\langle\hat{\mathbf a},\mathbf s\rangle}v(x))"/> <br>
 </p>
 </div>
 
@@ -29,7 +29,7 @@ return <MathInline expr="Q_k(=x^{-\hat{b}+\mathbf{\hat{a}s}}v(x))"/> <br>
 <MathInline expr="Q_0 \gets x^{-\hat{b}}\text{RLWE}_{s'}(\Delta v(x))"/> <br>
 for <MathInline expr="j=0\dots k-1"/> <br>
 <MathInline expr ="\quad Q_{j+1} \gets \text{CMUX}(\text{RGSW}_{s'}(s_j), Q_j, x^{\hat{a}_j}Q_j)"/> <br>
-return <MathInline expr="Q_k(=\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\mathbf{\hat{a}s}}v(x)))"/> <br>
+return <MathInline expr="Q_k(=\text{RLWE}_{s'}(\Delta x^{-\hat{b}+\langle\hat{\mathbf a},\mathbf s\rangle}v(x)))"/> <br>
 </p>
 </div>
 

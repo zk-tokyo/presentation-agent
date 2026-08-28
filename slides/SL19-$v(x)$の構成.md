@@ -9,7 +9,7 @@ layout: default
 ## ポイントは幅を持たせること
 
 <div style="position: absolute; left: 56px; top: 150px; width: 700px; color: #111827; font-size: 1rem; line-height: 1.42;">
-  <p>入力平文<MathInline expr="m_i"/>に対するLWE暗号文<MathInline expr="(\mathbf{a},b)"/>は<MathInline expr="b-\mathbf{as}=\Delta m_i+e \pmod q"/>を満たす。</p>
+  <p>入力平文<MathInline expr="m_i"/>に対するLWE暗号文<MathInline expr="(\mathbf{a},b)"/>は<MathInline expr="b-\langle\mathbf a,\mathbf s\rangle=\Delta m_i+e \pmod q"/>を満たす。</p>
   <p style="margin-top: 12px;"><MathInline expr="q"/>個の係数を使えるなら、ノイズの候補<MathInline expr="e_0,\ldots,e_r"/>を直接並べて</p>
   <div style="font-size: 1.3rem;">
     <MathBlock expr="\begin{aligned}
@@ -20,7 +20,7 @@ v_q(x)={}&m_0x^{\Delta m_0+e_0}+\cdots+m_0x^{\Delta m_0+e_r}\\
 \end{aligned}"/>
   </div>
   <p>とする。すると</p>
-  <div style="font-size: 1.3rem;"><MathBlock expr="x^{-(b-\mathbf{as})}v_q(x)=x^{-(\Delta m_i+e)}v_q(x)"/></div>
+  <div style="font-size: 1.3rem;"><MathBlock expr="x^{-(b-\langle\mathbf a,\mathbf s\rangle)}v_q(x)=x^{-(\Delta m_i+e)}v_q(x)"/></div>
   <p>の定数項に<MathInline expr="m_i"/>がくる。</p>
 </div>
 
@@ -45,7 +45,7 @@ v_q(x)={}&m_0x^{\Delta m_0+e_0}+\cdots+m_0x^{\Delta m_0+e_r}\\
     <div style="font-size: 2rem; line-height: 1; color: #17324d;">↓</div>
     <div style="font-size: 0.74rem; line-height: 1.45; color: #111827;">
       暗号文 <MathInline expr="(a,b)"/> に対し、<br>
-      <MathInline expr="b-\mathbf{as}=\Delta m_i+e"/> の分だけ回す
+      <MathInline expr="b-\langle\mathbf a,\mathbf s\rangle=\Delta m_i+e"/> の分だけ回す
     </div>
   </div>
 

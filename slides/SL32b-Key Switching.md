@@ -8,7 +8,7 @@ layout: default
 
 <div></div>
 
-## $\mathbf{a''s''}+\Delta m +e_0 - \text{LWE}_\mathbf{s}(\mathbf{a''s''})$を計算する
+## $\langle\mathbf{a''},\mathbf{s''}\rangle+\Delta m +e_0 - \text{LWE}_\mathbf{s}(\langle\mathbf{a''},\mathbf{s''}\rangle)$を計算する
 
 わかりやすさのために$\mathbf{a''}$と$\mathbf{s''}$を
 

@@ -8,11 +8,11 @@ class: week5-prototype week5-prototype-html-math-samples
 <div class="week5-html-math-grid">
 
 <div class="week5-note-card">
-<p>カード内でも <MathInline expr="b-\mathbf{a}\mathbf{s}" /> を直接レンダリングできる。</p>
+<p>カード内でも <MathInline expr="b-\langle\mathbf a,\mathbf s\rangle" /> を直接レンダリングできる。</p>
 </div>
 
 <div class="week5-html-math-panel">
-<MathBlock expr="b-\mathbf{a}\mathbf{s}=\Delta m+e \pmod q" />
+<MathBlock expr="b-\langle\mathbf a,\mathbf s\rangle=\Delta m+e \pmod q" />
 </div>
 
 <table>
@@ -29,7 +29,7 @@ class: week5-prototype week5-prototype-html-math-samples
 </tr>
 <tr>
 <td>復号で使う値</td>
-<td><MathInline expr="b-\mathbf{a}\mathbf{s}=\Delta m+e \pmod q" /></td>
+<td><MathInline expr="b-\langle\mathbf a,\mathbf s\rangle=\Delta m+e \pmod q" /></td>
 </tr>
 </tbody>
 </table>
