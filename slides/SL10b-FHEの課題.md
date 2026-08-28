@@ -16,7 +16,7 @@ layout: default
 <div class="week5-note-card is-white">
 <p style="font-size: 1.4rem;">検証可能性</p>
 <ul>
-	<li>FHEを使って得られた計算結果が正しいものかどうか確認することができない。</li>
+	<li>FHEだけでは計算結果の正しさまでは保証できない</li>
 	<li>week6で説明</li>
 </ul>
 </div>

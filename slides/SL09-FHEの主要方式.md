@@ -12,14 +12,15 @@ REVIEW: 「GSWがBootstrappingを高速化した」は歴史的に粗い。GSW�
 <p style="font-size: 1.4rem;">GSW</p>
 <ul>
 	<li>近似固有ベクトルの概念を利用して、暗号文を行列として扱えるようにした方式</li>
-	<li>Bootstrappingを高速化した</li>
+	<li>後続の研究でBootstrappingを高速化するアプローチの基盤となった</li>
 </ul>
 </div>
 
 <div class="week5-note-card is-white">
 <p style="font-size: 1.4rem;">FHEW</p>
 <ul>
-	<li>Homomorphic Accumulatorと呼ばれる考え方により、Bootstrappingを1秒未満まで高速化した方式</li>
+	<li>GSWを利用することで、Bootstrappingを1秒未満まで高速化した方式</li>
+	<li>同時に論理ゲートの評価とノイズのリフレッシュを同時に行えるようにした</li>
 </ul>
 </div>
 

@@ -8,7 +8,8 @@ layout: default
 <p style="font-size: 1.4rem;">Gentry's blueprint</p>
 <ul>
 	<li>2009年にGentryによって<strong>格子</strong>を用いることで初めて実現されたFHE</li>
-	 <li>格子を使った方式では、暗号文での演算を続けることで正常な復号ができなくなるが、<strong>Bootstrapping</strong>と呼ばれる操作を導入することによりFHEを実現したが、当初の方式は計算量が非常に大きく、実用には遠かった。</li>
+	<li>暗号文での演算を続けることで"ノイズ"と呼ばれる値が増大して正常な復号ができなくなるが、<strong>Bootstrapping</strong>と呼ばれる操作を導入することによりFHEを実現した</li>
+	<li>当初の方式はBootstrappingの計算量が非常に大きく、実用には遠かった。</li>
 </ul>
 </div>
 

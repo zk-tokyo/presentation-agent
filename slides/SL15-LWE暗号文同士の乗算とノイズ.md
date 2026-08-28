@@ -14,4 +14,6 @@ layout: default
 
 - ベクトルである暗号文同士のテンソル積を計算する
   - テンソル積により暗号文の次数・形が通常の暗号文から外れるので、Relinearization/Key Switchingで通常形へ戻す
-- BGVではModulus Switching、CKKSではRescalingがノイズ・スケール管理の中心になる。BFVでも実装上はmodulus switching/rescalingに相当するRNS・modulus管理が使われることがある
+- ノイズの増え方自体はGentry's bluepirntと概ね同じだが、よりノイズの増大を管理しやすい
+  - BGVではModulus Switching、CKKSではRescalingがノイズ・スケール管理の中心になる
+  - BFVでも実装上はmodulus switching/rescalingに相当するRNS・modulus管理が使われることがある
