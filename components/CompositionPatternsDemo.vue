@@ -11,8 +11,8 @@ const patterns: Pattern[] = [
   { index: '①', app: 'Longfellow',         recipe: 'ZK ∘ ECDSA(mDOC)',         desc: '既存 ID 標準 (mDOC / JWT) を ZK 化',     hue: 'amber'  },
   { index: '②', app: 'Verifiable FHE',     recipe: 'ZK + FHE',                  desc: 'FHE の計算正しさを ZK で保証',            hue: 'purple' },
   { index: '③', app: 'threshold FHE',      recipe: 'MPC + FHE',                 desc: 'FHE の鍵を MPC で分散管理',              hue: 'cyan'   },
-  { index: '④', app: 'mpcML',              recipe: 'MPC + ML',                  desc: '各人の学習データを秘匿しつつ共同学習',     hue: 'cyan'   },
-  { index: '⑤', app: 'Multisig op proof',  recipe: 'ZK + Multisig',             desc: 'Multisig 操作を秘匿しつつ正しさ証明',     hue: 'blue'   },
+  { index: '④', app: 'POD2',               recipe: 'ZK + 署名データ',            desc: '署名済みデータを証明し組み合わせる',       hue: 'pink'   },
+  { index: '⑤', app: 'leanVM',             recipe: 'ZK + XMSS',                 desc: '耐量子署名を再帰集約して 1 proof に',      hue: 'blue'   },
   { index: '⑥', app: 'co-SNARK',           recipe: 'ZK + MPC',                  desc: '入力を秘匿したまま協調証明 (World ID)',   hue: 'amber'  },
 ]
 </script>

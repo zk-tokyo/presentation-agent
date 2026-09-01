@@ -77,13 +77,15 @@
 
       <!-- ===== Leaf / outcome nodes ===== -->
       <g class="df-node df-node-leaf">
-        <rect x="860" y="10" width="120" height="50" rx="10" class="df-leaf-bg" />
-        <text x="920" y="41" text-anchor="middle" class="df-leaf-title">ZK</text>
+        <rect x="860" y="6" width="240" height="58" rx="10" class="df-leaf-bg" />
+        <text x="980" y="31" text-anchor="middle" class="df-leaf-title">回路 DSL</text>
+        <text x="980" y="52" text-anchor="middle" class="df-leaf-sub">Circom / Noir / halo2</text>
       </g>
 
       <g class="df-node df-node-leaf">
-        <rect x="860" y="81" width="180" height="52" rx="10" class="df-leaf-bg" />
-        <text x="950" y="113" text-anchor="middle" class="df-leaf-title">zkVM</text>
+        <rect x="860" y="78" width="240" height="58" rx="10" class="df-leaf-bg" />
+        <text x="980" y="103" text-anchor="middle" class="df-leaf-title">zkVM</text>
+        <text x="980" y="124" text-anchor="middle" class="df-leaf-sub">RISC0 / SP1 / Jolt</text>
       </g>
 
       <g class="df-node df-node-leaf">
@@ -162,5 +164,11 @@
   font-size: 18px;
   font-weight: 900;
   fill: #b45309;
+}
+.df-leaf-sub {
+  font-size: 12.5px;
+  font-weight: 700;
+  fill: #64748b;
+  font-family: 'JetBrains Mono', monospace;
 }
 </style>

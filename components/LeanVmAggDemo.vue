@@ -37,7 +37,7 @@ const captions = [
   { code: '③ 1 つの小さな proof — 約 250x 圧縮', note: '検証コストを劇的に圧縮して Ethereum を耐量子に' },
 ]
 
-const sigY = [70, 130, 190, 250]
+const sigY = [66, 120, 174, 228]
 </script>
 
 <template>
@@ -51,7 +51,7 @@ const sigY = [70, 130, 190, 250]
       </transition>
     </div>
 
-    <svg class="la-svg" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMid meet">
+    <svg class="la-svg" viewBox="0 0 1200 306" preserveAspectRatio="xMidYMid meet">
       <defs>
         <marker id="la-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
           <path d="M 0,0 L 10,5 L 0,10 z" fill="#94a3b8"/>
@@ -72,7 +72,7 @@ const sigY = [70, 130, 190, 250]
           <animateMotion dur="1.6s" :begin="`${-i*0.45}s`" repeatCount="indefinite" :path="`M 255,${y+22} L 430,170`"/>
         </circle>
       </g>
-      <text x="155" y="312" text-anchor="middle" class="la-sub">各 ~3,000 B（BLS は 96 B）</text>
+      <text x="155" y="292" text-anchor="middle" class="la-sub">各 ~3,000 B（BLS は 96 B）</text>
 
       <!-- LeanVM core -->
       <g class="la-vm" :class="{ 'is-on': phase >= 1, 'is-cur': phase === 1 }">
@@ -108,8 +108,8 @@ const sigY = [70, 130, 190, 250]
 </template>
 
 <style scoped>
-.la-root { position: relative; width: 100%; display: flex; flex-direction: column; gap: 8px; font-family: 'Noto Sans JP', sans-serif; color: #111827; }
-.la-cap { padding: 10px 18px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 0.75rem; min-height: 56px; display: flex; align-items: center; }
+.la-root { position: relative; width: 100%; display: flex; flex-direction: column; gap: 6px; font-family: 'Noto Sans JP', sans-serif; color: #111827; }
+.la-cap { padding: 7px 18px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 0.75rem; min-height: 46px; display: flex; align-items: center; }
 .la-cap-inner { display: flex; flex-direction: column; gap: 3px; width: 100%; }
 .la-code { font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #78350f; font-weight: 800; }
 .la-note { font-size: 14px; color: #b45309; font-weight: 600; }
