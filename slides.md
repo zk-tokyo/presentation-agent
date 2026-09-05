@@ -101,6 +101,10 @@ src: ./slides/SL22.md
 ---
 
 ---
+src: ./slides/SL22b.md
+---
+
+---
 src: ./slides/SL23.md
 ---
 
