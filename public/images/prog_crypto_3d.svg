@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" font-family="Noto Sans JP, sans-serif">
+  <defs>
+    <linearGradient id="zk" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff7e6"/>
+      <stop offset="1" stop-color="#ffd98a"/>
+    </linearGradient>
+    <linearGradient id="mpc" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#e9f9ec"/>
+      <stop offset="1" stop-color="#9fdca7"/>
+    </linearGradient>
+    <linearGradient id="fhe" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#eef0ff"/>
+      <stop offset="1" stop-color="#a8b0f5"/>
+    </linearGradient>
+    <linearGradient id="app" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fafafa"/>
+      <stop offset="1" stop-color="#cfcfcf"/>
+    </linearGradient>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="3" stdDeviation="4" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Title hint -->
+  <text x="40" y="38" font-size="18" font-weight="700" fill="#222">Programmable Cryptography: 暗号プリミティブを「積み木」のように合成する</text>
+
+  <!-- 3D isometric stack -->
+  <!-- shift functions: project (x,y,z) -> (cx + x - y*0.5, cy + y*0.5 - z) -->
+
+  <!-- Layer 0: Primitive base (3 boxes) -->
+  <!-- ZK base -->
+  <g filter="url(#sh)">
+    <!-- top -->
+    <polygon points="160,330 360,330 320,290 120,290" fill="url(#zk)" stroke="#b8860b"/>
+    <!-- side right -->
+    <polygon points="360,330 360,400 320,360 320,290" fill="#e8b54a" stroke="#b8860b"/>
+    <!-- side front -->
+    <polygon points="160,330 360,330 360,400 160,400" fill="#fbe2a5" stroke="#b8860b"/>
+    <text x="260" y="372" font-size="22" font-weight="700" text-anchor="middle" fill="#5c3b00">ZK</text>
+    <text x="260" y="392" font-size="11" text-anchor="middle" fill="#5c3b00">SNARK/STARK/Sumcheck</text>
+  </g>
+
+  <!-- MPC base -->
+  <g filter="url(#sh)">
+    <polygon points="430,330 630,330 590,290 390,290" fill="url(#mpc)" stroke="#2c7a3f"/>
+    <polygon points="630,330 630,400 590,360 590,290" fill="#5fbc6e" stroke="#2c7a3f"/>
+    <polygon points="430,330 630,330 630,400 430,400" fill="#bce4c2" stroke="#2c7a3f"/>
+    <text x="530" y="372" font-size="22" font-weight="700" text-anchor="middle" fill="#143b1d">MPC</text>
+    <text x="530" y="392" font-size="11" text-anchor="middle" fill="#143b1d">threshold / GC / OT</text>
+  </g>
+
+  <!-- FHE base -->
+  <g filter="url(#sh)">
+    <polygon points="700,330 900,330 860,290 660,290" fill="url(#fhe)" stroke="#2f3a8c"/>
+    <polygon points="900,330 900,400 860,360 860,290" fill="#6776d3" stroke="#2f3a8c"/>
+    <polygon points="700,330 900,330 900,400 700,400" fill="#c6cbf0" stroke="#2f3a8c"/>
+    <text x="800" y="372" font-size="22" font-weight="700" text-anchor="middle" fill="#1a214d">FHE</text>
+    <text x="800" y="392" font-size="11" text-anchor="middle" fill="#1a214d">TFHE / CKKS / BFV</text>
+  </g>
+
+  <!-- Composition layer (mid) -->
+  <g filter="url(#sh)">
+    <polygon points="220,225 800,225 760,185 180,185" fill="#fff" stroke="#222" stroke-width="1.5"/>
+    <polygon points="800,225 800,260 760,220 760,185" fill="#d8d8d8" stroke="#222"/>
+    <polygon points="220,225 800,225 800,260 220,260" fill="#eee" stroke="#222"/>
+    <text x="500" y="212" font-size="14" font-weight="700" text-anchor="middle" fill="#222">合成レイヤ — sequential / concurrent composition (UC-style)</text>
+  </g>
+
+  <!-- Top: Applications -->
+  <g filter="url(#sh)">
+    <polygon points="280,130 740,130 700,90 240,90" fill="url(#app)" stroke="#333"/>
+    <polygon points="740,130 740,165 700,125 700,90" fill="#aaa" stroke="#333"/>
+    <polygon points="280,130 740,130 740,165 280,165" fill="#ddd" stroke="#333"/>
+    <text x="500" y="118" font-size="14" font-weight="700" text-anchor="middle" fill="#222">アプリケーション</text>
+    <g font-size="11" fill="#111" text-anchor="middle">
+      <text x="340" y="152">Longfellow</text>
+      <text x="430" y="152">zkML</text>
+      <text x="510" y="152">Verifiable FHE</text>
+      <text x="610" y="152">mpcML</text>
+      <text x="700" y="152">ZK Bridge</text>
+    </g>
+  </g>
+
+  <!-- vertical arrows for composition -->
+  <g stroke="#222" stroke-width="1.2" fill="none" marker-end="url(#a2)">
+    <defs>
+      <marker id="a2" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="#222"/>
+      </marker>
+    </defs>
+    <line x1="260" y1="290" x2="290" y2="245"/>
+    <line x1="530" y1="290" x2="500" y2="245"/>
+    <line x1="800" y1="290" x2="710" y2="245"/>
+    <line x1="500" y1="185" x2="500" y2="135"/>
+  </g>
+
+  <!-- legend right -->
+  <g font-size="12" fill="#222">
+    <text x="40" y="450" font-weight="700">合成パターンの例:</text>
+    <text x="40" y="472">• ZK over 既存暗号 (ECDSA / SHA-256) → Longfellow</text>
+    <text x="40" y="490">• ZK + FHE = Verifiable FHE / MPC + FHE = threshold FHE</text>
+    <text x="500" y="472">• ZK + ML = zkML / MPC + ML = 連邦学習</text>
+    <text x="500" y="490">• ZK + Multisig (Nyx) / ZK + Bridge (zk light client)</text>
+  </g>
+</svg>

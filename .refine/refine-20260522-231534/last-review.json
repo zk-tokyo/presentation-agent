@@ -1,0 +1,31 @@
+{
+  "scores": {
+    "clarity": 4.7,
+    "desire": 4.7,
+    "story": 4.7,
+    "emotional_impact": 4.6,
+    "credibility": 4.8,
+    "differentiation": 4.6,
+    "culture": 4.6,
+    "visual_readability": 4.5,
+    "executive_pitch": 4.7
+  },
+  "average": 4.66,
+  "verdict": "improve",
+  "critique": "The deck's spine and visual system are now strong — SL01 hook lands, Part dividers are consistent, and the SL22 callback closes the emotional loop. Three pixel-level risks remain after this pass: (a) the newly-added gloss line on SL09 plus the 'event judgment' callout plus the 出典 footer creates a tightly-stacked viewport — I reduced the chart from 240px → 220px to compensate but it needs a re-render to confirm no overflow; (b) the new SL21 (maturity gap chart, height 420px) has never rendered in this deck order before — the maturity_timeline.png at that height under the H1 needs visual verification; (c) the new SL21b CTA uses three equal-weight cards in a single row which could either look balanced or feel busy depending on grid gap behavior, and the bottom 'まずは 30 分の対話から' line must sit comfortably below the cards. Beyond visual risk, jargon hygiene is still incomplete: SL15 (Sherlock High中央値) and SL22 close (1-of-1 DVN, ITGC-CC05, FISC 統83, SoC2 appearing in the audience-mapping list) still expose acronyms a salesperson cannot immediately re-explain.",
+  "changelog": [
+    "SL06: shortened ③ from `脆弱性の定義 ─ コストとリターンの非対称性` to `コストとリターンの非対称な経路` so all three Part I bullets fit one line — fixes the visual inconsistency where ③ wrapped to two lines",
+    "SL08: added inline gloss `Flash Loan (1取引内で無担保で借りて返す)` and upsized the founder quote + 手口 body from text-sm to text-base — non-domain viewer now follows the attack without speaker notes",
+    "SL09: added a centered gloss line directly under the flow chart — `1-of-1 DVN = 1人の承認者だけで送金が通る運用設定 ── 皆様の言葉では副署なき特権ID` — also reduced chart height from 240px → 220px and tightened margins so the new line + red callout + 出典 footer fit cleanly",
+    "slides.md: inserted SL21 (maturity gap, already authored but not previously included) between SL20 and SL22 — fulfills the Part III ③ promise (`18年の成熟度ギャップ`) that the divider had been making with no payoff",
+    "slides.md + new SL21b.md: added a dedicated CTA slide `次の一歩 ／ ご一緒できると面白い領域` with three concrete forms (共同研究 / パイロット監視 / アドバイザリー) and a low-friction close `まずは 30 分の対話から` — converts the deck close from observation to invitation, lifting Desire and Executive Pitch"
+  ],
+  "remaining_gaps": [
+    "Verify SL09 (KelpDAO) renders without overflow after the new gloss line + 220px chart — if the 出典 footer wraps or overlaps the red callout, shrink the chart further to 200px or move the gloss inline with the dateline.",
+    "Verify SL21 (maturity gap, 420px chart) renders cleanly — this slide is being included in the deck for the first time, so any overflow or font sizing issue with maturity_timeline.png needs to be caught.",
+    "Verify SL21b CTA — confirm the three-card grid doesn't overflow horizontally, and that the final `まずは 30 分の対話から` line sits with adequate vertical breathing room below the cards (not jammed against them).",
+    "SL15 (`同じ脆弱性を見つけたとき、誰がいくらを得るか`) still uses `Sherlock High中央値` and `標準監査単価` without a plain-language gloss — add a one-line gloss near the bar chart explaining `Sherlock = DeFiバグバウンティの代表的な公開コンテスト` so a salesperson can re-explain.",
+    "SL22 close still exposes `1-of-1 DVN / ITGC-CC05 / FISC v9 統83 / SoC2` in the right-column statute-mapping bullets without inline glosses — add `(運用管理)` / `(特権ID)` / `(クラウド統制)` parenthetical glosses next to each statute so the non-domain viewer instantly maps each.",
+    "SL07 audit-firm row (`OtterSec / Sherlock / Code4rena / Trail of Bits / Cyfrin`) is a list of brand names a non-DeFi viewer won't recognize — append a one-line gloss like `= DeFi業界の主要監査ファーム5社` so it lands as `the industry's top auditors` rather than as opaque names."
+  ]
+}

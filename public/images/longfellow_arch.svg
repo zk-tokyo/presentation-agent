@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 440" font-family="Noto Sans JP, sans-serif">
+  <defs>
+    <linearGradient id="lf1" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#eef6ff"/></linearGradient>
+    <linearGradient id="lf2" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff7e6"/><stop offset="1" stop-color="#ffe0a3"/></linearGradient>
+    <filter id="lsh"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.18"/></filter>
+    <marker id="lah" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#222"/></marker>
+  </defs>
+
+  <text x="30" y="36" font-size="18" font-weight="700">Longfellow — 「既に発行された ID をそのまま ZK 化」する設計</text>
+  <text x="30" y="56" font-size="12" fill="#555">Google OSS (Jul 2025) / Trail of Bits + Ligero 監査 / IETF CFRG で標準化議論中</text>
+
+  <!-- Issuer side -->
+  <rect x="30" y="80" width="240" height="120" rx="10" fill="url(#lf1)" stroke="#2a5db0" filter="url(#lsh)"/>
+  <text x="150" y="110" text-anchor="middle" font-size="14" font-weight="700" fill="#2a5db0">既存の Issuer</text>
+  <text x="150" y="135" text-anchor="middle" font-size="12">国・運転局・銀行・大学</text>
+  <text x="150" y="155" text-anchor="middle" font-size="11" fill="#444">ECDSA / SHA-256 で署名</text>
+  <text x="150" y="175" text-anchor="middle" font-size="11" fill="#444">mDOC / JWT / W3C VC 形式</text>
+
+  <!-- Holder / device -->
+  <rect x="350" y="80" width="240" height="120" rx="10" fill="url(#lf2)" stroke="#b8860b" filter="url(#lsh)"/>
+  <text x="470" y="110" text-anchor="middle" font-size="14" font-weight="700" fill="#5c3b00">Holder (スマホ Wallet)</text>
+  <text x="470" y="135" text-anchor="middle" font-size="12">Google Wallet / EUDI Wallet</text>
+  <text x="470" y="155" text-anchor="middle" font-size="11" fill="#5c3b00">受け取った VC を保持</text>
+  <text x="470" y="175" text-anchor="middle" font-size="11" fill="#5c3b00">必要時に ZK proof を生成</text>
+
+  <!-- Verifier -->
+  <rect x="670" y="80" width="240" height="120" rx="10" fill="#ffffff" stroke="#444" filter="url(#lsh)"/>
+  <text x="790" y="110" text-anchor="middle" font-size="14" font-weight="700">Verifier (サービス)</text>
+  <text x="790" y="135" text-anchor="middle" font-size="12">EC サイト / 銀行 / マッチング</text>
+  <text x="790" y="155" text-anchor="middle" font-size="11" fill="#444">"≥18" や "国籍=JP" だけを受領</text>
+  <text x="790" y="175" text-anchor="middle" font-size="11" fill="#444">原本 ID は見えない</text>
+
+  <line x1="270" y1="140" x2="350" y2="140" stroke="#222" stroke-width="2" marker-end="url(#lah)"/>
+  <text x="310" y="130" text-anchor="middle" font-size="11" fill="#222">VC 発行</text>
+
+  <line x1="590" y1="140" x2="670" y2="140" stroke="#222" stroke-width="2" marker-end="url(#lah)"/>
+  <text x="630" y="130" text-anchor="middle" font-size="11" fill="#222">ZK proof</text>
+
+  <!-- Stack -->
+  <rect x="30" y="240" width="880" height="170" rx="12" fill="#fafafa" stroke="#333" filter="url(#lsh)"/>
+  <text x="50" y="266" font-size="14" font-weight="700">技術スタック (合成パターン: "ZK over 既存暗号")</text>
+
+  <rect x="50" y="285" width="270" height="110" rx="8" fill="#fff" stroke="#444"/>
+  <text x="185" y="307" text-anchor="middle" font-size="13" font-weight="700">MPC-in-the-head</text>
+  <text x="65" y="328" font-size="11">非対話 ZK の構成法</text>
+  <text x="65" y="346" font-size="11">IKOS 2007 / Ligero 系譜</text>
+  <text x="65" y="370" font-size="11" fill="#555">→ Longfellow の核となる構造</text>
+
+  <rect x="340" y="285" width="270" height="110" rx="8" fill="#fff" stroke="#444"/>
+  <text x="475" y="307" text-anchor="middle" font-size="13" font-weight="700">Σ-protocol 合成</text>
+  <text x="355" y="328" font-size="11">既存署名 (ECDSA) の検証を</text>
+  <text x="355" y="346" font-size="11">ZK 化する標準テクニック</text>
+  <text x="355" y="370" font-size="11" fill="#555">→ Fiat-Shamir で非対話化</text>
+
+  <rect x="630" y="285" width="260" height="110" rx="8" fill="#fff" stroke="#444"/>
+  <text x="760" y="307" text-anchor="middle" font-size="13" font-weight="700">既存暗号への適合</text>
+  <text x="645" y="328" font-size="11">ECDSA 署名検証回路</text>
+  <text x="645" y="346" font-size="11">SHA-256 / HMAC 回路</text>
+  <text x="645" y="370" font-size="11" fill="#555">→ 政府発行 ID をそのまま ZK 化</text>
+</svg>

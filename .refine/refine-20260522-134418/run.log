@@ -1,0 +1,7 @@
+refine: slides.md (17 slide files)
+        history -> /home/gohan/workspace/presentation-agent/.refine/refine-20260522-134418
+        driver  -> claude / opus ; browser -> /run/current-system/sw/bin/google-chrome-stable
+        up to 3 iteration(s)
+
+──────── iteration 1 / 3 ────────
+  rendered 17 slide PNG(s) -> iter-01-png

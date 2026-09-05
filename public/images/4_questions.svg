@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 380" font-family="Noto Sans JP, sans-serif">
+  <defs>
+    <filter id="qsh"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.18"/></filter>
+  </defs>
+  <text x="30" y="34" font-size="18" font-weight="700">サービス設計の出発点 — 4つの問い (この順で必ず答える)</text>
+
+  <!-- 4 cards in a row -->
+  <g>
+    <rect x="30" y="70" width="210" height="270" rx="14" fill="#fff7e6" stroke="#b8860b" filter="url(#qsh)"/>
+    <text x="135" y="105" text-anchor="middle" font-size="22" font-weight="700" fill="#b8860b">①</text>
+    <text x="135" y="135" text-anchor="middle" font-size="14" font-weight="700">何を守りたいか</text>
+    <line x1="50" y1="150" x2="220" y2="150" stroke="#b8860b" stroke-dasharray="3 3"/>
+    <text x="45" y="178" font-size="12">• 入力の秘密</text>
+    <text x="45" y="200" font-size="12">• 計算の正しさ</text>
+    <text x="45" y="222" font-size="12">• 結果の秘密</text>
+    <text x="45" y="244" font-size="12">• 計算した事実</text>
+    <text x="45" y="278" font-size="11" fill="#555">→ ZK / FHE / MPC</text>
+    <text x="45" y="295" font-size="11" fill="#555">  どの性質が要るか</text>
+  </g>
+
+  <g>
+    <rect x="265" y="70" width="210" height="270" rx="14" fill="#eef6ff" stroke="#2a5db0" filter="url(#qsh)"/>
+    <text x="370" y="105" text-anchor="middle" font-size="22" font-weight="700" fill="#2a5db0">②</text>
+    <text x="370" y="135" text-anchor="middle" font-size="14" font-weight="700">誰が計算するか</text>
+    <line x1="285" y1="150" x2="455" y2="150" stroke="#2a5db0" stroke-dasharray="3 3"/>
+    <text x="280" y="178" font-size="12">• ユーザ自身</text>
+    <text x="280" y="200" font-size="12">• 複数人 (MPC)</text>
+    <text x="280" y="222" font-size="12">• 第三者サーバ</text>
+    <text x="280" y="244" font-size="12">• オンチェーン</text>
+    <text x="280" y="278" font-size="11" fill="#555">→ 信頼配置・</text>
+    <text x="280" y="295" font-size="11" fill="#555">  単一障害点の有無</text>
+  </g>
+
+  <g>
+    <rect x="500" y="70" width="210" height="270" rx="14" fill="#e9f9ec" stroke="#2c7a3f" filter="url(#qsh)"/>
+    <text x="605" y="105" text-anchor="middle" font-size="22" font-weight="700" fill="#2c7a3f">③</text>
+    <text x="605" y="135" text-anchor="middle" font-size="14" font-weight="700">いつ計算するか</text>
+    <line x1="520" y1="150" x2="690" y2="150" stroke="#2c7a3f" stroke-dasharray="3 3"/>
+    <text x="515" y="178" font-size="12">• リアルタイム</text>
+    <text x="515" y="200" font-size="12">• 後追い (audit)</text>
+    <text x="515" y="222" font-size="12">• 紛争時のみ</text>
+    <text x="515" y="244" font-size="12">  (fraud proof)</text>
+    <text x="515" y="278" font-size="11" fill="#555">→ レイテンシと</text>
+    <text x="515" y="295" font-size="11" fill="#555">  コストのトレードオフ</text>
+  </g>
+
+  <g>
+    <rect x="735" y="70" width="180" height="270" rx="14" fill="#fef2f2" stroke="#cc3333" filter="url(#qsh)"/>
+    <text x="825" y="105" text-anchor="middle" font-size="22" font-weight="700" fill="#cc3333">④</text>
+    <text x="825" y="135" text-anchor="middle" font-size="14" font-weight="700">誰が検証するか</text>
+    <line x1="755" y1="150" x2="895" y2="150" stroke="#cc3333" stroke-dasharray="3 3"/>
+    <text x="750" y="178" font-size="12">• 個人</text>
+    <text x="750" y="200" font-size="12">• コントラクト</text>
+    <text x="750" y="222" font-size="12">• 規制当局</text>
+    <text x="750" y="244" font-size="12">• ピア</text>
+    <text x="750" y="278" font-size="11" fill="#555">→ 検証コストと</text>
+    <text x="750" y="295" font-size="11" fill="#555">  権限の所在</text>
+  </g>
+</svg>

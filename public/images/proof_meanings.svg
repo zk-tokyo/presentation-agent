@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 360" font-family="Noto Sans JP, sans-serif">
+  <defs>
+    <filter id="psh"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.18"/></filter>
+  </defs>
+  <text x="30" y="36" font-size="18" font-weight="700">「証明 (proof)」の3つの意味 — 2026年の最先端暗号が立っている地点</text>
+
+  <!-- Math -->
+  <rect x="30" y="70" width="280" height="260" rx="12" fill="#eef6ff" stroke="#2a5db0" filter="url(#psh)"/>
+  <text x="170" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#2a5db0">① 数学的証明</text>
+  <text x="170" y="125" text-anchor="middle" font-size="12">命題の真偽を formal logic で確立</text>
+  <line x1="50" y1="145" x2="290" y2="145" stroke="#2a5db0" stroke-dasharray="3 3"/>
+  <text x="50" y="170" font-size="12">• 例: フェルマーの最終定理</text>
+  <text x="50" y="195" font-size="12">• 真偽は人間/コンピュータが</text>
+  <text x="50" y="212" font-size="12">  個別に確認する</text>
+  <text x="50" y="245" font-size="11" fill="#555" font-weight="600">本講義の射程外</text>
+
+  <!-- Information theoretic -->
+  <rect x="330" y="70" width="280" height="260" rx="12" fill="#e9f9ec" stroke="#2c7a3f" filter="url(#psh)"/>
+  <text x="470" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#2c7a3f">② 情報論的暗号証明</text>
+  <text x="470" y="125" text-anchor="middle" font-size="12">確率1で偽造不可 (計算量仮定なし)</text>
+  <line x1="350" y1="145" x2="590" y2="145" stroke="#2c7a3f" stroke-dasharray="3 3"/>
+  <text x="350" y="170" font-size="12">• 例: One-time pad</text>
+  <text x="350" y="190" font-size="12">• Σ-protocols (honest verifier)</text>
+  <text x="350" y="215" font-size="12">• PIR の一部の構成</text>
+  <text x="350" y="248" font-size="11" fill="#555" font-weight="600">理論的に最強だが、</text>
+  <text x="350" y="265" font-size="11" fill="#555" font-weight="600">通信/鍵長が現実的でない</text>
+
+  <!-- Computational -->
+  <rect x="630" y="70" width="280" height="260" rx="12" fill="#fff7e6" stroke="#b8860b" filter="url(#psh)"/>
+  <text x="770" y="100" text-anchor="middle" font-size="16" font-weight="700" fill="#5c3b00">③ 計算論的暗号証明</text>
+  <text x="770" y="125" text-anchor="middle" font-size="12">計算量仮定下で偽造不可能</text>
+  <line x1="650" y1="145" x2="890" y2="145" stroke="#b8860b" stroke-dasharray="3 3"/>
+  <text x="650" y="170" font-size="12">• デジタル署名 / MAC</text>
+  <text x="650" y="190" font-size="12">• SNARKs / SNARGs</text>
+  <text x="650" y="210" font-size="12">• Sumcheck-based (Jolt, ...)</text>
+  <text x="650" y="230" font-size="12">• Longfellow</text>
+  <text x="650" y="262" font-size="11" font-weight="700" fill="#b8860b">★ 2026 の社会実装はここ</text>
+  <text x="650" y="280" font-size="11" fill="#555">"社会的活動を検証可能に"</text>
+</svg>

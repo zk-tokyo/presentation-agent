@@ -5,27 +5,28 @@ const isFirstSlide = computed(() => $nav.currentPage === 1)
 </script>
 
 <template>
-  <div class="nyx-footer">
-    <img src="/images/nyx_logo.svg" alt="Nyx" class="nyx-logo" />
+  <div class="mj-footer">
+    <img src="/images/merklejapan_logo.png" alt="Merkle Japan" class="mj-logo" />
     <span v-if="!isFirstSlide" class="page-number">{{ $nav.currentPage }}</span>
   </div>
 </template>
 
 <style scoped>
-.nyx-footer {
+.mj-footer {
   position: fixed;
-  bottom: 20px;
-  right: 30px;
+  bottom: 16px;
+  right: 24px;
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   pointer-events: none;
 }
 
-.nyx-logo {
-  width: 160px;
+.mj-logo {
+  width: 96px;
   height: auto;
+  opacity: 0.9;
 }
 
 .page-number {

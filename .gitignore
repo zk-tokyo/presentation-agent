@@ -13,9 +13,3 @@ actions-runner/
 # a deck on a `presentation/*` branch; contributors preview locally via
 # `bun dev`.
 outputs/
-slides/
-exports-*/
-exports/
-
-# Per-iteration history from the `make refine` visual self-improvement loop.
-.refine/

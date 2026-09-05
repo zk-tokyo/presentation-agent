@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 460" font-family="Noto Sans JP, sans-serif">
+  <defs>
+    <linearGradient id="risc" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#e9efff"/>
+    </linearGradient>
+    <linearGradient id="lasso" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff7e6"/><stop offset="1" stop-color="#ffe0a3"/>
+    </linearGradient>
+    <linearGradient id="sc" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#e9f9ec"/><stop offset="1" stop-color="#9fdca7"/>
+    </linearGradient>
+    <filter id="jsh"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.18"/></filter>
+  </defs>
+
+  <text x="30" y="36" font-size="18" font-weight="700">Jolt = Sumcheck + Lasso — 「CPU の各 step を少数の lookup に分解」</text>
+  <text x="30" y="56" font-size="12" fill="#555">[Arun, Setty, Thaler. 2024 / Setty, Thaler, Wahby. eprint 2023/1216]</text>
+
+  <!-- Program -->
+  <rect x="30" y="85" width="200" height="80" rx="10" fill="url(#risc)" stroke="#2f3a8c" filter="url(#jsh)"/>
+  <text x="130" y="115" text-anchor="middle" font-size="14" font-weight="700">RISC-V Program</text>
+  <text x="130" y="135" text-anchor="middle" font-size="11" fill="#444">任意の Rust/C プログラム</text>
+  <text x="130" y="152" text-anchor="middle" font-size="11" fill="#444">(書き直し不要)</text>
+
+  <!-- Execution trace -->
+  <rect x="280" y="85" width="220" height="80" rx="10" fill="#ffffff" stroke="#444" filter="url(#jsh)"/>
+  <text x="390" y="115" text-anchor="middle" font-size="14" font-weight="700">Execution Trace</text>
+  <text x="390" y="135" text-anchor="middle" font-size="11" fill="#444">各サイクルの (PC, opcode,</text>
+  <text x="390" y="152" text-anchor="middle" font-size="11" fill="#444">regs, mem) のスナップショット</text>
+
+  <!-- Lookup table -->
+  <rect x="550" y="85" width="360" height="80" rx="10" fill="url(#lasso)" stroke="#b8860b" filter="url(#jsh)"/>
+  <text x="730" y="115" text-anchor="middle" font-size="14" font-weight="700">Lookup Table T (全 RISC-V 命令)</text>
+  <text x="730" y="135" text-anchor="middle" font-size="11" fill="#5c3b00">ADD / SUB / SLT / XOR / SLL / SRL / ...</text>
+  <text x="730" y="152" text-anchor="middle" font-size="11" fill="#5c3b00">precompute: 入出力の全パターン</text>
+
+  <!-- arrows -->
+  <g stroke="#222" stroke-width="1.5" fill="none" marker-end="url(#ja)">
+    <defs><marker id="ja" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#222"/></marker></defs>
+    <line x1="230" y1="125" x2="280" y2="125"/>
+    <line x1="500" y1="125" x2="550" y2="125"/>
+  </g>
+
+  <!-- Lasso box -->
+  <rect x="120" y="210" width="350" height="110" rx="10" fill="url(#lasso)" stroke="#b8860b" filter="url(#jsh)"/>
+  <text x="295" y="237" text-anchor="middle" font-size="15" font-weight="700">Lasso (lookup argument)</text>
+  <text x="140" y="262" font-size="12">• ある値 x ∈ T を |T| に依存しない時間で証明</text>
+  <text x="140" y="282" font-size="12">• 構造化 T を活用してメモリ要求を抑える</text>
+  <text x="140" y="302" font-size="12">• "Lookup singularity" → 1step = 1lookup に統一</text>
+
+  <!-- Sumcheck box -->
+  <rect x="500" y="210" width="380" height="110" rx="10" fill="url(#sc)" stroke="#2c7a3f" filter="url(#jsh)"/>
+  <text x="690" y="237" text-anchor="middle" font-size="15" font-weight="700">Sumcheck Protocol</text>
+  <text x="520" y="262" font-size="12">• 多変数多項式の総和を確率的に検証</text>
+  <text x="520" y="282" font-size="12">• 線形時間 prover (multilinear extension 上)</text>
+  <text x="520" y="302" font-size="12">• Fiat-Shamir で SNARK 化</text>
+
+  <!-- Result -->
+  <rect x="200" y="350" width="540" height="80" rx="10" fill="#0e2a6b" stroke="#0e2a6b" filter="url(#jsh)"/>
+  <text x="470" y="380" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">結果: Groth16 / PLONK 比 ~2× 高速 prover の汎用 zkVM</text>
+  <text x="470" y="406" text-anchor="middle" font-size="12" fill="#cfd6f0">→ "プログラムを書き直さず証明できる"が production に入った</text>
+  <text x="470" y="422" text-anchor="middle" font-size="11" fill="#f5c46c">⚠ 実装注意: Lasso の precompute table のメモリ要求が大きい</text>
+</svg>

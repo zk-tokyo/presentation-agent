@@ -1,0 +1,29 @@
+{
+  "scores": {
+    "clarity": 4.5,
+    "desire": 4.5,
+    "story": 4.6,
+    "emotional_impact": 4.5,
+    "credibility": 4.8,
+    "differentiation": 4.5,
+    "culture": 4.5,
+    "visual_readability": 4.5,
+    "executive_pitch": 4.5
+  },
+  "average": 4.54,
+  "verdict": "improve",
+  "critique": "The deck's spine is strong — three-act arc, specific numbers, traceable sources, and a clean visual system — but three pixel-level defects bled the punch: SL01 (title) carries only `DeFiセキュリティの現場` and leaves the hook line (`コードは正しかった。それでも$292Mが消えた。`) buried in the deck metadata, so the opening lands flat and the salesperson/buyer test fails on slide 1. SL16 (Part III divider) wraps the title to two lines (`線引きと統制の` / `再定義`) — visually inconsistent with the Part I/II dividers and costs Visual Readability outright. The closing SL22 is informative (6 points + governance bridge) but never closes the loop with the opening — the viewer leaves with a checklist, not the callback the hook promised. SL08/SL09/SL13 are also slightly dense (small body text under hero charts) — readable but not delivery-grade.",
+  "changelog": [
+    "SL01: added hook subtitle `コードは正しかった。それでも $292M が消えた。` plus dateline `2026-04-18 KelpDAO 事件 ／ 30分 ／ 約 450 億円` directly under the title — lifts Desire and Emotional Impact on the opening slide",
+    "SL16: removed the explicit `<br/>` and reduced title font-size from 4.5rem to 3.75rem so `線引きと統制の再定義` fits on a single line, consistent with SL06/SL12 dividers — fixes Visual Readability",
+    "SL22: added a red-rule callback box at the top echoing the SL01 hook (`コードは正しかった ── それでも $292M が消えた。 破れたのは『誰がどう運用したか』。皆様が 20 年積み上げた領域です。`) before the 6-point summary — closes the emotional loop and explicitly hands the problem to the audience's domain"
+  ],
+  "remaining_gaps": [
+    "Verify next iteration that SL01's new subtitle + dateline does not push the 神波 真聖 ／ Nyx Foundation line off-slide — if it does, tighten mt-12 to mt-8.",
+    "Verify SL22 still fits one screen after the new callback box — if the 出典 footer wraps or overflows, shrink the 6-point list to text-xs or drop the longest item to two lines.",
+    "SL08 (Cetus) and SL09 (KelpDAO) — body text under the hero charts is small; consider a single-column layout under the chart or upsize body text from text-sm to text-base to clear the executive-pitch bar.",
+    "SL13 (¥27 報酬) is the densest slide — two CVSS bug cards + reward summary in one viewport. Split into two slides or pull the reward summary out as a callout.",
+    "Jargon hygiene for non-domain viewers: `1-of-1 DVN`, `Flash Loan`, `RPC`, `ITGC-CC05`, `FISC 統83` appear without on-slide plain-language gloss; add a one-line gloss next to first use on SL09 / SL18 / SL20 so a salesperson can re-explain without speaker notes.",
+    "No explicit `next step / call-to-action` slide — the close ends on an observation, not an invitation. Consider an SL21.5 with one concrete ask (joint research, pilot, advisory) to convert insight into action."
+  ]
+}
