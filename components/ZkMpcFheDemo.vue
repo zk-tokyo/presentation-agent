@@ -60,7 +60,7 @@
 
         <ul class="zm-attrs">
           <li><span class="zm-attr-key">隠す対象</span><span class="zm-attr-val">証明者の witness w</span></li>
-          <li><span class="zm-attr-key">信頼前提</span><span class="zm-attr-val">証明者を信頼しなくてよい (math が保証)</span></li>
+          <li><span class="zm-attr-key">信頼前提</span><span class="zm-attr-val">証明者を信頼しなくてよい</span></li>
           <li><span class="zm-attr-key">敵対モデル</span><span class="zm-attr-val"><strong>証明者</strong> (偽証) ／ <strong>検証者</strong> (witness 窃取)</span></li>
           <li class="zm-attr-emph"><span class="zm-attr-key">主な用途</span><span class="zm-attr-val">年齢証明 — 生年月日を出さず「18 以上」を証明</span></li>
         </ul>
